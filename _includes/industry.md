@@ -22,6 +22,8 @@ collaboration w/ Azure Machine Learning team and MSR); deployed deliverables wit
 <ul style="margin:0 0 5px;">
   <li>Developed in-production features under a data-driven approach using Objective-C, PHP, Javascript, GraphQL, A/B
     testings to close top-line 20% connection gaps originated in new monetization initiatives among 60 million businesses.</li>
+  <li>Pioneered and led cross-org mobile dev framework migration as the first engineer across the entire Facebook App org.</li>
+  <li>Authored internal guidelines and wiki to teach senior engineers how to tackle dev migration; saved 50% research time</li>
 </ul>
 
 <h4 style="margin:0 10px 0;">[Winter 2022, 2021] Jane Street, INSIGHT Program Invitee for Trading (2022), SWE (2021)</h4>
