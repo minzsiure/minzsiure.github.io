@@ -1,4 +1,4 @@
-## Industry Experience
+<h2 id="industry">Industry Experience</h2>
 
 <h4 style="margin:0 10px 0;">[Summer 2023] IBM Research, Research Intern </h4>
 

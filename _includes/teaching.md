@@ -1,4 +1,4 @@
-## Teaching Experience
+<h2 id="teaching">Teaching</h2>
 
 <h4 style="margin:0 10px 0;">[January 2023] Teaching Assistant for 6.S191 Introduction to Deep Learning</h4>
 

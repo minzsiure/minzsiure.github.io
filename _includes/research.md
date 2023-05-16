@@ -1,4 +1,4 @@
-## Research Experience
+<h2 id="research_exp">Research Experience</h2>
 
 <h4 style="margin:0 10px 0;">[Fall 2022 - Current] Madry Lab at MIT CSAIL (Advisor: Aleksander Madry & Logan Engstrom) </h4>
 

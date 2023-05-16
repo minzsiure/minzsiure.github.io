@@ -1,4 +1,4 @@
-## Misc
+<h2 id="misc">Misc</h2>
 
 Showcasing some art works I am proud of. In my free time, I design and draw my original characters and science. I also make some random crafts.
 
