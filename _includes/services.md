@@ -19,6 +19,7 @@
 <ul style="margin:0 0 5px;">
 <li><strong>[2022-2023] <a href="https://techx.io/">MIT TechX</a>, Director</strong>. Oversee MIT’s largest tech-related student org of over 100 organizers. </li>
 <li><strong>[2020-Current] <a href="https://ieeeacm.mit.edu/">MIT IEEE/ACM</a>, Publicity Chair.</strong> Connect students, faculty, and industry through 50+ events.</li>
+<li><strong>[2022-Current] MIT EECS, Associate Advisor.</strong> Help advising undergraduate students with Prof. Nancy Lynch.</li>
 </ul>
 
 <h4 style="margin:0 10px 0;">Community 501(c)3 Nonprofit</h4>
