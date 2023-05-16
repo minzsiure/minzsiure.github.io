@@ -45,7 +45,7 @@ Showcasing some art works I am proud of. In my free time, I design and draw my o
     </figure>
     <figure>
         <img src="assets/art/chessboard.JPG" alt="Image description" width="350" />
-        <figcaption>I CAD and 3d-printed a chessboard of my own design freshman yr high school.</figcaption>
+        <figcaption>I CAD and 3d-printed a chess set of my own design freshman yr high school.</figcaption>
     </figure>
     <figure>
         <img src="assets/art/T40.JPEG" alt="Image description" width="350" />
