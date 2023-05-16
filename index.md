@@ -17,7 +17,7 @@ I am a third year undergraduate student at MIT, with double majors in **Computer
 <h2 id="research">Research Interests</h2>
 Include but not limited to:
 - **Computational Neuroscience:** learning, memory, cognition, neural computation, biologically plausible learning model/system.
-- **Machine Learning:** associative memory model, graph-based deep learning, AI Alignment and safe deployment for computer vision & NLP.
+- **Machine Learning:** associative memory model, graph-based deep learning, AI Alignment and safe deployment for computer vision & NLP. Exploring AI regulation + policy making.
 - **NeuroAI:** A combo of both displines, where the brain inspires better learning algorithm, and AI aids understanding of the brain.
 
 I believe good research needs both the depth and breath of knowledge and understanding. This enables meaningful associations, and thus make breakthroughs. So, I am always open to new things :) Before **CompNeuro** and **ML**, I did research in **Bionics**, **Nuclear Science**, and **Genomics**.
