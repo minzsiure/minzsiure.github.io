@@ -18,6 +18,9 @@
 
 <ul style="margin:0 0 5px;">
 <li><strong>[2022-2023] <a href="https://techx.io/">MIT TechX</a>, Director</strong>. Oversee MIT’s largest tech-related student org of over 100 organizers. </li>
+<li><strong>[2021-2022] <a href="https://techx.io/">MIT TechX</a>, Marketing Director</strong>. Oversee the publicity and community outreach of TechX. </li>
+<li><strong>[2020-2021] <a href="https://techx.io/">MIT HackMIT</a>, Social Chair, Marketing & DevOps organizer </strong>. Collaborated and developed
+HackPlayground to enable the first and largest online hackathon of 1500+ global hackers during COVID-19 </li>
 <li><strong>[2020-Current] <a href="https://ieeeacm.mit.edu/">MIT IEEE/ACM</a>, Publicity Chair.</strong> Connect students, faculty, and industry through 50+ events.</li>
 <li><strong>[2022-Current] MIT EECS, Associate Advisor.</strong> Help advising undergraduate students with Prof. Nancy Lynch.</li>
 </ul>
