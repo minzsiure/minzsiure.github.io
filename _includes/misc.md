@@ -13,15 +13,15 @@ Showcasing some art works I am proud of. In my free time, I design and draw my o
     </figure>
     <figure>
         <img src="assets/art/feng.png" alt="Image description" width="350" />
-        <figcaption>My oriignal character Fengzhi.</figcaption>
+        <figcaption>My orignal character Fengzhi.</figcaption>
     </figure>
     <figure>
         <img src="assets/art/feng2.png" alt="Image description" width="350" />
-        <figcaption>My oriignal character Fengzhi.</figcaption>
+        <figcaption>My orignal character Fengzhi.</figcaption>
     </figure>
     <figure>
         <img src="assets/art/feng3.png" alt="Image description" width="350" />
-        <figcaption>My oriignal character Fengzhi.</figcaption>
+        <figcaption>My orignal character Fengzhi.</figcaption>
     </figure>
     <figure>
         <img src="assets/art/meet.png" alt="Image description" width="250" />

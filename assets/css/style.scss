@@ -55,4 +55,12 @@
     color: #333;
     text-decoration: none;
   }
+
+  .sticky-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: white; /* add a background color so that the nav remains visible over other content */
+  }
+  
   

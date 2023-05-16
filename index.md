@@ -1,7 +1,7 @@
 ---
 layout: homepage
 ---
-<nav>
+<nav class="sticky-nav">
   <ul>
     <li><a href="#research">Research</a></li>
     <li><a href="#research_exp">Experiences (Research/Industry/Teaching)</a></li>
