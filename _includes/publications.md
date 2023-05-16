@@ -73,7 +73,7 @@
   </div>
 
   <div class="col-sm-9" style="position: relative;width: 100%;padding-right: 15px;padding-left: 20px;">
-    <div class="title"><a href="">[Getting started!] Compositional Sparsity: a framework for ML</a></div>
+    <div class="title"><a href="">[In progress] Compositional Sparsity: a framework for ML</a></div>
     <div class="author"><strong>Yi Xie</strong>, Akshay Rangamani, Tomaso Poggio</div>
     <!-- <div class="periodical"><em>Center for Brains, Minds and Machines<strong>(CBMM) Memo 137 </strong>, 2022.</em></div> -->
     <!-- <div class="links"> -->
