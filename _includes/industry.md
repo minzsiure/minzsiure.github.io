@@ -13,7 +13,7 @@
   <li>Worked end-to-end on a computer vision based product for waste categorization with precision and low latency via <a href="https://www.microsoftnewengland.com/maidap/">Microsoft AI Development Acceleration Program (MAIDAP)</a>.</li>
   <li> Developed relevant training pipelines from the ground up and enabled model deployment with interpretability tools (via
 collaboration w/ Azure Machine Learning team and MSR); deployed deliverables with half of the expected time.</li>
-  <li>The project was highlighted in Microsoft’s T&R newsletter </li>
+  <li>The project was highlighted in Microsoft’s T&R newsletter. </li>
   
 </ul>
 
@@ -23,7 +23,7 @@ collaboration w/ Azure Machine Learning team and MSR); deployed deliverables wit
   <li>Developed in-production features under a data-driven approach using Objective-C, PHP, Javascript, GraphQL, A/B
     testings to close top-line 20% connection gaps originated in new monetization initiatives among 60 million businesses.</li>
   <li>Pioneered and led cross-org mobile dev framework migration as the first engineer across the entire Facebook App org.</li>
-  <li>Authored internal guidelines and wiki to teach senior engineers how to tackle dev migration; saved 50% research time</li>
+  <li>Authored internal guidelines and wiki to teach senior engineers how to tackle dev migration; saved 50% research time.</li>
 </ul>
 
 <h4 style="margin:0 10px 0;">[Winter 2022, 2021] Jane Street, INSIGHT Program Invitee for Trading (2022), SWE (2021)</h4>
