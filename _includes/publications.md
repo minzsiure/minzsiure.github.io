@@ -8,7 +8,7 @@
 <div class="pub-row">
   <div class="col-sm-3 abbr" style="position: relative;padding-right: 15px;padding-left: 15px;">
     <img src="assets/img/assembly.png" class="teaser img-fluid z-depth-1">
-    <abbr class="badge">CNS*2023</abbr>
+    <abbr class="badge">CNS & CCN</abbr>
   </div>
 
   <div class="col-sm-9" style="position: relative;width: 100%;padding-right: 15px;padding-left: 20px;">
