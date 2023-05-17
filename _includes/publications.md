@@ -12,7 +12,7 @@
   </div>
 
   <div class="col-sm-9" style="position: relative;width: 100%;padding-right: 15px;padding-left: 20px;">
-    <div class="title"><a href="">[CNS*2023] Skip Connections Increase the Capacity of Associative Memories in Assembly Calculus</a></div>
+    <div class="title"><a href="">[CNS & CCN] Skip Connections Increase the Capacity of Associative Memories in Assembly Calculus</a></div>
     <div class="author"><strong>Yi Xie*</strong>, Yichen Li*, Akshay Rangamani, Tomaso Poggio</div>
     <div class="periodical"><em>32nd Annual Computational Neuroscience Meeting<strong> </strong>, 2023.</em> <em>Conference on Cognitive Computational Neuroscience<strong> </strong>, 2023.</em></div>
     <div>(Stay tune for the release of our memo soon!) </div>
