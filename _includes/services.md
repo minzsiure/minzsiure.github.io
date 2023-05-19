@@ -17,6 +17,7 @@
 <h4 style="margin:0 10px 0;">Student Leadership</h4>
 
 <ul style="margin:0 0 5px;">
+<li><strong>[2023-2024] <a href="https://techx.io/">MIT Undergraduate Association Judicial Review Board</a>, Chair</strong>. Interpret the Constitution and other governing documents during disputes and oversee the creation and operation of the UA Election Commission as per the UA Election Code. </li>
 <li><strong>[2022-2023] <a href="https://techx.io/">MIT TechX</a>, Director</strong>. Oversee MIT’s largest tech-related student org of over 100 organizers. </li>
 <li><strong>[2021-2022] <a href="https://techx.io/">MIT TechX</a>, Marketing Director</strong>. Oversee the publicity and community outreach of TechX. </li>
 <li><strong>[2020-2021] <a href="https://techx.io/">MIT HackMIT</a>, Social Chair, Marketing & DevOps organizer</strong>. Collaborated and developed
