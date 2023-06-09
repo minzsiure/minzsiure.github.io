@@ -16,7 +16,7 @@ I am a rising fourth year undergraduate student at MIT, with double majors in **
 
 <h2 id="research">Research Interests</h2>
 Include but not limited to:
-- **Computational/Theoretical Neuroscience:** learning, memory, cognition, population coding, attractor model.
+- **Theoretical/Computational Neuroscience:** learning, memory, cognition, population coding, attractor model.
 - **Machine Learning:** biologically plausible learning system, graph-based deep learning, AI Alignment and safe deployment for computer vision & NLP. Exploring AI regulation + policy making.
 - **NeuroAI:** A combo of both displines, where the brain inspires better learning algorithm, and AI aids understanding of the brain.
 
