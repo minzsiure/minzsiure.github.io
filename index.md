@@ -12,12 +12,12 @@ layout: homepage
 
 <h2 id="about">About Me</h2>
 
-I am a third year undergraduate student at MIT, with double majors in **Computer Science (6-4)** and **Mathematics (18)**. I research and develop the theoretical framework of how the brain produces intelligent behavior and how we may be able to replicate intelligence in machines in **Poggio Lab** as a [UROP](https://cbmm.mit.edu/about/people/xie) at MIT CBMM. I also research in the **Madry Lab** at MIT CSAIL as a [SuperUROP](https://superurop.mit.edu/scholars/eva-yi-xie/), where I develop the understanding and tools that enable real-world deployment of machine learning models in a robust, reliable and responsible way. <u>I am applying to PhD programs this fall. Happy to chat!</u>
+I am a rising fourth year undergraduate student at MIT, with double majors in **Computer Science (6-4)** and **Mathematics (18)**. I research and develop the theoretical framework of how the brain produces intelligent behavior and how we may be able to replicate intelligence in machines in **Poggio Lab** as a [UROP](https://cbmm.mit.edu/about/people/xie) at MIT CBMM. I also research in the **Madry Lab** at MIT CSAIL as a [SuperUROP](https://superurop.mit.edu/scholars/eva-yi-xie/), where I develop the understanding and tools that enable real-world deployment of machine learning models in a robust, reliable and responsible way. 
 
 <h2 id="research">Research Interests</h2>
 Include but not limited to:
-- **Computational Neuroscience:** learning, memory, cognition, neural computation, biologically plausible learning model/system.
-- **Machine Learning:** associative memory model, graph-based deep learning, AI Alignment and safe deployment for computer vision & NLP. Exploring AI regulation + policy making.
+- **Computational/Theoretical Neuroscience:** learning, memory, cognition, population coding, attractor model.
+- **Machine Learning:** biologically plausible learning system, graph-based deep learning, AI Alignment and safe deployment for computer vision & NLP. Exploring AI regulation + policy making.
 - **NeuroAI:** A combo of both displines, where the brain inspires better learning algorithm, and AI aids understanding of the brain.
 
 I believe good research needs both the depth and breath of knowledge and understanding. This enables meaningful associations, and thus leads to breakthroughs. So, I am always open to new things :) Before **CompNeuro** and **ML**, I did research in **Bionics**, **Nuclear Science**, and **Genomics**.
