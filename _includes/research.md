@@ -4,7 +4,7 @@
 
 <ul style="margin:0 0 5px;">
   <li>Investigate empirically and theoretically that compositional sparsity is the key principle underlying machine learning.</li>
-  <li>Develop theories in learning \& memory w/ biologically plausible Assembly Calculus, in collab w/ experimentalists.</li>
+  <li>Develop theories in learning & memory w/ biologically plausible Assembly Calculus, in collab w/ experimentalists.</li>
 </ul>
 
 <h4 style="margin:0 10px 0;">[Fall 2022 - Spring 2023] Madry Lab at MIT CSAIL (Advisor: Aleksander Madry & Logan Engstrom) </h4>
