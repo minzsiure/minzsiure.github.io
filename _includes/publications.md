@@ -15,7 +15,7 @@
     <div class="title"><a href="">[CNS & CCN] Skip Connections Increase the Capacity of Associative Memories in Assembly Calculus</a></div>
     <div class="author"><strong>Yi Xie*</strong>, Yichen Li*, Akshay Rangamani, Tomaso Poggio</div>
     <div class="periodical"><em>32nd Annual Computational Neuroscience Meeting<strong> </strong>, 2023.</em> <em>Conference on Cognitive Computational Neuroscience<strong> </strong>, 2023.</em></div>
-    <div>(Stay tune for the release of our memo soon!) </div>
+    <div>In prep. for memo and journal submission.</div>
     <div class="links">
       <!-- <a href="https://dspace.mit.edu/handle/1721.1/143618" class="btn btn-sm z-depth-0" role="button" target="_blank" style="font-size:12px;">PDF</a> -->
       <a href="https://github.com/minzsiure/Variable-Binding-Capacity/tree/main" class="btn btn-sm z-depth-0" role="button" target="_blank" style="font-size:12px;">Code</a>
