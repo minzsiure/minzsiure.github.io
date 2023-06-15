@@ -30,7 +30,8 @@
 <h4 style="margin:0 10px 0;">[Summer - Winter 2019] Andolfatto Lab at Columbia University (Advisor: Peter Andolfatto & Ana Pinharanda) </h4>
 
 <ul style="margin:0 0 5px;">
-  <li>Identified 4 SNPs with potentials to improve Cardiovascular Disease treatments by conducting GWAS using R.</li>
+  <li>Exposed 30 Drosophila M. strains to cardenolides and improved previous protocal to save half of the assay budget.</li>
+  <li>Identified 4 SNPs with potentials to improve Cardiovascular Disease treatments thro Genetic Association Studies in R.</li>
 </ul>
 
 <br/>
