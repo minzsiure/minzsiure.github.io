@@ -52,7 +52,7 @@
   </div>
 
   <div class="col-sm-9" style="position: relative;width: 100%;padding-right: 15px;padding-left: 20px;">
-    <div class="title"><a href="">[In progress] Modeling Interhemispheric Transfer of Working Memory Using Assembly Calculus</a></div>
+    <div class="title"><a href="">[In progress] Synaptic Plasticity Explains the Creation and Convergence of Ensembles During Interhemispheric Transfer of Working Memory</a></div>
     <div class="author"><strong>Yi Xie*</strong>, Akshay Rangamani, Earl Miller, Tomaso Poggio</div>
     <div>(Our preliminary results recently won ICoN grant. Stay tuned!) </div>
     <!-- <div class="periodical"><em>Center for Brains, Minds and Machines<strong>(CBMM) Memo 137 </strong>, 2022.</em></div> -->
