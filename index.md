@@ -12,7 +12,7 @@ layout: homepage
 
 <h2 id="about">About Me</h2>
 
-I am a rising fourth year undergraduate student at MIT, with double majors in **Computer Science (6-4)** and **Mathematics (18)**. I research and develop the theoretical framework of **learning and memory** in **Poggio Lab** as a [UROP](https://cbmm.mit.edu/about/people/xie) at MIT CBMM. I also research in the **Madry Lab** at MIT CSAIL as a [SuperUROP](https://superurop.mit.edu/scholars/eva-yi-xie/), where I develop the understanding for **safe and interpretable ML**. I am now spending my summer at IBM Research, working on Graph Neural Networks due to their intriguing similarities with brain networks. I am happy to connect and chat on things related to my interests and beyond via [xieyi@mit.edu](mailto:xieyi@mit.edu). 
+I am a rising fourth year undergraduate student at MIT, with double majors in **Computer Science (6-4)** and **Mathematics (18)**. I research and develop the theoretical framework of **learning and memory** in **Poggio Lab** as a [UROP](https://cbmm.mit.edu/about/people/xie) at MIT CBMM. I also research in the **Madry Lab** at MIT CSAIL as a [SuperUROP](https://superurop.mit.edu/scholars/eva-yi-xie/), where I develop the understanding for **safe and interpretable Machine Learning models**. I am now spending my summer at IBM Research, working on Graph Neural Networks due to their intriguing similarities with brain networks. I am happy to connect and chat on things related to my interests and beyond via [xieyi@mit.edu](mailto:xieyi@mit.edu). 
 
 <h2 id="research">Research Interests</h2>
 Include but not limited to:
