@@ -4,7 +4,7 @@
 
 <ul style="margin:0 0 5px;">
   <li>Develop gTDR: an advanced graph-based machine learning toolkit for temporal, dynamic, and relational data.</li>
-  <li>Research Subgraph GNN w/ distributed multi-GPU training & inference system for massive graphs.</li>
+  <li>Research graph transformers.</li>
   
 </ul>
 
