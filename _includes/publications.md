@@ -55,7 +55,7 @@
     <div class="title"><a href="">[In progress] Synaptic Plasticity Explains the Creation and Convergence of Ensembles During Interhemispheric Transfer of Working Memory</a></div>
     <div class="author"><strong>Yi Xie*</strong>, Akshay Rangamani, Earl Miller, Tomaso Poggio</div>
     <div>(Our preliminary results recently won ICoN grant. Stay tuned!) </div>
-    <!-- <div class="periodical"><em>Center for Brains, Minds and Machines<strong>(CBMM) Memo 137 </strong>, 2022.</em></div> -->
+    <div class="periodical"><em>Submitted to Society for Neuroscience (SfN) Annual Conference<strong></strong>, 2023.</em></div>
     <!-- <div class="links"> -->
       <!-- <a href="https://dspace.mit.edu/handle/1721.1/143618" class="btn btn-sm z-depth-0" role="button" target="_blank" style="font-size:12px;">PDF</a> -->
       <!-- <a href="https://github.com/yaoyao-liu/mnemonics" class="btn btn-sm z-depth-0" role="button" target="_blank" style="font-size:12px;">Code</a> -->
