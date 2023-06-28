@@ -30,8 +30,6 @@ I believe good research needs both the depth and breath of knowledge and underst
 
 {% include_relative _includes/publications.md %}
 
-{% include_relative _includes/publications.md %}
-
 {% include_relative _includes/research.md %}
 
 {% include_relative _includes/industry.md %}
