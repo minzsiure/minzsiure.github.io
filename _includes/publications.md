@@ -17,7 +17,7 @@
     <div class="periodical"><em>32nd Annual Computational Neuroscience Meeting<strong> </strong>, 2023.</em> <em>Conference on Cognitive Computational Neuroscience<strong> </strong>, 2023.</em></div>
     <div>In preparation for journal submission.</div>
     <div class="links">
-      <a href="https://cbmm.mit.edu/sites/default/files/publications/CBMM-Memo-142_0.pdf" class="btn btn-sm z-depth-0" role="button" target="_blank" style="font-size:12px;">Memo</a>
+      <a href="https://cbmm.mit.edu/sites/default/files/publications/CBMM-Memo-142_0.pdf" class="btn btn-sm z-depth-0" role="button" target="_blank" style="font-size:12px;">PDF</a>
       <a href="https://github.com/minzsiure/Variable-Binding-Capacity/tree/main" class="btn btn-sm z-depth-0" role="button" target="_blank" style="font-size:12px;">Code</a>
       <!-- <a href="https://class-il.mpi-inf.mpg.de/mnemonics/" class="btn btn-sm z-depth-0" role="button" target="_blank" style="font-size:12px;">Project Page</a> -->
       <!-- <a href="https://dblp.uni-trier.de/rec/conf/cvpr/LiuSLSS20.html?view=bibtex" class="btn btn-sm z-depth-0" role="button" target="_blank" style="font-size:12px;">BibTex</a> -->
