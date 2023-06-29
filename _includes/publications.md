@@ -11,7 +11,7 @@
     <abbr class="badge">CNS & CCN</abbr>
   </div>
 
-  <div class="col-sm-9" style="position: relative;width: 100%;padding-right: 15px;padding-left: 20px;">
+  <div class="col-sm-9" style="position: relative;width: 100%;padding-right: 15px;padding-left: 20px; margin-bottom: 20px;">
     <div class="title"><a href="">[CNS & CCN] Skip Connections Increase the Capacity of Associative Memories in Assembly Calculus</a></div>
     <div class="author"><strong>Yi Xie*</strong>, Yichen Li*, Akshay Rangamani, Tomaso Poggio</div>
     <div class="periodical"><em>32nd Annual Computational Neuroscience Meeting<strong> </strong>, 2023.</em> <em>Conference on Cognitive Computational Neuroscience<strong> </strong>, 2023.</em></div>
@@ -29,7 +29,7 @@
 </div>
 <div class="pub-row">
 
-  <div class="col-sm-3 abbr" style="position: relative;padding-right: 15px;padding-left: 15px;">
+  <div class="col-sm-3 abbr" style="position: relative;padding-right: 15px;padding-left: 15px; margin-bottom: 20px;">
     <img src="assets/img/assem_form.png" class="teaser img-fluid z-depth-1">
     <abbr class="badge">CBMM</abbr>
   </div>
@@ -46,7 +46,7 @@
 
 
 <div class="pub-row">
-  <div class="col-sm-3 abbr" style="position: relative;padding-right: 15px;padding-left: 15px;">
+  <div class="col-sm-3 abbr" style="position: relative;padding-right: 15px;padding-left: 15px; margin-bottom: 20px;">
     <img src="assets/img/wm.png" class="teaser img-fluid z-depth-1">
     <abbr class="badge">ICoN</abbr>
   </div>
@@ -67,7 +67,7 @@
 </div>
 
 <div class="pub-row">
-  <div class="col-sm-3 abbr" style="position: relative;padding-right: 15px;padding-left: 15px;">
+  <div class="col-sm-3 abbr" style="position: relative;padding-right: 15px;padding-left: 15px; margin-bottom: 20px;">
     <img src="assets/img/sparse.png" class="teaser img-fluid z-depth-1">
     <!-- <abbr class="badge">ICoN</abbr> -->
   </div>
@@ -88,7 +88,7 @@
 
 <div class="pub-row">
 
-  <div class="col-sm-3 abbr" style="position: relative;padding-right: 15px;padding-left: 15px;">
+  <div class="col-sm-3 abbr" style="position: relative;padding-right: 15px;padding-left: 15px; margin-bottom: 20px;">
     <img src="assets/img/cfx.png" class="teaser img-fluid z-depth-1">
     <!-- <abbr class="badge"></abbr> -->
   </div>
@@ -105,7 +105,7 @@
 
 <div class="pub-row">
 
-  <div class="col-sm-3 abbr" style="position: relative;padding-right: 15px;padding-left: 15px;">
+  <div class="col-sm-3 abbr" style="position: relative;padding-right: 15px;padding-left: 15px; margin-bottom: 20px;">
     <img src="assets/img/data.png" class="teaser img-fluid z-depth-1">
     <!-- <abbr class="badge"></abbr> -->
   </div>
