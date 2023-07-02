@@ -32,7 +32,7 @@
 <h4 style="margin:0 10px 0;">[Summer - Winter 2019] Andolfatto Lab at Columbia University (Advisor: Peter Andolfatto & Ana Pinharanda) </h4>
 
 <ul style="margin:0 0 5px;">
-  <li>Exposed 30 Drosophila M. strains to cardenolides and improved previous protocal to save half of the assay budget.</li>
+  <li>Exposed 30 Drosophila Melanogaster strains to cardenolides and improved previous protocal to save half of the assay budget.</li>
   <li>Identified 4 SNPs significantly associative with adult survivorship (p-value < 0.01) thro Genetic Association Studies in R, yielding potentials to improve Cardiovascular Disease treatments.</li>
 </ul>
 
