@@ -19,6 +19,8 @@
 
 <ul style="margin:0 0 5px;">
   <li>Designed and fabricated electronic and software tools for optically-modulated prosthetic for amputees & stroke patients.</li>
+  <li>Received specialized training & secured NDA approval for rodent experimentations, including implanting optogenetic stimulation hardware and conducting data collection experiments for the development of a closed-loop controller system for motion restoration.</li>
+  <li>Engineered & tested an optoelectronic sleeve prototype that included a custom circuit board and control algorithm, gaining practical experience in biomechatronics, optogenetics, and high-frequency data analysis.</li>
 </ul>
 
 <h4 style="margin:0 10px 0;">[Fall 2020 - IAP 2021] MIT Computational Reactor Physics Group (Advisor: Benoit Forget )</h4>
@@ -31,7 +33,7 @@
 
 <ul style="margin:0 0 5px;">
   <li>Exposed 30 Drosophila M. strains to cardenolides and improved previous protocal to save half of the assay budget.</li>
-  <li>Identified 4 SNPs with potentials to improve Cardiovascular Disease treatments thro Genetic Association Studies in R.</li>
+  <li>Identified 4 SNPs significantly associative with adult survivorship (p-value < 0.01) thro Genetic Association Studies in R, yielding potentials to improve Cardiovascular Disease treatments.</li>
 </ul>
 
 <br/>
