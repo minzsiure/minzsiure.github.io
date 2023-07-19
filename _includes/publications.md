@@ -94,7 +94,7 @@
   </div>
 
   <div class="col-sm-9" style="position: relative;width: 100%;padding-right: 15px;padding-left: 20px;">
-    <div class="title"><a href="https://superurop.mit.edu/scholars/yi-eva-xie/"> [In progress] Is Network Dissection Confounded By the Spurious Correlation? </a></div>
+    <div class="title"><a href="https://superurop.mit.edu/scholars/yi-eva-xie/"> [Abstract] Is Network Dissection Confounded By the Spurious Correlation? </a></div>
     <div class="author"><strong>Yi Xie*</strong>, Logan Engstrom*, Aleksander Madry</div>
     <!-- <div class="periodical"><em>Center for Brains, Minds and Machines<strong>(CBMM) Memo 137 </strong>, 2022.</em></div> -->
     <div class="links">
@@ -103,22 +103,6 @@
   </div>
 </div>
 
-<div class="pub-row">
-
-  <div class="col-sm-3 abbr" style="position: relative;padding-right: 15px;padding-left: 15px;">
-    <img src="assets/img/data.png" class="teaser img-fluid z-depth-1">
-    <!-- <abbr class="badge"></abbr> -->
-  </div>
-
-  <div class="col-sm-9" style="position: relative;width: 100%;padding-right: 15px;padding-left: 20px;">
-    <div class="title"><a href=""> [In progress] Data Selection for Language Models at Scale via Attributing Model Behavior </a></div>
-    <div class="author"><strong>Yi Xie*</strong>, Logan Engstrom*, Aleksander Madry</div>
-    <!-- <div class="periodical"><em>Center for Brains, Minds and Machines<strong>(CBMM) Memo 137 </strong>, 2022.</em></div> -->
-    <!-- <div class="links">
-      <a href="https://superurop.mit.edu/scholars/yi-eva-xie/" class="btn btn-sm z-depth-0" role="button" target="_blank" style="font-size:12px;">Abstract</a>
-    </div> -->
-  </div>
-</div>
 
 </li>
   
