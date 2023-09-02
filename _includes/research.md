@@ -1,5 +1,12 @@
 <h2 id="research_exp">Research Experience</h2>
 
+<h4 style="margin:0 10px 0;">[Fall 2023 - Current] Fiete Lab at MIT McGovern Institute for Brain Research (Advisor: Ila Fiete)</h4>
+
+<ul style="margin:0 0 5px;">
+  <li>Collaborate with Princeton Neuroscience Institute on building computational models for understanding the neural basis of evidence accumulation, working memory, and decision-making.</li>
+</ul>
+
+
 <h4 style="margin:0 10px 0;">[Winter 2022 - Current] Poggio Lab at MIT CBMM (Advisor: Tomaso Poggio & Akshay Rangamani)</h4>
 
 <ul style="margin:0 0 5px;">
