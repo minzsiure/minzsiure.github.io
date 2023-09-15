@@ -5,7 +5,7 @@ layout: homepage
   <ul>
     <li><a href="#research">Research</a></li>
     <li><a href="#research_exp">Experiences (Research/Industry/Teaching)</a></li>
-    <li><a href="#services">Services</a></li>
+    <li><a href="#service">Services</a></li>
     <li><a href="#misc">Misc (Art & Craft)</a></li>
   </ul>
 </nav>
