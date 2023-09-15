@@ -11,7 +11,13 @@ layout: homepage
 </nav>
 
 <h2 id="about">About Me</h2>
-I am a rising senior at MIT, with a strong passion for theoretical and computational neuroscience, particularly in the realms of **learning and memory**. I am double majoring in **Computer Science (6-4)** and **Mathematics (18)**. My research in the Poggio Lab as a [UROP](https://cbmm.mit.edu/about/people/xie) at MIT CBMM involves developing theoretical understanding of learning and memory with ensembles of neurons (intermediate level of computation in the brain). In the Madry Lab at MIT CSAIL as a [SuperUROP](https://superurop.mit.edu/scholars/eva-yi-xie/), I was driven to comprehend the 'thought' processes underlying AI systems. There, I contributed to the understanding and interpretation of Machine Learning models' decision making process on a neuron level. I am now spending my summer at IBM Research on Graph Neural Networks due to their intriguing connections with brain networks. I am always excited to connect and engage in discussions related to my interests and beyond. Feel free to reach me at [xieyi@mit.edu](mailto:xieyi@mit.edu). 
+I am a senior at MIT with double majors in **Computer Science** and **Mathematics**, with a strong passion for theoretical and computational neuroscience. I am applying to PhD in Neuroscience this fall, in which I aim to uncover the logic behind how neuronal and synaptic interactions give rise to learning and memory through close collaboration with neurophysiologists. By developing computational and algorithmic theories of the brain, I aim to understand the neural basis that influences circuit functions in various learning behaviors and decision-making processes. This understanding will hopefully shed light complex neurological disorders and inspire new techniques in AI. 
+
+I am currently conducting my research with Prof. Tomaso Poggio, Prof. Earl Miller, and Prof. Ila Fiete as a [UROP](https://cbmm.mit.edu/about/people/xie) in MIT CBMM. Previously, I have been fortunate to conduct relevant ML interpretability research Madry Lab at MIT CSAIL as a [SuperUROP](https://superurop.mit.edu/scholars/eva-yi-xie/), and as a Research intern at Microsoft AI and IBM Research.
+
+Personally, I have been fortunate to benefit from learning opportunities and mentorships. Equity in education in my community and society at large is important to me. As a student leader, I have done various impactful works and I am now on advisory boards/cabinet to provide insights to MIT EECS leaderships, Dean Anantha Chandrakasan (School of Engineering), and MIT President Sally Kornbluth in driving this goal.
+
+I am always excited to connect and engage in discussions related to my interests and beyond. Feel free to reach me at [xieyi@mit.edu](mailto:xieyi@mit.edu). 
 
 <h2 id="research">Research Interests</h2>
 Include but not limited to:
