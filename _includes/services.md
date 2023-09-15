@@ -7,7 +7,7 @@
 <h4 style="margin:0 10px 0;">Advisory Board</h4>
 
 <ul style="margin:0 0 5px;">
-    <li><strong>[2023-Current] Advisor in MIT Presidential Advisory Cabinet (<a href="http://ua.mit.edu/institutecomms">PAC</a>) </strong>. I am one of the three undergraduate members selected through the UA nominations processes. PAC acts as a confidential sounding board to the <i>president</i> of MIT, Sally Kornbluth, and provides her with insight into the student experience and perspective on a broad range of topics related to academics, research, and student life.</li>
+    <li><strong>[2023-Current] Member in MIT Presidential Advisory Cabinet (<a href="http://ua.mit.edu/institutecomms">PAC</a>) </strong>. I am one of the three undergraduate members selected through the UA nominations processes. PAC acts as a confidential sounding board to the <i>president</i> of MIT, Sally Kornbluth, and provides her with insight into the student experience and perspective on a broad range of topics related to academics, research, and student life.</li>
   <li><strong>[2022-Current] MIT School of Engineering, Advisor in Undergraduate Student Advisory Group for Engineering (<a href="https://engineering.mit.edu/about/leadership/sage/">SAGE</a>) </strong> . Provide Deans with perspectives on education, engagement, & research.</li>
   <li><a href="https://www.eecs.mit.edu/"><autocolor><strong>[2022-Current] MIT EECS, Advisor in MIT Undergraduate Student Advisory Group in EECS (USAGE).</strong> </autocolor></a> Meet weekly with department leadership to advise on all academic matters, as well as representing MIT EECS in all major events and to stakeholders.</li>
   
