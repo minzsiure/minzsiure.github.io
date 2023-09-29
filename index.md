@@ -15,7 +15,7 @@ I am a senior at MIT with double majors in **Computer Science** and **Mathematic
 
 I am currently conducting my research with Prof. Tomaso Poggio, Prof. Earl Miller, and Prof. Ila Fiete, in addition to collaborations with PIs from Princeton Neuroscience Institute, as a MIT CBMM [UROP](https://cbmm.mit.edu/about/people/xie). Previously, I have been fortunate to conduct ML research in Madry Lab at MIT CSAIL as a [SuperUROP](https://superurop.mit.edu/scholars/eva-yi-xie/), and at Microsoft AI and IBM Research as a Research intern.
 
-Personally, I have been fortunate to benefit from learning opportunities and mentorships. Equity in education in my community and society at large is important to me. As a student leader, I have done various impactful works and I am now on advisory boards/cabinet to provide insights to MIT EECS leaderships, Dean Anantha Chandrakasan (School of Engineering), and MIT President Sally Kornbluth in driving this goal.
+Personally, I have been fortunate to benefit from learning opportunities and mentorships. Equity in education in my community and society at large is important to me. As a student leader, I have done various impactful works and I am now on advisory boards/cabinet to provide insights to MIT President Sally Kornbluth, Dean Anantha Chandrakasan (School of Engineering), and MIT EECS leaderships in driving this goal.
 
 I am always excited to connect and engage in discussions related to my interests and beyond. Feel free to reach me at [xieyi@mit.edu](mailto:xieyi@mit.edu). 
 
