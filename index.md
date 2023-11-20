@@ -11,23 +11,23 @@ layout: homepage
 </nav>
 
 <h2 id="about">About Me</h2>
-I am a senior at MIT with double majors in **Computer Science** and **Mathematics**, with a strong passion for theoretical and computational neuroscience. I am applying to PhD in Neuroscience this fall, in which I aim to uncover the logic behind how neuronal and synaptic interactions give rise to learning and memory through close collaboration with neurophysiologists. By developing computational and algorithmic theories of the brain, I aim to understand the neural basis that influences circuit functions in various learning behaviors and decision-making processes. This understanding will hopefully shed light on complex neurological disorders and inspire new techniques in AI. 
+I am a senior at MIT with double majors in **Computer Science** and **Mathematics**, with a strong passion for theoretical and computational neuroscience. I am applying to PhD in Neuroscience this fall, in which I aim to uncover the logic behind how neuronal and synaptic interactions give rise to learning, memory, decision-making, and other higher cognitive functions through close collaboration with neurophysiologists. 
 
-I am currently conducting my research with Prof. Tomaso Poggio, Prof. Earl Miller, and Prof. Ila Fiete, in addition to collaborations with PIs from Princeton Neuroscience Institute, as a MIT CBMM [UROP](https://cbmm.mit.edu/about/people/xie). Previously, I have been fortunate to conduct ML research in Madry Lab at MIT CSAIL as a [SuperUROP](https://superurop.mit.edu/scholars/eva-yi-xie/), and at Microsoft AI and IBM Research as a Research intern.
+I am currently conducting my research as a MIT CBMM [UROP](https://cbmm.mit.edu/about/people/xie) with Prof. Tomaso Poggio, Prof. Earl Miller, and Prof. Ila Fiete, in addition to collaborations with Princeton CoGS's experimentalists. Previously, I have been fortunate to conduct ML research in Madry Lab at MIT CSAIL as a [SuperUROP](https://superurop.mit.edu/scholars/eva-yi-xie/), and at Microsoft AI and IBM Research as an intern.
 
 Personally, I have been fortunate to benefit from learning opportunities and mentorships. Equity in education in my community and society at large is important to me. As a student leader, I have done various impactful works and I am now on advisory boards/cabinet to provide insights to MIT President Sally Kornbluth, Dean Anantha Chandrakasan (School of Engineering), and MIT EECS leaderships in driving this goal.
 
-I am always excited to connect and engage in discussions related to my interests and beyond. Feel free to reach me at [xieyi@mit.edu](mailto:xieyi@mit.edu). 
+I am always excited to connect and engage in discussions related to my interests and beyond. Feel free to reach me at [xieyi@mit.edu](mailto:xieyi@mit.edu) for any inquiry. 
 
 <h2 id="research">Research Interests</h2>
 Include but not limited to:
 - **Theoretical/Computational Neuroscience:** learning, memory, cognition, population coding, attractor model.
-- **Machine Learning:** biologically plausible learning system, graph-based deep learning, AI Alignment and safe deployment for computer vision & NLP. Exploring AI regulation + policy making.
-- **NeuroAI:** A combo of both displines, where the brain inspires better learning algorithm, and AI aids understanding of the brain.
+- **Machine Learning:** biologically plausible learning system, AI Alignment and safe deployment. Exploring AI regulation + policy making.
+- **NeuroAI:** A combo of both displines, where the brain inspires better learning algorithm, and AI aids our understanding of the brain.
 
-I believe good research needs both the depth and breath of knowledge and understanding. This enables meaningful associations, and thus leads to breakthroughs. So, I am always open to new things :) Before **CompNeuro** and **ML**, I did research in **Bionics**, **Nuclear Science**, and **Genomics**.
+I believe good research needs both the depth and breath of knowledge and understanding. This enables meaningful associations, and thus leads to breakthroughs. So, I am always open to new things :) Before **CompNeuro** and **NeuroAI**, I did research in **Bionics**, **Nuclear Science**, and **Genomics**.
 
-<h2 id="research">CV</h2>
+<h2 id="cv">CV</h2>
 [Last Updated Nov 20, 2023] See my CV <a href="Yi_Xie_Neuro.pdf" target="_blank">here</a>.
 
 <!-- <h2 id="news">Recent News</h2>
