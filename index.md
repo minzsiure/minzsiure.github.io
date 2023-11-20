@@ -11,7 +11,7 @@ layout: homepage
 </nav>
 
 <h2 id="about">About Me</h2>
-I am a senior at MIT with double majors in **Computer Science** and **Mathematics**, with a strong passion for theoretical and computational neuroscience. I am applying to PhD in Neuroscience this fall, in which I aim to uncover the logic behind how neuronal and synaptic interactions give rise to learning, memory, decision-making, and other higher cognitive functions through close collaboration with neurophysiologists. 
+I am a senior at MIT with double majors in **Computer Science** and **Mathematics**, with a strong passion for theoretical and computational neuroscience. I am applying to PhD in Neuroscience this fall, in which I aim to uncover the logic behind how neuronal and synaptic interactions give rise to learning, memory, decision-making, and other higher cognitive functions through close collaboration with experimentalists. 
 
 I am currently conducting my research as a MIT CBMM [UROP](https://cbmm.mit.edu/about/people/xie) with Prof. Tomaso Poggio, Prof. Earl Miller, and Prof. Ila Fiete, in addition to collaborations with Princeton CoGS's experimentalists. Previously, I have been fortunate to conduct ML research in Madry Lab at MIT CSAIL as a [SuperUROP](https://superurop.mit.edu/scholars/eva-yi-xie/), and at Microsoft AI and IBM Research as an intern.
 
