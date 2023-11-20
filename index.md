@@ -27,7 +27,10 @@ Include but not limited to:
 
 I believe good research needs both the depth and breath of knowledge and understanding. This enables meaningful associations, and thus leads to breakthroughs. So, I am always open to new things :) Before **CompNeuro** and **ML**, I did research in **Bionics**, **Nuclear Science**, and **Genomics**.
 
-<h2 id="news">Recent News</h2>
+<h2 id="research">CV</h2>
+[Last Updated Nov 20, 2023] See my CV <a href="Yi_Xie_Neuro.pdf" target="_blank">here</a>.
+
+<!-- <h2 id="news">Recent News</h2>
 - **[May 2023]** Our recent work on Assembly Calculus has made an acceptance to the [CCNeuro*2023](https://2023.ccneuro.org/index.php), taking place in Oxford, UK on August 24-27, 2023. 
 - **[April 2023]** Our recent work on Assembly Calculus has made an early acceptance to the 32nd Annual [CNS*2023](https://ocns.memberclicks.net/), taking place in Leipzig, Germany on July 15-19, 2023. 
 - **[Nov. 2022]** I presented two projects on Neural Assembly at [MIT Advances in the quest to understand intelligence](https://quest.mit.edu/events/advances2022).
@@ -53,6 +56,6 @@ I believe good research needs both the depth and breath of knowledge and underst
 
 <br/>
 <h2 id="service">Services</h2>
-{% include_relative _includes/services.md %}
+{% include_relative _includes/services.md %} -->
 
 {% include_relative _includes/misc.md %}
