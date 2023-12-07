@@ -25,7 +25,7 @@ Showcasing some art works I am proud of. In my free time, I design and draw my o
     </figure>
     <figure>
         <img src="assets/art/meet.png" alt="Image description" width="250" />
-        <figcaption>Some random doodle, "if I had never seem the sun".</figcaption>
+        <figcaption>Some random doodle, "if I had never seen the sun".</figcaption>
     </figure>
    <figure>
         <img src="assets/art/shen1.JPEG" alt="Image description" width="300" />
@@ -69,7 +69,7 @@ Showcasing some art works I am proud of. In my free time, I design and draw my o
     </figure>
     <figure>
         <img src="assets/art/house.png" alt="Image description" width="350" />
-        <figcaption>The replication of the house of a game character I really like lol</figcaption>
+        <figcaption>The replication of the house of a game character I really like.</figcaption>
     </figure>
 
 </div>
