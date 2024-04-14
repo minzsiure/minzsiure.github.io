@@ -11,7 +11,9 @@ layout: homepage
 </nav>
 
 <h2 id="about">About Me</h2>
-I am a senior at MIT studying **Computer Science** and **Mathematics**, with a strong passion for theoretical and computational neuroscience. I will start my PhD study in Neuroscience at Princeton Neuroscience Institute this fall. I am interested in how population of neurons encodes information and participates in learning, memory, and other cognitive functions. Additionally, I am interested in exploring any low dimensional representations being shared across various tasks and/or organisms. I study this line of work through close collaboration with experimentalists, and keep an eye out for their potential applications in building intelligent systems or understanding neurological disorders.
+I am a senior at MIT studying **Computer Science** and **Mathematics**, with a strong passion for theoretical and computational neuroscience. I will start my PhD study in Cognitive Computational Neuroscience at Princeton Neuroscience Institute this fall. 
+
+I am interested in how population of neurons encodes information and participates in learning, memory, and other cognitive functions. Additionally, I am interested in exploring any low dimensional representations being shared across various tasks and/or organisms. I study this line of work through close collaboration with experimentalists, and keep an eye out for their potential applications in building intelligent systems or understanding neurological disorders.
 
 I am currently conducting my research as a MIT CBMM [UROP](https://cbmm.mit.edu/about/people/xie) with Prof. Tomaso Poggio (collab w/ Prof. Earl Miller), and Prof. Ila Fiete (collab w/ Princeton CoGS's experimentalists). Previously, I conducted ML research in Madry Lab at MIT CSAIL as a [SuperUROP](https://superurop.mit.edu/scholars/eva-yi-xie/), and at Microsoft AI and IBM Research as an intern.
 
