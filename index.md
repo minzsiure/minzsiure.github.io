@@ -11,7 +11,7 @@ layout: homepage
 </nav>
 
 <h2 id="about">About Me</h2>
-I am a senior at MIT studying **Computer Science** and **Mathematics**, with a strong passion for cognitive computational neuroscience. I will start my PhD study in Neuroscience at Princeton Neuroscience Institute this fall. 
+I am a senior at MIT studying **Computer Science** and **Mathematics**, with a strong passion for [cognitive computational neuroscience](https://www.nature.com/articles/s41593-018-0210-5#:~:text=The%20goal%20of%20cognitive%20computational,perform%20real%2Dworld%20cognitive%20tasks). I will start my PhD study in Neuroscience at Princeton Neuroscience Institute this fall. 
 
 I am interested in how population of neurons encodes information and participates in learning, memory, and other cognitive functions. Additionally, I am interested in exploring any low dimensional representations being shared across various tasks and/or organisms. I study this line of work through close collaboration with experimentalists, and keep an eye out for their potential applications in building intelligent systems or understanding neurological disorders.
 
