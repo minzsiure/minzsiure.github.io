@@ -24,4 +24,4 @@ I believe good research needs both the depth and breath of knowledge and underst
 <h2 id="cv">CV</h2>
 [Last Updated Dec 7, 2023] See my CV <a href="Yi_Xie_Neuro.pdf" target="_blank">here</a>.
 
-{% include_relative _includes/misc.md %}
+<!-- {% include_relative _includes/misc.md %} -->
