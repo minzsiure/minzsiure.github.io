@@ -21,7 +21,7 @@ Include but not limited to:
 
 I believe good research needs both the depth and breath of knowledge and understanding. This enables meaningful associations, and thus leads to breakthroughs. So, I am always open to new things :) Before **CompNeuro** and **NeuroAI**, I did research in **Bionics**, **Nuclear Science**, and **Genomics**. -->
 
-<h2 id="cv">CV</h2>
-[Last Updated Oct 27, 2024] See my CV <a href="Yi_Xie_Neuro.pdf" target="_blank">here</a>.
+<!-- <h2 id="cv">CV</h2>
+[Last Updated Oct 27, 2024] See my CV <a href="Yi_Xie_Neuro.pdf" target="_blank">here</a>. -->
 
 <!-- {% include_relative _includes/misc.md %} -->
