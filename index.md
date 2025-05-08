@@ -10,7 +10,7 @@ My research seeks to understand how multiple brain regions encode information an
 
 Broadly, I view cognition as a computational process grounded in neurons and synapses, and I believe we can gain insight into these processes through models of neural networks. With the emergence of large-scale neurophysiological recordings and connectome datasets, we now have unprecedented opportunities to investigate how multiple brain regions interact to support cognition. To that end, my research has spanned three main directions:
 1. Normative: Developing models of interacting brain regions that perform brain-like computations, to uncover principles of neural coding and information flow;
-2. Mechanistic: Analyzing networks with biologically plausible properties, such as theoretically underexplored heavy-tailed synaptic weight distributions, to reveal the dynamics and constraints imposed by connectivity structure alone;
+2. Mechanistic: Analyzing networks with biologically plausible properties, such as theoretically underexplored heavy-tailed synaptic weight distributions *or* skipping connections, to reveal the dynamics and constraints imposed by connectivity structure alone;
 3. Descriptive: Creating computational tools to decode multi-region coordinated neural signals and capture the moment-to-moment computations animals perform when making decisions (*e.g., When precisely do animals make up their mind?*).
    
 Together, these efforts aim to advance our understanding of neural computation and may also offer useful insights for developing AI systems that reflect key properties of the brain--such as robustness and efficiency.
