@@ -2,14 +2,15 @@
 layout: homepage
 ---
 <!-- put this once, anywhere after the theme CSS loads -->
-<style type="text/css">
-  /* restore bold inside links site‑wide */
-  .markdown-body a b,
-  .markdown-body a strong,
-  .markdown-body a span.bold-in-link {
-    font-weight: 700 !important;
-  }
+<style>
+/* restore bold inside ANY link site‑wide */
+a b,
+a strong,
+a span.bold-in-link {
+  font-weight: 700 !important;
+}
 </style>
+
 
 
 
