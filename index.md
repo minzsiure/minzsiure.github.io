@@ -1,18 +1,6 @@
 ---
 layout: homepage
 ---
-<!-- put this once, anywhere after the theme CSS loads -->
-<style>
-/* restore bold inside ANY link site‑wide */
-a b,
-a strong,
-a span.bold-in-link {
-  font-weight: 700 !important;
-}
-</style>
-
-
-<div class="markdown-body">
 
 ## About Me
 
@@ -56,4 +44,3 @@ A complete CV is available upon request.
 <!-- [Last Updated Oct 27, 2024] See my CV <a href="Yi_Xie_Neuro.pdf" target="_blank">here</a>. -->
 
 <!-- {% include_relative _includes/misc.md %} -->
-</div>
