@@ -4,16 +4,16 @@ layout: homepage
 
 ## About Me
 
-I recently graduated from MIT with double majors in **Computer Science (AI + Decision Making)** and **Mathematics**, with a concentration in Economics. In pursuit of my passion for [cognitive computational neuroscience](https://www.nature.com/articles/s41593-018-0210-5#:~:text=The%20goal%20of%20cognitive%20computational,perform%20real%2Dworld%20cognitive%20tasks){:target="_blank"}, I just started my PhD study in Neuroscience at Princeton Neuroscience Institute in September 2024, on a Centennial Fellowship. I spent the past summer at the Theory & Modeling group within the Allen Institute to pursue research in mathematical neuroscience under the supervision of Prof. Stefan Mihalas, where I currently hold a visiting scientist position.
+I recently graduated from MIT with double majors in <strong>Computer Science (AI + Decision Making)</strong> and <strong>Mathematics</strong>, with a concentration in Economics. In pursuit of my passion for [cognitive computational neuroscience](https://www.nature.com/articles/s41593-018-0210-5#:~:text=The%20goal%20of%20cognitive%20computational,perform%20real%2Dworld%20cognitive%20tasks){:target="_blank"}, I just started my PhD study in Neuroscience at Princeton Neuroscience Institute in September 2024, on a Centennial Fellowship. I spent the past summer at the Theory & Modeling group within the Allen Institute to pursue research in mathematical neuroscience under the supervision of Prof. Stefan Mihalas, where I currently hold a visiting scientist position.
 
 ## Research
 
-My research seeks to understand **how multiple brain regions encode information and communicate with one another to coordinate the processes that allow us to interact with—and learn about—the world and ourselves**. These processes include navigating our surroundings and gathering information to make everyday decisions, which together shape **nearly all** of our daily activities. Yet we still understand *remarkably little* about the neural mechanisms underlying these *fundamental* behaviors.
+My research seeks to understand <strong>how multiple brain regions encode information and communicate with one another to coordinate the processes that allow us to interact with—and learn about—the world and ourselves</strong>. These processes include navigating our surroundings and gathering information to make everyday decisions, which together shape <strong>nearly all</strong> of our daily activities. Yet we still understand *remarkably little* about the neural mechanisms underlying these *fundamental* behaviors.
 
 Broadly, I view cognition as a computational process grounded in the basis of neurons and synapses, and I believe we can gain insights into these processes through models of neural networks. With the emergence of large-scale neurophysiological recordings and connectome datasets, we now have unprecedented opportunities to investigate how multiple brain regions interact to support cognition. To that end, my research has spanned three main directions:
-1. **Normative**: Developing models of interacting brain regions that perform brain-like computations, to uncover principles of neural coding and information flow;
-2. **Mechanistic**: Analyzing networks with biologically plausible properties, such as theoretically underexplored heavy-tailed synaptic weight distributions *or* skipping connections, to reveal the dynamics and constraints imposed by connectivity structure alone;
-3. **Descriptive**: Creating computational tools to decode multi-region coordinated neural signals and capture the moment-to-moment computations animals perform when making decisions (*e.g., When precisely do animals make up their mind?*).
+1. <strong>Normative</strong>: Developing models of interacting brain regions that perform brain-like computations, to uncover principles of neural coding and information flow;
+2. <strong>Mechanistic</strong>: Analyzing networks with biologically plausible properties, such as theoretically underexplored heavy-tailed synaptic weight distributions *or* skipping connections, to reveal the dynamics and constraints imposed by connectivity structure alone;
+3. <strong>Descriptive</strong>: Creating computational tools to decode multi-region coordinated neural signals and capture the moment-to-moment computations animals perform when making decisions (*e.g., When precisely do animals make up their mind?*).
    
 Together, these efforts aim to advance our understanding of neural computation and may also offer useful insights for developing AI systems that reflect key properties of the brain-such as robustness and efficiency.
 <!-- I am interested in how population of neurons encodes information and participates in learning, memory, and other cognitive functions. Additionally, I am interested in exploring any low dimensional representations being shared across various tasks and/or organisms. I study this line of work through close collaboration with experimentalists, and keep an eye out for their potential applications in building intelligent systems or understanding neurological disorders. -->
@@ -28,11 +28,11 @@ I am happy to connect and engage in discussions related to my interests and beyo
 
 <!-- <h2 id="research">Research Interests</h2>
 Include but not limited to:
-- **Theoretical/Computational Neuroscience:** learning, memory, cognition, population coding, attractor model.
-- **Machine Learning:** biologically plausible learning system, AI Alignment and safe deployment. Exploring AI regulation + policy making.
-- **NeuroAI:** A combo of both displines, where the brain inspires better learning algorithm, and AI aids our understanding of the brain.
+- <strong>Theoretical/Computational Neuroscience:<strong> learning, memory, cognition, population coding, attractor model.
+- <strong>Machine Learning:<strong> biologically plausible learning system, AI Alignment and safe deployment. Exploring AI regulation + policy making.
+- <strong>NeuroAI:<strong> A combo of both displines, where the brain inspires better learning algorithm, and AI aids our understanding of the brain.
 
-I believe good research needs both the depth and breath of knowledge and understanding. This enables meaningful associations, and thus leads to breakthroughs. So, I am always open to new things :) Before **CompNeuro** and **NeuroAI**, I did research in **Bionics**, **Nuclear Science**, and **Genomics**. -->
+I believe good research needs both the depth and breath of knowledge and understanding. This enables meaningful associations, and thus leads to breakthroughs. So, I am always open to new things :) Before <strong>CompNeuro<strong> and <strong>NeuroAI<strong>, I did research in <strong>Bionics<strong>, <strong>Nuclear Science<strong>, and <strong>Genomics<strong>. -->
 
 ## CV
 
