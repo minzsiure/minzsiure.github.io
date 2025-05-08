@@ -3,11 +3,6 @@
 
 @import "minimal-light";
 
-  
-a b,
-a strong {
-    font-weight: bold !important;
-}
 
 /* Fix bold text being stripped inside links */
 a span[style*="font-weight"] {
@@ -71,4 +66,11 @@ strong {
   
   .pub-row {
     margin-bottom: 20px;
+}
+
+// Force bold text to render as bold
+b,
+strong {
+    font-weight: 700 !important;
+    color: inherit !important;
 }
