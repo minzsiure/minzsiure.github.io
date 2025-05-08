@@ -4,15 +4,10 @@
 @import "minimal-light";
 
   
-//   figure {
-//     margin: auto;
-//     width: 50%; /* Adjust as needed */
-//   }
-  
-//   figcaption {
-//     text-align: center;
-//     padding-top: 0.5em;
-//   }
+a b,
+a strong {
+    font-weight: bold !important;
+}
 
 /* Fix bold text being stripped inside links */
 a span[style*="font-weight"] {
