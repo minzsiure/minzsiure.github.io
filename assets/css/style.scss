@@ -14,6 +14,16 @@
 //     padding-top: 0.5em;
 //   }
 
+/* Fix bold text being stripped inside links */
+a span[style*="font-weight"] {
+    font-weight: bold !important;
+}
+
+/* Reinforce <strong> regardless of nesting */
+strong {
+    font-weight: bold !important;
+}
+
 .gallery {
     display: flex;
     flex-wrap: wrap;
