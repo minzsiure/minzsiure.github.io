@@ -8,7 +8,7 @@ I recently graduated from MIT with double majors in <b>Computer Science (AI + De
 
 ## Research
 
-My research seeks to understand <b>how multiple brain regions encode information and communicate with one another to coordinate the processes that allow us to interact with—and learn about—the world and ourselves</b>. These processes include navigating our surroundings and gathering information to make everyday decisions, which together shape <b>nearly all</b> of our daily activities. Yet we still understand <em>remarkably little</em> about the neural mechanisms underlying these <em>fundamental</em> behaviors.
+My research seeks to understand <b>how multiple brain regions encode information and communicate with one another to coordinate the processes that allow us to interact with—and learn about—the world and ourselves</b>. These processes include navigating our surroundings and gathering information to make everyday decisions, which together shape <b>nearly all</b> of our daily activities. Yet we still understand <em>remarkably little</em> about the neural mechanisms underlying these <em>fundamental</em> cognitive processes and behaviors.
 
 Broadly, I view cognition as a computational process grounded in the basis of neurons and synapses, and I believe we can gain insights into these processes through models of neural networks. With the very recent development of large-scale neurophysiological recordings and connectome datasets, we now have unprecedented opportunities to investigate: <b><em>How do multiple brain regions interact to support cognition?</em></b>  To that end, my research has spanned three main directions:
 
