@@ -12,7 +12,7 @@ a span.bold-in-link {
 </style>
 
 
-
+<div class="markdown-body">
 
 ## About Me
 
@@ -56,3 +56,4 @@ A complete CV is available upon request.
 <!-- [Last Updated Oct 27, 2024] See my CV <a href="Yi_Xie_Neuro.pdf" target="_blank">here</a>. -->
 
 <!-- {% include_relative _includes/misc.md %} -->
+</div>
