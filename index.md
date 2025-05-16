@@ -4,7 +4,7 @@ layout: homepage
 
 ## About Me
 
-I recently graduated from MIT with double majors in <b>Computer Science (AI + Decision Making)</b> and <b>Mathematics</b>, with a concentration in Economics. In pursuit of my passion for <a href="https://www.nature.com/articles/s41593-018-0210-5#:~:text=The%20goal%20of%20cognitive%20computational,perform%20real%2Dworld%20cognitive%20tasks" target="_blank">cognitive computational neuroscience</a>, I just started my PhD study in Neuroscience at Princeton Neuroscience Institute in September 2024, on a Centennial Fellowship. I spent the past summer at the Theory & Modeling group within the Allen Institute to pursue research in mathematical neuroscience under the supervision of Prof. Stefan Mihalas, where I currently hold a visiting scientist position.
+I recently graduated from MIT (May 2024) with double majors in <b>Computer Science (AI + Decision Making)</b> and <b>Mathematics</b>, with a concentration in Economics. In pursuit of my passion for <a href="https://www.nature.com/articles/s41593-018-0210-5#:~:text=The%20goal%20of%20cognitive%20computational,perform%20real%2Dworld%20cognitive%20tasks" target="_blank">cognitive computational neuroscience</a>, I just started my PhD study in Neuroscience at Princeton Neuroscience Institute in September 2024, on a Centennial Fellowship. I spent the past summer at the Theory & Modeling group within the Allen Institute to pursue research in mathematical neuroscience under the supervision of Prof. Stefan Mihalas, where I currently hold a visiting scientist position.
 
 ## Research
 
