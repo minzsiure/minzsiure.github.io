@@ -170,9 +170,11 @@
                     circuits.
                     Yet, most studies of decision-making focus on single areas in isolation, overlooking the structured,
                     <strong>multi-region</strong> architecture that supports complex cognitive tasks.
-                    To better understand how multiple brain regions together support decision-making in physical space, we model
+                    To better understand how multiple brain regions together support decision-making in physical space,
+                    we model
                     interactions across entorhinal cortex, hippocampus, and prefrontal cortex.
-                    We study this by testing a reinforcement-learning agent embedded with one of <strong>a series of
+                    We study this by testing a reinforcement-learning (RL) agent embedded with one of <strong>a series
+                        of
                         model variants</strong> that embody counterfactual
                     hypotheses of neural
                     computation and circuit organization, ultimately leading to a final model (M5) with the prediction
@@ -186,71 +188,6 @@
             </div>
         </div>
     </div>
-
-    <!-- <section class="hero teaser">
-        <div class="container is-max-desktop">
-            <div class="hero-body">
-                <video id="teaser" autoplay muted loop playsinline height="100%">
-                    <source src="static/videos/teaser.mp4" type="video/mp4">
-                </video>
-                <h2 class="subtitle has-text-centered">
-                    <span class="dnerf">Nerfies</span> turns selfie videos from your phone into
-                    free-viewpoint
-                    portraits.
-                </h2>
-            </div>
-        </div>
-    </section>
-
-
-    <section class="hero is-light is-small">
-        <div class="hero-body">
-            <div class="container">
-                <div id="results-carousel" class="carousel results-carousel">
-                    <div class="item item-steve">
-                        <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
-                            <source src="static/videos/steve.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="item item-chair-tp">
-                        <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
-                            <source src="static/videos/chair-tp.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="item item-shiba">
-                        <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
-                            <source src="static/videos/shiba.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="item item-fullbody">
-                        <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
-                            <source src="static/videos/fullbody.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="item item-blueshirt">
-                        <video poster="" id="blueshirt" autoplay controls muted loop playsinline height="100%">
-                            <source src="static/videos/blueshirt.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="item item-mask">
-                        <video poster="" id="mask" autoplay controls muted loop playsinline height="100%">
-                            <source src="static/videos/mask.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="item item-coffee">
-                        <video poster="" id="coffee" autoplay controls muted loop playsinline height="100%">
-                            <source src="static/videos/coffee.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="item item-toby">
-                        <video poster="" id="toby" autoplay controls muted loop playsinline height="100%">
-                            <source src="static/videos/toby2.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> -->
 
 
     <section class="section">
@@ -361,21 +298,6 @@
                     document.getElementById("layman-text").style.display = "block";
                 }
             </script>
-
-
-
-            <!-- Paper video. -->
-            <div class="columns is-centered has-text-centered">
-                <div class="column is-four-fifths">
-                    <h2 class="title is-3">Video</h2>
-                    <div class="publication-video">
-                        <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0" frameborder="0"
-                            allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    </div>
-                </div>
-            </div>
-            <!--/ Paper video. -->
-        </div>
     </section>
 
 
@@ -384,38 +306,39 @@
 
             <div class="columns is-centered">
 
-                <!-- Visual Effects. -->
+                <!-- Accumulating Tower Task -->
                 <div class="column">
                     <div class="content">
-                        <h2 class="title is-3">Visual Effects</h2>
+                        <h2 class="title is-3">Accumulating Tower Task</h2>
                         <p>
-                            Using <i>nerfies</i> you can create fun visual effects. This Dolly zoom effect
-                            would be impossible without nerfies since it would require going through a wall.
+                            In this spatial decision-making task, an agent walks down a corridor and sees towers on the
+                            left vs. right, and needs to turn to the side with more towers at the T-junction. An agent
+                            can choose to move forward, left, or right at each step.
                         </p>
-                        <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
-                            <source src="static/videos/dollyzoom-stacked.mp4" type="video/mp4">
-                        </video>
+                        <img src="static/images/towertask.png" alt="Accumulating Tower Task diagram">
                     </div>
                 </div>
-                <!--/ Visual Effects. -->
 
-                <!-- Matting. -->
+                <!-- Vector-HaSH Model -->
                 <div class="column">
-                    <h2 class="title is-3">Matting</h2>
-                    <div class="columns is-centered">
-                        <div class="column content">
-                            <p>
-                                As a byproduct of our method, we can also solve the matting problem by ignoring
-                                samples that fall outside of a bounding box during rendering.
-                            </p>
-                            <video id="matting-video" controls playsinline height="100%">
-                                <source src="static/videos/matting.mp4" type="video/mp4">
-                            </video>
-                        </div>
-
+                    <div class="content">
+                        <h2 class="title is-3">Vector-HaSH</h2>
+                        <p>
+                            Our final model, <strong>M5</strong>, extends Vector-HaSH's to an RL setting
+                            with a cortical action selection recurrent neural network to
+                            map hippocampal representations to actions (left, right, forward). It embodies the
+                            hypotheses that grid cells conjunctively integrate self-movement
+                            velocity
+                            signals and decision evidence increments,
+                            which enables both accurate task performance and alignment with experimental hippocampal
+                            recordings (see below).
+                        </p>
+                        <img src="static/images/m5.png" alt="Vector-HaSH model diagram">
                     </div>
                 </div>
+
             </div>
+
             <!--/ Matting. -->
 
             <!-- Animation. -->
