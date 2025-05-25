@@ -223,45 +223,113 @@
     <section class="section">
         <div class="container is-max-desktop">
             <!-- Abstract. -->
+            <!-- Abstract + Layman Summary Toggle -->
             <div class="columns is-centered has-text-centered">
                 <div class="column is-four-fifths">
-                    <h2 class="title is-3">Abstract</h2>
-                    <div class="content has-text-justified">
+                    <h2 class="title is-3">Summary</h2>
+                    <div class="buttons is-centered">
+                        <button class="button is-small is-link is-light" onclick="showAbstract()">Abstract</button>
+                        <button class="button is-small is-link is-light" onclick="showLayman()">Layman Summary</button>
+                    </div>
+
+                    <!-- Technical Abstract -->
+                    <div id="abstract-text" class="content has-text-justified">
                         <p>
                             Brains excel at robust decision-making and data-efficient learning. Understanding the
-                            architectures and dynamics
-                            underlying these capabilities can inform inductive biases for deep learning. We present a
-                            multi-region brain model that
-                            explores the normative role of structured memory circuits in a spatially embedded binary
-                            decision-making task from
-                            neuroscience.
+                            architectures and dynamics underlying these capabilities can inform inductive biases for
+                            deep learning.
+                            We present a multi-region brain model that explores the normative role of structured memory
+                            circuits in
+                            a
+                            spatially embedded binary decision-making task from neuroscience.
                         </p>
                         <p>
                             We counterfactually compare the learning performance and neural representations of
-                            reinforcement learning (RL) agents
-                            with brain models of different interaction architectures between grid and place cells in the
-                            entorhinal cortex and
-                            hippocampus, coupled with an action-selection cortical recurrent neural network. We
-                            demonstrate that a specific
-                            architecture--where grid cells receive and jointly encode self-movement velocity signals and
-                            decision evidence
-                            increments--optimizes learning efficiency while best reproducing experimental observations
-                            relative to alternative
-                            architectures.
+                            reinforcement
+                            learning (RL)
+                            agents with brain models of different interaction architectures between grid and place cells
+                            in the
+                            entorhinal
+                            cortex and hippocampus, coupled with an action-selection cortical recurrent neural network.
+                            We demonstrate that a specific architecture—where grid cells receive and jointly encode
+                            self-movement
+                            velocity
+                            signals and decision evidence increments—optimizes learning efficiency while best
+                            reproducing
+                            experimental
+                            observations relative to alternative architectures.
                         </p>
                         <p>
                             Our findings thus suggest brain-inspired structured architectures for efficient RL.
-                            Importantly, the models make novel,
-                            testable predictions about organization and information flow within the
-                            entorhinal-hippocampal-neocortical circuit: we
-                            predict that grid cells must conjunctively encode position and evidence for effective
-                            spatial decision-making, directly
-                            motivating new neurophysiological experiments.
+                            Importantly, the models make novel, testable predictions about organization and information
+                            flow within
+                            the
+                            entorhinal-hippocampal-neocortical circuit: we predict that grid cells must conjunctively
+                            encode
+                            position and
+                            evidence for effective spatial decision-making, directly motivating new neurophysiological
+                            experiments.
+                        </p>
+                    </div>
+
+                    <!-- Layman Summary -->
+                    <div id="layman-text" class="content has-text-justified" style="display: none;">
+                        <p>
+                            Everyday choices—like deciding when to turn down a hallway—rely on two skills: knowing
+                            <strong>where</strong>
+                            we are and adding up <strong>clues</strong> about what to do next. Yet, how the brain merges
+                            these
+                            streams
+                            of information across multiple brain regions to accomplish this everyday task of making
+                            decisions in
+                            physical
+                            space remains a mystery.
+                        </p>
+                        <p>
+                            We built a “virtual brain” inside a reinforcement‑learning agent that links three key brain
+                            circuits:
+                            grid cells that track location, the hippocampus that stores memories, and a small cortical
+                            network that
+                            picks actions. The agent practises a classic mouse task: walking down a T‑shaped maze lined
+                            with visual
+                            towers ("evidence") on both sides, then turning at the end toward the side with more towers
+                            (“decision”).
+                        </p>
+                        <p>
+                            After testing all the possible brain circuit designs, we found that learning was fastest—and
+                            runs were
+                            shortest—when each grid cell encoded both position <strong>and</strong> a running tower
+                            count. This
+                            “dual‑coding” design also reproduced the unusual firing patterns recorded in the real mouse
+                            hippocampus
+                            during the same task, whereas other designs did not.
+                        </p>
+                        <p>
+                            For neuroscience, our results predict that biological grid cells combine “Where am I?” with
+                            “How much
+                            evidence have I gathered?”—a hypothesis that future neurophysiology experiments can directly
+                            test. For
+                            machine learning, adding such structured memory maps to learning agents can reduce training
+                            demands,
+                            enabling lighter, more efficient AI that makes decisions in the real world.
                         </p>
                     </div>
                 </div>
             </div>
-            <!--/ Abstract. -->
+
+            <script>
+                function showAbstract() {
+                    document.getElementById("abstract-text").style.display = "block";
+                    document.getElementById("layman-text").style.display = "none";
+                }
+
+                function showLayman() {
+                    document.getElementById("abstract-text").style.display = "none";
+                    document.getElementById("layman-text").style.display = "block";
+                }
+            </script>
+
+
 
             <!-- Paper video. -->
             <div class="columns is-centered has-text-centered">
