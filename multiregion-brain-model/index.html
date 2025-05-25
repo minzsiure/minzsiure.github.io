@@ -309,117 +309,129 @@
                 <!-- Accumulating Tower Task -->
                 <div class="column">
                     <div class="content">
-                        <h2 class="title is-3">Accumulating Tower Task</h2>
+                        <h2 class="title is-3">Accumulating-Towers Task</h2>
                         <p>
-                            In this spatial decision-making task, an agent walks down a corridor and sees towers on the
-                            left vs. right, and needs to turn to the side with more towers at the T-junction. An agent
-                            can choose to move forward, left, or right at each step.
+                            In this spatial decision-making task, an agent walks down a virtual corridor and is
+                            stochastically
+                            presented with towers on the left and right. At the end of the corridor, it must turn to the
+                            side with more
+                            towers—requiring the integration of evidence over space and time. This task has become a
+                            shared benchmark across a
+                            growing experimental and theoretical neuroscience community,
+                            enabling standardized, reproducible studies of memory, integration, navigation, and
+                            decision-making across multiple
+                            brain systems.
                         </p>
                         <img src="static/images/towertask.png" alt="Accumulating Tower Task diagram">
                     </div>
                 </div>
 
-                <!-- Vector-HaSH Model -->
+                <!-- M5 Model -->
                 <div class="column">
                     <div class="content">
-                        <h2 class="title is-3">Vector-HaSH</h2>
+                        <h2 class="title is-3">Multi-Region Model (M5)</h2>
                         <p>
-                            Our final model, <strong>M5</strong>, extends Vector-HaSH's to an RL setting
-                            with a cortical action selection recurrent neural network to
-                            map hippocampal representations to actions (left, right, forward). It embodies the
-                            hypotheses that grid cells conjunctively integrate self-movement
-                            velocity
-                            signals and decision evidence increments,
-                            which enables both accurate task performance and alignment with experimental hippocampal
-                            recordings (see below).
+                            Our final model, <strong>M5</strong>, builds on the Vector-HaSH architecture and
+                            incorporates a cortical
+                            action-selection RNN to learn the accumulating-towers task via reinforcement learning. M5
+                            embodies the
+                            hypothesis that grid cells conjunctively encode self-movement velocity and decision evidence
+                            increments—
+                            enabling both efficient learning and accurate reproduction of hippocampal neural activity
+                            patterns
+                            observed
+                            in real animals.
                         </p>
-                        <img src="static/images/m5.png" alt="Vector-HaSH model diagram">
+                        <img src="static/images/m5.png" alt="Multi-region M5 model diagram">
                     </div>
                 </div>
 
             </div>
 
-            <!--/ Matting. -->
 
-            <!-- Animation. -->
-            <div class="columns is-centered">
-                <div class="column is-full-width">
-                    <h2 class="title is-3">Animation</h2>
+        </div>
 
-                    <!-- Interpolating. -->
-                    <h3 class="title is-4">Interpolating states</h3>
-                    <div class="content has-text-justified">
-                        <p>
-                            We can also animate the scene by interpolating the deformation latent codes of two input
-                            frames. Use the slider here to linearly interpolate between the left frame and the right
-                            frame.
-                        </p>
-                    </div>
-                    <div class="columns is-vcentered interpolation-panel">
-                        <div class="column is-3 has-text-centered">
-                            <img src="static/images/interpolate_start.jpg" class="interpolation-image"
-                                alt="Interpolate start reference image." />
-                            <p>Start Frame</p>
-                        </div>
-                        <div class="column interpolation-video-column">
-                            <div id="interpolation-image-wrapper">
-                                Loading...
-                            </div>
-                            <input class="slider is-fullwidth is-large is-info" id="interpolation-slider" step="1"
-                                min="0" max="100" value="0" type="range">
-                        </div>
-                        <div class="column is-3 has-text-centered">
-                            <img src="static/images/interpolate_end.jpg" class="interpolation-image"
-                                alt="Interpolation end reference image." />
-                            <p class="is-bold">End Frame</p>
-                        </div>
-                    </div>
-                    <br />
-                    <!--/ Interpolating. -->
+        <!--/ Matting. -->
 
-                    <!-- Re-rendering. -->
-                    <h3 class="title is-4">Re-rendering the input video</h3>
-                    <div class="content has-text-justified">
-                        <p>
-                            Using <span class="dnerf">Nerfies</span>, you can re-render a video from a novel
-                            viewpoint such as a stabilized camera by playing back the training deformations.
-                        </p>
-                    </div>
-                    <div class="content has-text-centered">
-                        <video id="replay-video" controls muted preload playsinline width="75%">
-                            <source src="static/videos/replay.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <!--/ Re-rendering. -->
+        <!-- Animation. -->
+        <div class="columns is-centered">
+            <div class="column is-full-width">
+                <h2 class="title is-3">Animation</h2>
 
+                <!-- Interpolating. -->
+                <h3 class="title is-4">Interpolating states</h3>
+                <div class="content has-text-justified">
+                    <p>
+                        We can also animate the scene by interpolating the deformation latent codes of two input
+                        frames. Use the slider here to linearly interpolate between the left frame and the right
+                        frame.
+                    </p>
                 </div>
+                <div class="columns is-vcentered interpolation-panel">
+                    <div class="column is-3 has-text-centered">
+                        <img src="static/images/interpolate_start.jpg" class="interpolation-image"
+                            alt="Interpolate start reference image." />
+                        <p>Start Frame</p>
+                    </div>
+                    <div class="column interpolation-video-column">
+                        <div id="interpolation-image-wrapper">
+                            Loading...
+                        </div>
+                        <input class="slider is-fullwidth is-large is-info" id="interpolation-slider" step="1" min="0"
+                            max="100" value="0" type="range">
+                    </div>
+                    <div class="column is-3 has-text-centered">
+                        <img src="static/images/interpolate_end.jpg" class="interpolation-image"
+                            alt="Interpolation end reference image." />
+                        <p class="is-bold">End Frame</p>
+                    </div>
+                </div>
+                <br />
+                <!--/ Interpolating. -->
+
+                <!-- Re-rendering. -->
+                <h3 class="title is-4">Re-rendering the input video</h3>
+                <div class="content has-text-justified">
+                    <p>
+                        Using <span class="dnerf">Nerfies</span>, you can re-render a video from a novel
+                        viewpoint such as a stabilized camera by playing back the training deformations.
+                    </p>
+                </div>
+                <div class="content has-text-centered">
+                    <video id="replay-video" controls muted preload playsinline width="75%">
+                        <source src="static/videos/replay.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <!--/ Re-rendering. -->
+
             </div>
-            <!--/ Animation. -->
+        </div>
+        <!--/ Animation. -->
 
 
-            <!-- Concurrent Work. -->
-            <div class="columns is-centered">
-                <div class="column is-full-width">
-                    <h2 class="title is-3">Related Work</h2>
+        <!-- Concurrent Work. -->
+        <div class="columns is-centered">
+            <div class="column is-full-width">
+                <h2 class="title is-3">Related Work</h2>
 
-                    <div class="content has-text-justified">
-                        <!-- <p>
+                <div class="content has-text-justified">
+                    <!-- <p>
                             There's a lot of excellent work that was introduced around the same time as ours.
                         </p> -->
-                        <p>
-                            <a href="https://www.nature.com/articles/s41586-021-03652-7">Nieh et al.</a>
-                            observed the conjunctive cognitive map of position and evidence in rodent hippocampus during
-                            the accumulating tower task.
-                        </p>
-                        <p>
-                            <a href="https://www.nature.com/articles/s41586-024-08392-y">Chandra et al.</a>
-                            proposed the biologically realistic entorhinal-hippocampal-neocortical circuit, coined
-                            Vector-HaSH, which serves the basis of our model.
-                        </p>
-                    </div>
+                    <p>
+                        <a href="https://www.nature.com/articles/s41586-021-03652-7">Nieh et al.</a>
+                        observed the conjunctive cognitive map of position and evidence in rodent hippocampus during
+                        the accumulating tower task.
+                    </p>
+                    <p>
+                        <a href="https://www.nature.com/articles/s41586-024-08392-y">Chandra et al.</a>
+                        proposed the biologically realistic entorhinal-hippocampal-neocortical circuit, coined
+                        Vector-HaSH, which serves the basis of our model.
+                    </p>
                 </div>
             </div>
-            <!--/ Concurrent Work. -->
+        </div>
+        <!--/ Concurrent Work. -->
 
         </div>
     </section>
