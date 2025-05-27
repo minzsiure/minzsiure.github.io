@@ -351,6 +351,50 @@
                 </div>
 
             </div> <!-- /columns -->
+            <!--‑‑‑‑‑‑‑ Grid‑coding scheme row with side-by-side layout  ‑‑‑‑‑‑‑-->
+            <div class="columns is-centered">
+                <!-- Text column -->
+                <div class="column is-half">
+                    <div class="content">
+                        <h3 class="title is-4">Grid Cell Coding Schemes</h3>
+                        <p>
+                            Grid cells are organized into $K$ periodic two-dimensional one-hot modules, so the resulting
+                            grid vector is $K$-hot.
+                            While we include hypotheses that assume the conventional role of grid cells encoding physical
+                            position (M1 and M2), we
+                            also test the hypothesis that grid cells conjunctively encode both position and accumulated
+                            evidence (M3–M5).
+
+                            There are two forms of conjunctive coding:
+                            In the <strong>joint coding scheme</strong>, each grid module encodes both position and
+                            evidence along separate axes,
+                            producing “wiggling” activation patterns on hexagonal lattices.
+                            In contrast, the <strong>disjoint scheme</strong> allocates separate modules to position or
+                            evidence only, so that each
+                            module encodes one variable along a single axis.
+
+                            We evaluate these coding strategies in our counterfactual models: M4 implements the disjoint
+                            scheme, whereas M3 and M5
+                            implement joint coding.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Image column -->
+                <div class="column is-half has-text-centered">
+                    <figure style="margin-top: 1em;">
+                        <img src="static/images/non_variants.png" alt="Joint vs disjoint grid‑cell representations"
+                            style="max-width: 100%; height: auto;">
+                        <figcaption style="font-size: 0.9em; color: #555; margin-top: 0.5em;">
+                            Example: The agent moves three positions forward, encountering evidence values +1, –1, +1.
+                            In joint coding (top), each module tracks both variables; in disjoint coding (bottom),
+                            modules
+                            specialize.
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+
 
             <!-- ‑‑‑‑‑‑‑‑ Section: Animation demo  ‑‑‑‑‑‑‑‑ -->
             <div class="columns is-centered">
