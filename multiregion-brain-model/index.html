@@ -358,15 +358,17 @@
                     <h2 class="title is-3">Results</h2>
 
                     <!--‑‑‑‑‑‑‑ Joint‑Integration result figure  ‑‑‑‑‑‑‑-->
-                    <h3 class="title is-4">Joint Integration Model → Efficient Learning & Quick Navigation</h3>
+                    <h3 class="title is-4">Joint Integration Model Induces Efficient Learning</h3>
 
                     <div class="content has-text-justified">
                         <p>
-                            Across 17 400 training episodes, only models whose grid cells <em>jointly</em> encode both
-                            position and evidence (M3 & M5) achieve near‑perfect success while minimizing exploration
-                            time. Baseline RNNs (M0, M0+) and disjoint‑coding variants (M4) lag far behind, highlighting
-                            the
-                            computational advantage of conjunctive grid codes.
+                            In training, only models whose grid cells <em>jointly</em> encode both
+                            position and evidence (M3 & M5) achieve near-perfect success while minimizing exploration
+                            time. The additional sensory projection to the hippocampus additionally induces fast
+                            navigation in M5, in comparison to M3. The perfomrnace of baseline RNNs (M0, M0+) and
+                            disjoint-coding variants
+                            (M4) lag far behind, while the
+                            models with position-only grid code don't learn the task at all (M1, M2).
                         </p>
                     </div>
 
@@ -374,24 +376,46 @@
                         <img src="static/images/new_rnn_baseline_black_m0plus.png"
                             alt="Training curves for model variants" style="max-width:100%; height:auto;">
                         <figcaption style="font-size:0.9em; color:#555;">
-                            <strong>A</strong> Cumulative success‑rate in training.
-                            <strong>B</strong> Average steps per episode. Shaded bands: ± s.d. across three seeds.
+                            <strong>(A)</strong> Cumulative success rate in training.
+                            <strong>(B)</strong> Average steps per episode (a low value indicates fast navigation).
                         </figcaption>
                     </figure>
 
                     <br>
 
-                    <h3 class="title is-4">Re‑rendering the Input Video</h3>
+                    <!--‑‑‑‑‑‑‑ Joint grid code → hippocampal place fields  ‑‑‑‑‑‑‑-->
+                    <h3 class="title is-4">Only Joint Integration Models Reproduce Experimental Hippocampal
+                        Maps</h3>
+
                     <div class="content has-text-justified">
                         <p>
-                            Using the learned model we can re‑render the video from a stabilized, novel viewpoint.
+                            Conjunctive tuning of grid cells to both position and evidence (right, M5 & M3) is
+                            necessary and sufficient
+                            to
+                            generate the hippocampal firing-field structure reported by <em>Nieh et al.</em> (2021).
+                            Disjoint (middle, M4)
+                            models
+                            fail to capture these place‑cell sequences.
                         </p>
                     </div>
-                    <div class="content has-text-centered">
-                        <video id="replay-video" controls muted preload playsinline width="75%">
-                            <source src="static/videos/replay.mp4" type="video/mp4">
-                        </video>
-                    </div>
+
+                    <figure class="has-text-centered" style="margin-bottom:2em;">
+                        <img src="static/images/hpc.png" alt="Hippocampal firing field comparison"
+                            style="max-width:100%; height:auto;">
+                        <figcaption style="font-size:0.9em; color:#555;">
+                            <strong>(1)</strong> Experimental data from Nieh et al., showing hippocampal cells are tuned to both
+                            position (top) and
+                            evidence (bottom) and exhibit choice-specific place-field sequences.
+                            <strong>(2)</strong> Disjoint-grid model (M4) reproduces position and evidence fields but
+                            lacks the choice-specific
+                            pattern.
+                            <strong>(3)</strong> Joint-grid models (M5 shown; M3 qualitatively similar) capture both
+                            conjunctive firing fields
+                            and the choice-specific property.
+                        </figcaption>
+
+                    </figure>
+
 
                 </div>
             </div> <!-- /Animation columns -->
