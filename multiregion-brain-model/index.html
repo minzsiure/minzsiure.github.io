@@ -332,40 +332,35 @@
             <div class="columns is-centered">
                 <div class="column is-full">
                     <div class="content">
-                        <h2 class="title is-3">Accumulating‑Towers Task</h2>
-                        <p>
-                            In this spatial decision‑making task, an agent walks down a virtual corridor and is
-                            stochastically presented with towers on the left and right. At the end of the corridor,
-                            it must turn to the side with more towers—requiring the integration of evidence over
-                            space and time. This task has become a shared benchmark across a growing experimental
-                            and theoretical neuroscience community, enabling standardized, reproducible studies of
-                            memory, integration, navigation, and decision‑making across multiple brain systems.
-                        </p>
+                        <h3 class="title is-3">Accumulating‑Towers Task</h2>
+                            <p>
+                                In this spatial decision‑making task, an agent walks down a virtual corridor and is
+                                stochastically presented with towers on the left and right. At the end of the corridor,
+                                it must turn to the side with more towers—requiring the integration of evidence over
+                                space and time. This task has become a shared benchmark across a growing experimental
+                                and theoretical neuroscience community, enabling standardized, reproducible studies of
+                                memory, integration, navigation, and decision‑making across multiple brain systems.
+                            </p>
                     </div>
                 </div>
             </div>
 
-            <!-- Multi‑Region Model (M5) in its own row -->
-            <div class="columns is-centered">
-                <div class="column is-full">
-                    <div class="content has-text-justified">
-                        <h2 class="title is-3">Multi‑Region Model (M5)</h2>
-                        <p>
-                            Our final model, <strong>M5</strong>, builds on the Vector‑HaSH architecture and
-                            incorporates a cortical action‑selection RNN to learn the accumulating‑towers task via
-                            reinforcement learning. M5 embodies the hypothesis that grid cells conjunctively encode
-                            self‑movement velocity and decision‑evidence increments—enabling both efficient learning
-                            and accurate reproduction of hippocampal activity patterns observed in vivo.
-                        </p>
-                    </div>
-
-                    <figure class="has-text-centered" style="margin-top: 1em;">
-                        <img src="static/images/m5.png" alt="M5 diagram" style="max-width: 100%; height: auto;">
-                    </figure>
-                </div>
-            </div>
             <!--‑‑‑‑‑‑‑ Grid‑coding scheme row with side-by-side layout  ‑‑‑‑‑‑‑-->
             <div class="columns is-centered">
+                <!-- Image column -->
+                <div class="column is-half has-text-centered">
+                    <figure style="margin-top: 1em;">
+                        <img src="static/images/non_variants.png" alt="Joint vs disjoint grid‑cell representations"
+                            style="max-width: 100%; height: auto;">
+                        <figcaption style="font-size: 0.9em; color: #555; margin-top: 0.5em;">
+                            Example: The agent moves three positions forward, encountering evidence values +1, –1, +1.
+                            In joint coding (top), each module tracks both variables; in disjoint coding (bottom),
+                            modules
+                            specialize.
+                        </figcaption>
+                    </figure>
+                </div>
+
                 <!-- Text column -->
                 <div class="column is-half">
                     <div class="content">
@@ -394,17 +389,49 @@
                     </div>
                 </div>
 
-                <!-- Image column -->
-                <div class="column is-half has-text-centered">
-                    <figure style="margin-top: 1em;">
-                        <img src="static/images/non_variants.png" alt="Joint vs disjoint grid‑cell representations"
+
+            </div>
+
+            <!-- Multi‑Region Model (M5) in its own row -->
+            <div class="columns is-centered">
+                <div class="column is-full">
+                    <div class="content has-text-justified">
+                        <h3 class="title is-3">Alternative Multi-Region Interaction
+                            Hypotheses</h3>
+                        <p>
+                            Our final model, <strong>M5</strong>, builds on the Vector‑HaSH architecture and
+                            incorporates a cortical action‑selection RNN to learn the accumulating‑towers task via
+                            reinforcement learning. M5 embodies the hypothesis that grid cells conjunctively encode
+                            self‑movement velocity and decision‑evidence increments—enabling both efficient learning
+                            and accurate reproduction of hippocampal activity patterns observed in vivo.
+                        </p>
+                    </div>
+
+                    <figure class="has-text-centered" style="margin-top: 1em;">
+                        <img src="static/images/model_schematic.png" alt="model diagram"
                             style="max-width: 100%; height: auto;">
                         <figcaption style="font-size: 0.9em; color: #555; margin-top: 0.5em;">
-                            Example: The agent moves three positions forward, encountering evidence values +1, –1, +1.
-                            In joint coding (top), each module tracks both variables; in disjoint coding (bottom),
-                            modules
-                            specialize.
+                            Counterfactual models of hypotheses on neural code and information flow tested in our paper.
                         </figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <div class="columns is-centered">
+                <div class="column is-full">
+                    <div class="content has-text-justified">
+                        <h3 class="title is-3">Multi‑Region Model (M5)</h3>
+                        <p>
+                            Our final model, <strong>M5</strong>, builds on the Vector‑HaSH architecture and
+                            incorporates a cortical action‑selection RNN to learn the accumulating‑towers task via
+                            reinforcement learning. M5 embodies the hypothesis that grid cells conjunctively encode
+                            self‑movement velocity and decision‑evidence increments—enabling both efficient learning
+                            and accurate reproduction of hippocampal activity patterns observed in vivo.
+                        </p>
+                    </div>
+
+                    <figure class="has-text-centered" style="margin-top: 1em;">
+                        <img src="static/images/m5.png" alt="M5 diagram" style="max-width: 100%; height: auto;">
                     </figure>
                 </div>
             </div>
