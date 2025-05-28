@@ -330,7 +330,9 @@
         <div class="container is-max-desktop">
 
             <div class="columns is-centered">
-                <div class="column is-full">
+
+                <!-- Accumulating‑Towers Task -->
+                <div class="column">
                     <div class="content">
                         <h2 class="title is-3">Accumulating‑Towers Task</h2>
                         <p>
@@ -341,11 +343,12 @@
                             and theoretical neuroscience community, enabling standardized, reproducible studies of
                             memory, integration, navigation, and decision‑making across multiple brain systems.
                         </p>
+                        <img src="static/images/towertask.png" alt="Accumulating‑Towers diagram">
                     </div>
                 </div>
-            </div>
-            <div class="columns is-centered">
-                <div class="column is-full">
+
+                <!-- Multi‑Region Model (M5) -->
+                <div class="column">
                     <div class="content">
                         <h2 class="title is-3">Multi‑Region Model (M5)</h2>
                         <p>
@@ -355,170 +358,170 @@
                             self‑movement velocity and decision‑evidence increments—enabling both efficient learning
                             and accurate reproduction of hippocampal activity patterns observed in vivo.
                         </p>
+                        <img src="static/images/m5.png" alt="M5 diagram">
                     </div>
                 </div>
-            </div>
 
-        </div> <!-- /columns -->
-        <!--‑‑‑‑‑‑‑ Grid‑coding scheme row with side-by-side layout  ‑‑‑‑‑‑‑-->
-        <div class="columns is-centered">
-            <!-- Text column -->
-            <div class="column is-half">
-                <div class="content">
-                    <h3 class="title is-4">Grid Cell Coding Schemes</h3>
-                    <p>
-                        Grid cells are organized into K periodic two-dimensional one-hot modules, so the resulting
-                        grid vector is K-hot.
-                        While we include hypotheses that assume the conventional role of grid cells encoding
-                        physical
-                        position (M1 and M2), we
-                        also test the hypothesis that grid cells conjunctively encode both position and accumulated
-                        evidence (M3, M4, M5).
+            </div> <!-- /columns -->
+            <!--‑‑‑‑‑‑‑ Grid‑coding scheme row with side-by-side layout  ‑‑‑‑‑‑‑-->
+            <div class="columns is-centered">
+                <!-- Text column -->
+                <div class="column is-half">
+                    <div class="content">
+                        <h3 class="title is-4">Grid Cell Coding Schemes</h3>
+                        <p>
+                            Grid cells are organized into K periodic two-dimensional one-hot modules, so the resulting
+                            grid vector is K-hot.
+                            While we include hypotheses that assume the conventional role of grid cells encoding
+                            physical
+                            position (M1 and M2), we
+                            also test the hypothesis that grid cells conjunctively encode both position and accumulated
+                            evidence (M3, M4, M5).
 
-                        There are two forms of conjunctive coding:
-                        In the <strong>joint coding scheme</strong>, each grid module encodes both position and
-                        evidence along separate axes,
-                        producing “wiggling” activation patterns on hexagonal lattices.
-                        In contrast, the <strong>disjoint scheme</strong> allocates separate modules to position or
-                        evidence only, so that each
-                        module encodes one variable along a single axis.
+                            There are two forms of conjunctive coding:
+                            In the <strong>joint coding scheme</strong>, each grid module encodes both position and
+                            evidence along separate axes,
+                            producing “wiggling” activation patterns on hexagonal lattices.
+                            In contrast, the <strong>disjoint scheme</strong> allocates separate modules to position or
+                            evidence only, so that each
+                            module encodes one variable along a single axis.
 
-                        We evaluate these coding strategies in our counterfactual models: M4 implements the disjoint
-                        scheme, whereas M3 and M5
-                        implement joint coding.
-                    </p>
+                            We evaluate these coding strategies in our counterfactual models: M4 implements the disjoint
+                            scheme, whereas M3 and M5
+                            implement joint coding.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Image column -->
+                <div class="column is-half has-text-centered">
+                    <figure style="margin-top: 1em;">
+                        <img src="static/images/non_variants.png" alt="Joint vs disjoint grid‑cell representations"
+                            style="max-width: 100%; height: auto;">
+                        <figcaption style="font-size: 0.9em; color: #555; margin-top: 0.5em;">
+                            Example: The agent moves three positions forward, encountering evidence values +1, –1, +1.
+                            In joint coding (top), each module tracks both variables; in disjoint coding (bottom),
+                            modules
+                            specialize.
+                        </figcaption>
+                    </figure>
                 </div>
             </div>
 
-            <!-- Image column -->
-            <div class="column is-half has-text-centered">
-                <figure style="margin-top: 1em;">
-                    <img src="static/images/non_variants.png" alt="Joint vs disjoint grid‑cell representations"
-                        style="max-width: 100%; height: auto;">
-                    <figcaption style="font-size: 0.9em; color: #555; margin-top: 0.5em;">
-                        Example: The agent moves three positions forward, encountering evidence values +1, –1, +1.
-                        In joint coding (top), each module tracks both variables; in disjoint coding (bottom),
-                        modules
-                        specialize.
-                    </figcaption>
-                </figure>
-            </div>
-        </div>
+
+            <!-- ‑‑‑‑‑‑‑‑ Section: Animation demo  ‑‑‑‑‑‑‑‑ -->
+            <div class="columns is-centered">
+                <div class="column is-full-width">
+                    <h2 class="title is-3">Results</h2>
+
+                    <!--‑‑‑‑‑‑‑ Joint‑Integration result figure  ‑‑‑‑‑‑‑-->
+                    <h3 class="title is-4">Joint Integration Model Induces Efficient Learning</h3>
+
+                    <div class="content has-text-justified">
+                        <p>
+                            In training, only models whose grid cells <em>jointly</em> encode both
+                            position and evidence (M3 & M5) achieve near-perfect success while minimizing exploration
+                            time. The additional sensory projection to the hippocampus additionally induces fast
+                            navigation in M5, in comparison to M3. The perfomrnace of baseline RNNs (M0, M0+) and
+                            disjoint-coding variants
+                            (M4) lag far behind, while the
+                            models with position-only grid code don't learn the task at all (M1, M2).
+                        </p>
+                    </div>
+
+                    <figure class="has-text-centered" style="margin-bottom:2em;">
+                        <img src="static/images/new_rnn_baseline_black_m0plus.png"
+                            alt="Training curves for model variants" style="max-width:100%; height:auto;">
+                        <figcaption style="font-size:0.9em; color:#555;">
+                            <strong>(A)</strong> Cumulative success rate in training.
+                            <strong>(B)</strong> Average steps per episode (a low value indicates fast navigation).
+                        </figcaption>
+                    </figure>
+
+                    <br>
+
+                    <!--‑‑‑‑‑‑‑ Joint grid code → hippocampal place fields  ‑‑‑‑‑‑‑-->
+                    <h3 class="title is-4">Only Joint Integration Models Reproduce Experimental Hippocampal
+                        Maps</h3>
+
+                    <div class="content has-text-justified">
+                        <p>
+                            Conjunctive tuning of grid cells to both position and evidence (right, M5 & M3) is
+                            necessary and sufficient
+                            to
+                            generate the hippocampal firing-field structure reported by <em>Nieh et al.</em> (2021).
+                            Disjoint (middle, M4)
+                            models
+                            fail to capture these place‑cell sequences.
+                        </p>
+                    </div>
+
+                    <figure class="has-text-centered" style="margin-bottom:2em;">
+                        <img src="static/images/hpc.png" alt="Hippocampal firing field comparison"
+                            style="max-width:100%; height:auto;">
+                        <figcaption style="font-size:0.9em; color:#555;">
+                            <strong>(1)</strong> Experimental data from Nieh et al., showing hippocampal cells are tuned
+                            to both
+                            position (top) and
+                            evidence (bottom) and exhibit choice-specific place-field sequences.
+                            <strong>(2)</strong> Disjoint-grid model (M4) reproduces position and evidence fields but
+                            lacks the choice-specific
+                            pattern.
+                            <strong>(3)</strong> Joint-grid models (M5 shown; M3 qualitatively similar) capture both
+                            conjunctive firing fields
+                            and the choice-specific property.
+                        </figcaption>
+                    </figure>
+
+                    <h3 class="title is-4">Only Joint Integration Model With Activated EC
+                        Pathway Exhibits Well-Separated Low-Dimensional
+                        Co-representation of Task Variables</h3>
+
+                    <div class="content has-text-justified">
+                        <p>
+                            Principal-component projections of hippocampal population activity reveal that
+                            only M5 organizes task variables (position & local evidence velocity) into well-separated
+                            clusters.
+                            In contrast, none of the other models exhibit low-dimensional separation of task variables
+                            (e.g., M4 as shown).
+                        </p>
+                    </div>
+
+                    <figure class="has-text-centered" style="margin-bottom:2em;">
+                        <img src="static/images/pca.png" alt="Hippocampal firing field comparison"
+                            style="max-width:100%; height:auto;">
+                        <figcaption style="font-size:0.9em; color:#555;">
+                            <strong>(A)</strong> Disjoint grid model (M4) show
+                            no clear structure for position or evidence.
+                            <strong>(B)</strong> Joint grid + sensory projection model
+                            (M5) show cleanly low-dimensional separation in position and local evidence velocity,
+                            potentially beneficial for the fast learning and navigation
+                            efficiency.
+                        </figcaption>
+                    </figure>
 
 
-        <!-- ‑‑‑‑‑‑‑‑ Section: Animation demo  ‑‑‑‑‑‑‑‑ -->
-        <div class="columns is-centered">
-            <div class="column is-full-width">
-                <h2 class="title is-3">Results</h2>
-
-                <!--‑‑‑‑‑‑‑ Joint‑Integration result figure  ‑‑‑‑‑‑‑-->
-                <h3 class="title is-4">Joint Integration Model Induces Efficient Learning</h3>
-
-                <div class="content has-text-justified">
-                    <p>
-                        In training, only models whose grid cells <em>jointly</em> encode both
-                        position and evidence (M3 & M5) achieve near-perfect success while minimizing exploration
-                        time. The additional sensory projection to the hippocampus additionally induces fast
-                        navigation in M5, in comparison to M3. The perfomrnace of baseline RNNs (M0, M0+) and
-                        disjoint-coding variants
-                        (M4) lag far behind, while the
-                        models with position-only grid code don't learn the task at all (M1, M2).
-                    </p>
                 </div>
+            </div> <!-- /Animation columns -->
 
-                <figure class="has-text-centered" style="margin-bottom:2em;">
-                    <img src="static/images/new_rnn_baseline_black_m0plus.png" alt="Training curves for model variants"
-                        style="max-width:100%; height:auto;">
-                    <figcaption style="font-size:0.9em; color:#555;">
-                        <strong>(A)</strong> Cumulative success rate in training.
-                        <strong>(B)</strong> Average steps per episode (a low value indicates fast navigation).
-                    </figcaption>
-                </figure>
-
-                <br>
-
-                <!--‑‑‑‑‑‑‑ Joint grid code → hippocampal place fields  ‑‑‑‑‑‑‑-->
-                <h3 class="title is-4">Only Joint Integration Models Reproduce Experimental Hippocampal
-                    Maps</h3>
-
-                <div class="content has-text-justified">
-                    <p>
-                        Conjunctive tuning of grid cells to both position and evidence (right, M5 & M3) is
-                        necessary and sufficient
-                        to
-                        generate the hippocampal firing-field structure reported by <em>Nieh et al.</em> (2021).
-                        Disjoint (middle, M4)
-                        models
-                        fail to capture these place‑cell sequences.
-                    </p>
+            <!-- ‑‑‑‑‑‑‑‑ Section: Related Work  ‑‑‑‑‑‑‑‑ -->
+            <div class="columns is-centered">
+                <div class="column is-full-width">
+                    <h2 class="title is-3">Related Work</h2>
+                    <div class="content has-text-justified">
+                        <p>
+                            <a href="https://www.nature.com/articles/s41586-021-03652-7">Nieh et al.</a> observed
+                            conjunctive coding of position and evidence in rodent hippocampus during the same task.
+                        </p>
+                        <p>
+                            <a href="https://www.nature.com/articles/s41586-024-08392-y">Chandra et al.</a>
+                            proposed Vector-HaSH, a mechanistic model for the entorhinal-hippocampal-neocortical
+                            circuit, on which our model
+                            builds.
+                        </p>
+                    </div>
                 </div>
-
-                <figure class="has-text-centered" style="margin-bottom:2em;">
-                    <img src="static/images/hpc.png" alt="Hippocampal firing field comparison"
-                        style="max-width:100%; height:auto;">
-                    <figcaption style="font-size:0.9em; color:#555;">
-                        <strong>(1)</strong> Experimental data from Nieh et al., showing hippocampal cells are tuned
-                        to both
-                        position (top) and
-                        evidence (bottom) and exhibit choice-specific place-field sequences.
-                        <strong>(2)</strong> Disjoint-grid model (M4) reproduces position and evidence fields but
-                        lacks the choice-specific
-                        pattern.
-                        <strong>(3)</strong> Joint-grid models (M5 shown; M3 qualitatively similar) capture both
-                        conjunctive firing fields
-                        and the choice-specific property.
-                    </figcaption>
-                </figure>
-
-                <h3 class="title is-4">Only Joint Integration Model With Activated EC
-                    Pathway Exhibits Well-Separated Low-Dimensional
-                    Co-representation of Task Variables</h3>
-
-                <div class="content has-text-justified">
-                    <p>
-                        Principal-component projections of hippocampal population activity reveal that
-                        only M5 organizes task variables (position & local evidence velocity) into well-separated
-                        clusters.
-                        In contrast, none of the other models exhibit low-dimensional separation of task variables
-                        (e.g., M4 as shown).
-                    </p>
-                </div>
-
-                <figure class="has-text-centered" style="margin-bottom:2em;">
-                    <img src="static/images/pca.png" alt="Hippocampal firing field comparison"
-                        style="max-width:100%; height:auto;">
-                    <figcaption style="font-size:0.9em; color:#555;">
-                        <strong>(A)</strong> Disjoint grid model (M4) show
-                        no clear structure for position or evidence.
-                        <strong>(B)</strong> Joint grid + sensory projection model
-                        (M5) show cleanly low-dimensional separation in position and local evidence velocity,
-                        potentially beneficial for the fast learning and navigation
-                        efficiency.
-                    </figcaption>
-                </figure>
-
-
-            </div>
-        </div> <!-- /Animation columns -->
-
-        <!-- ‑‑‑‑‑‑‑‑ Section: Related Work  ‑‑‑‑‑‑‑‑ -->
-        <div class="columns is-centered">
-            <div class="column is-full-width">
-                <h2 class="title is-3">Related Work</h2>
-                <div class="content has-text-justified">
-                    <p>
-                        <a href="https://www.nature.com/articles/s41586-021-03652-7">Nieh et al.</a> observed
-                        conjunctive coding of position and evidence in rodent hippocampus during the same task.
-                    </p>
-                    <p>
-                        <a href="https://www.nature.com/articles/s41586-024-08392-y">Chandra et al.</a>
-                        proposed Vector-HaSH, a mechanistic model for the entorhinal-hippocampal-neocortical
-                        circuit, on which our model
-                        builds.
-                    </p>
-                </div>
-            </div>
-        </div> <!-- /Related Work columns -->
+            </div> <!-- /Related Work columns -->
 
         </div> <!-- /container -->
     </section>
