@@ -399,11 +399,23 @@
                         <h3 class="title is-4">Alternative Multi-Region Interaction
                             Hypotheses</h3>
                         <p>
-                            Our final model, <strong>M5</strong>, builds on the Vector‑HaSH architecture and
-                            incorporates a cortical action‑selection RNN to learn the accumulating‑towers task via
-                            reinforcement learning. M5 embodies the hypothesis that grid cells conjunctively encode
-                            self‑movement velocity and decision‑evidence increments—enabling both efficient learning
-                            and accurate reproduction of hippocampal activity patterns observed in vivo.
+                            We systematically evaluate competing hypotheses about how grid cells and the
+                            entorhinal-hippocampal system
+                            contribute to spatially embedded decision-making. Our counterfactual models explore whether
+                            grid cells encode
+                            only position (M1, M2) as following the conventional understanding, conjunctively encode
+                            position and decision evidence (M3–M5), or
+                            whether the hippocampus
+                            receives additional sensory input from the lateral entorhinal cortex (M2, M4, M5). In the
+                            case of conjunctive grid code, we also distinguish
+                            between <em>joint</em>
+                            integration models, in which individual grid modules encode both variables simultaneously
+                            (M3, M5), and
+                            <em>disjoint</em> models, in which separate grid modules encode position and evidence
+                            independently (M4).
+                            These architectural variations allow us to test their roles in supporting task performance
+                            and hippocampal
+                            coding patterns observed experimentally.
                         </p>
                     </div>
 
@@ -421,7 +433,7 @@
                 <!-- Text column on the left -->
                 <div class="column is-half">
                     <div class="content has-text-justified">
-                        <h3 class="title is-3">Multi‑Region Model (M5)</h3>
+                        <h3 class="title is-4">Multi‑Region Model (M5)</h3>
                         <p>
                             Our final model, <strong>M5</strong>, builds on the Vector‑HaSH architecture and
                             incorporates a cortical action‑selection RNN to learn the accumulating‑towers task via
