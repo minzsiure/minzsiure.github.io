@@ -28,7 +28,7 @@ During my undergrad study, I conducted my research as an MIT CBMM [UROP](https:/
 
 Personally, I have been fortunate to benefit from learning opportunities and mentorships. Equity in education in my community and society at large is important to me. During my undergrad study, aside from leadership activities, I served on advisory boards/cabinet to provide insights to MIT President Sally Kornbluth, Dean Anantha Chandrakasan (School of Engineering), and MIT EECS leaderships in driving this goal.
 
-I am happy to connect and engage in discussions related to my interests and beyond. Feel free to reach me at [evayixie@princeton.edu](mailto:evayixie@princeton.edu) for any inquiry. 
+I am happy to connect and engage in discussions related to my interests and beyond. Feel free to reach me at evayixie [at] princeton [dot] edu for any inquiry. 
 
 <!-- <h2 id="research">Research Interests</h2>
 Include but not limited to:
