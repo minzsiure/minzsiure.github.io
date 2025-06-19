@@ -6,6 +6,9 @@ layout: homepage
 
 I recently graduated from MIT (May 2024) with double majors in <b>Computer Science (AI + Decision Making)</b> and <b>Mathematics</b>, with a concentration in Economics. In pursuit of my passion for <a href="https://www.nature.com/articles/s41593-018-0210-5#:~:text=The%20goal%20of%20cognitive%20computational,perform%20real%2Dworld%20cognitive%20tasks" target="_blank">cognitive computational neuroscience</a>, I just started my PhD study in Neuroscience at Princeton Neuroscience Institute in September 2024, on a Centennial Fellowship. I spent the past summer at the Theory & Modeling group within the Allen Institute to pursue research in mathematical neuroscience under the supervision of Prof. Stefan Mihalas, where I currently hold a visiting scientist position.
 
+### Name & Pronunciation
+I publish under <b>Yi Xie</b>, which is also my official name, though I commonly go by <b>Eva</b>. I often display both names together as <b>Eva Yi Xie</b> (pronounced: <em>Yi-va Yi Shieh</em>), both of which were given to me at birth.
+
 ## Research
 
 My research seeks to understand <b>how multiple brain regions encode information and communicate with one another to coordinate the processes that allow us to interact with—and learn about—the world and ourselves</b>. These processes include navigating our surroundings and gathering information to make everyday decisions, which together shape <b>nearly all</b> of our daily activities and ultimately shape <em>who we are</em>. Yet, we still understand <em>remarkably little</em> about the neural mechanisms underlying these <em>fundamental</em> cognitive processes and behaviors.
