@@ -6,9 +6,9 @@ layout: homepage
 
 I graduated from MIT in May 2024 as a double major S.B. in <b>Computer Science (AI + Decision Making)</b> and <b>Mathematics</b>, with a concentration in Economics. I spent the summer of 2024 at Prof.  <a href="https://alleninstitute.org/person/stefan-mihalas/" target=_blank> Stefan Mihalas</a>'s Theory & Modeling group within the Allen Institute to pursue research in mathematical neuroscience, where I currently hold a visiting scientist position. <br>
 
-In pursuit of my passion for <a href="https://www.nature.com/articles/s41593-018-0210-5#:~:text=The%20goal%20of%20cognitive%20computational,perform%20real%2Dworld%20cognitive%20tasks" target="_blank">cognitive computational neuroscience</a>, I began my PhD in Neuroscience at the Princeton Neuroscience Institute in September 2024, supported by a Centennial Fellowship. 
+In pursuit of my passion for <a href="https://www.nature.com/articles/s41593-018-0210-5#:~:text=The%20goal%20of%20cognitive%20computational,perform%20real%2Dworld%20cognitive%20tasks" target="_blank">cognitive computational neuroscience</a>, I began my PhD in Neuroscience at the Princeton Neuroscience Institute in September 2024, supported by a Centennial Fellowship. My research focuses on computational and theoretical neuroscience problems that yield insights directly testable by neural experiments.
 <!-- I currently work with Profs. <a href="https://brodylab.org/" target="_blank">Carlos Brody</a>, <a href="https://dawlab.princeton.edu/" target="_blank">Nathaniel Daw</a>, and <a href="https://ben-eysenbach.github.io/" target="_blank">Ben Eysenbach</a>, and collaborate with Prof. <a href="https://mcgovern.mit.edu/profile/ila-fiete/" target="_blank">Ila Fiete</a>. 
-My research focuses on computational and theoretical neuroscience problems that yield insights directly testable by neural experiments. -->
+ -->
 
 ### Name & Pronunciation
 I publish under my official name <b>Yi Xie</b>, but I commonly go by <b>Eva</b>. I often display both names together as <b>Eva Yi Xie</b> (pronounced: <em>Yi-va Yi Shieh</em>), both of which were given to me at birth.
