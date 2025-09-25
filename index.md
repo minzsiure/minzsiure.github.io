@@ -8,6 +8,7 @@ I am a second-year PhD student in Neuroscience at the Princeton Neuroscience Ins
 
  I graduated from MIT in May 2024 as a double major S.B. in Computer Science (AI + Decision Making) and Mathematics, with a concentration in Economics. During my undergrad, I worked on grid and place cell modeling with <a href="https://fietelab.mit.edu/people/" target=_blank>Ila Fiete</a>, who I continue to collaborate with. Before then, I worked with <a href="https://mcgovern.mit.edu/profile/tomaso-poggio/" target=_blank>Tomaso Poggio</a> and <a href="https://ekmillerlab.mit.edu/earl-miller/" target=_blank>Earl Miller</a> on studying interhemispheric transfer of working memory. Aside, I have explored ML research in Madry Lab at MIT CSAIL, and did R&D work at Meta, Microsoft AI, and IBM Research as an intern. <br>
 
+🧠💭 We’re organizing a NeurIPS 2025 workshop, <a href="https://data-brain-mind.github.io/" target=_blank>Data on the Brain & Mind</a>, and would love to see more community involvement! 
 
 <!-- I currently work with Profs. <a href="https://brodylab.org/" target="_blank">Carlos Brody</a>, <a href="https://dawlab.princeton.edu/" target="_blank">Nathaniel Daw</a>, and <a href="https://ben-eysenbach.github.io/" target="_blank">Ben Eysenbach</a>, and collaborate with Prof. <a href="https://mcgovern.mit.edu/profile/ila-fiete/" target="_blank">Ila Fiete</a>. 
  -->
