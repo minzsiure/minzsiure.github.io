@@ -190,20 +190,17 @@
         }
         const rng = mulberry32((Date.now() & 0xffffffff) >>> 0);
 
-        /** ---------------------------
-         *  Poisson process (exponential inter-arrivals)
-         *  --------------------------- */
-        function poissonTimes(T, lam) {
-            const out = [];
-            if (lam <= 0) return out;
-            let t = 0.0;
-            while (true) {
-                const u = Math.max(1e-12, rng());
-                t += -Math.log(u) / lam;
-                if (t >= T) break;
-                out.push(t);
-            }
-            return out;
+        function poissonKnuth(lambda) {
+            // Knuth algorithm; fast when lambda is small (here lam*dt ~ 0.1–0.3)
+            if (lambda <= 0) return 0;
+            const L = Math.exp(-lambda);
+            let k = 0;
+            let p = 1.0;
+            do {
+                k++;
+                p *= Math.max(1e-12, rng());
+            } while (p > L);
+            return k - 1;
         }
 
         /** ---------------------------
@@ -299,30 +296,96 @@
         /** ---------------------------
          *  Whole-trial rejection sampler
          *  --------------------------- */
-        function sampleTrial() {
-            const T = CFG.T;
-            const [a, b] = CFG.lamPair;
+        function generateClicksWithConstraintsBinwise(T, lamPair, dt, maxTriesPerBin) {
+            const [lamA, lamB] = lamPair;
 
-            for (let attempt = 0; attempt < CFG.maxAttempts; attempt++) {
-                const flip = rng() < 0.5;
-                const lamL = flip ? a : b;
-                const lamR = flip ? b : a;
+            // randomly assign per trial (same as Python)
+            let lamL, lamR;
+            if (rng() < 0.5) { lamL = lamA; lamR = lamB; }
+            else { lamL = lamB; lamR = lamA; }
 
-                const tL = poissonTimes(T, lamL);
-                const tR = poissonTimes(T, lamR);
+            const nBins = Math.ceil(T / dt);
+            const tL_all = [];
+            const tR_all = [];
+            let e = 0;
 
-                const trajCheck = evidenceTrajectory(tL, tR, T, CFG.dtCheck);
-                if (!checkConstraintsOnGrid(trajCheck)) continue;
+            for (let k = 0; k < nBins; k++) {
+                const t0 = k * dt;
+                const t1 = Math.min(T, (k + 1) * dt);
+                const dtk = t1 - t0;
 
-                const finalE = trajCheck.E[trajCheck.E.length - 1];
-                if (CFG.avoidTie && finalE === 0) continue;
+                let accepted = false;
 
-                const trajPlot = evidenceTrajectory(tL, tR, T, CFG.dtPlot);
-                return { tL, tR, lamL, lamR, traj: trajPlot, finalE };
+                for (let tr = 0; tr < maxTriesPerBin; tr++) {
+                    const nL = poissonKnuth(lamL * dtk);
+                    const nR = poissonKnuth(lamR * dtk);
+
+                    const tL = new Array(nL);
+                    const tR = new Array(nR);
+                    for (let i = 0; i < nL; i++) tL[i] = t0 + rng() * dtk;
+                    for (let i = 0; i < nR; i++) tR[i] = t0 + rng() * dtk;
+
+                    // events = [(tR,+1), (tL,-1)], sorted by time (same as Python)
+                    const events = [];
+                    for (let i = 0; i < nR; i++) events.push([tR[i], +1, "R"]);
+                    for (let i = 0; i < nL; i++) events.push([tL[i], -1, "L"]);
+                    events.sort((a, b) => a[0] - b[0]);
+
+                    let e_tmp = e;
+                    let ok = true;
+
+                    for (const [tt, de] of events) {
+                        e_tmp += de; // IMPORTANT: update first, then check (matches Python)
+                        if (!allowed(e_tmp, tt)) { ok = false; break; }
+                    }
+
+                    if (ok && allowed(e_tmp, t1)) {
+                        // accept bin
+                        for (let i = 0; i < nL; i++) tL_all.push(tL[i]);
+                        for (let i = 0; i < nR; i++) tR_all.push(tR[i]);
+                        e = e_tmp;
+                        accepted = true;
+                        break;
+                    }
+                }
+
+                if (!accepted) {
+                    throw new Error(`Could not sample an allowed bin at t∈[${t0.toFixed(3)},${t1.toFixed(3)}]`);
+                }
             }
 
-            throw new Error("Could not sample a valid trial (constraints too tight). ");
+            tL_all.sort((a, b) => a - b);
+            tR_all.sort((a, b) => a - b);
+            return { tL: tL_all, tR: tR_all, lamL, lamR, finalE: (tR_all.length - tL_all.length) };
         }
+
+        function sampleTrial() {
+            const T = CFG.T;
+
+            for (let attempt = 0; attempt < CFG.maxAttempts; attempt++) {
+                let out;
+                try {
+                    out = generateClicksWithConstraintsBinwise(
+                        T,
+                        CFG.lamPair,
+                        CFG.dtCheck,                 // use same dt for constraints as Python
+                        greenBounds,
+                        grayIntervalsAt,
+                        200                          // max_tries_per_bin (match Python default)
+                    );
+                } catch (e) {
+                    continue; // restart whole trial if any bin fails
+                }
+
+                if (CFG.avoidTie && out.finalE === 0) continue;
+
+                const trajPlot = evidenceTrajectory(out.tL, out.tR, T, CFG.dtPlot);
+                return { ...out, traj: trajPlot };
+            }
+
+            throw new Error("Could not sample a valid trial (constraints too tight).");
+        }
+
 
         /** ---------------------------
          *  Canvas plotting
