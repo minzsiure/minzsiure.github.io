@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PredClick</title>
+    <style>
+        :root {
+            --bg: #0b0f14;
+            --panel: #111826;
+            --text: #e8eef7;
+            --muted: #9fb0c3;
+            --accent: #59a6ff;
+        }
+
+        body {
+            margin: 0;
+            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .wrap {
+            max-width: 960px;
+            margin: 28px auto;
+            padding: 0 16px;
+        }
+
+        .card {
+            background: var(--panel);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 18px;
+        }
+
+        h1 {
+            margin: 0 0 10px;
+            font-size: 26px;
+        }
+
+        p {
+            margin: 8px 0;
+            color: var(--muted);
+            line-height: 1.45;
+        }
+
+        .row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-top: 12px;
+        }
+
+        button {
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text);
+            padding: 10px 14px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        button.primary {
+            background: rgba(89, 166, 255, 0.16);
+            border-color: rgba(89, 166, 255, 0.45);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .pill {
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .status {
+            margin-top: 10px;
+            font-weight: 700;
+        }
+
+        canvas {
+            width: 100%;
+            height: 520px;
+            background: rgba(0, 0, 0, 0.12);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .small {
+            font-size: 12px;
+            color: var(--muted);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="card">
+            <h1>PredClick</h1>
+            <p>Listen to binaural clicks (left stream in left ear, right stream in right ear). Decide which side had
+                more clicks.</p>
+            <div class="row">
+                <button id="startBtn" class="primary">Start</button>
+                <button id="leftBtn" disabled>Left</button>
+                <button id="rightBtn" disabled>Right</button>
+                <button id="nextBtn" disabled>Next trial</button>
+                <span class="pill" id="trialInfo">T=2.0s</span>
+            </div>
+            <div class="status" id="status">Press Start.</div>
+            <p class="small">Tip: use headphones. (Audio requires a button press.)</p>
+            <div style="margin-top:14px;">
+                <canvas id="cv" width="920" height="520"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /** ---------------------------
+         *  Task parameters (match your Python defaults)
+         *  --------------------------- */
+        const CFG = {
+            T: 2.0,
+            lamPair: [25, 15],  // (high, low) assigned randomly to L/R per trial
+            dtPlot: 0.01,
+            dtCheck: 0.01,      // constraint checking grid
+            maxAttempts: 5000,  // whole-trial rejection attempts
+            avoidTie: true,
+
+            // audio click
+            fs: 44100,
+            clickMs: 2.0,
+            freqHz: 2000.0,
+            amp: 0.35,
+
+            // green bounds: wedge width grows over time
+            w0: 1,
+            w1: 15,
+
+            // gray blocks (your example)
+            gray: {
+                top: { t_on: 1.0, t_peak: 1.3, t_off: 1.6, base: 3.5, w_on: 0.0, w_peak: 4.0, w_off: 0.0 },
+                bot: { t_on: 1.0, t_peak: 1.3, t_off: 1.6, base: -3.5, w_on: 0.0, w_peak: 4.0, w_off: 0.0 },
+                mid: { t_on: 1.0, t_off: 2.0, half_width: 0.5, center: 0.0 }
+            }
+        };
+
+        /** ---------------------------
+         *  RNG (seeded for debugging if you want)
+         *  --------------------------- */
+        function mulberry32(seed) {
+            let t = seed >>> 0;
+            return function () {
+                t += 0x6D2B79F5;
+                let x = Math.imul(t ^ (t >>> 15), 1 | t);
+                x ^= x + Math.imul(x ^ (x >>> 7), 61 | x);
+                return ((x ^ (x >>> 14)) >>> 0) / 4294967296;
+            }
+        }
+        const rng = mulberry32((Date.now() & 0xffffffff) >>> 0);
+
+        /** ---------------------------
+         *  Poisson process via exponential inter-arrivals
+         *  --------------------------- */
+        function poissonTimes(T, lam) {
+            const out = [];
+            if (lam <= 0) return out;
+            let t = 0.0;
+            while (true) {
+                const u = Math.max(1e-12, rng());
+                t += -Math.log(u) / lam;
+                if (t >= T) break;
+                out.push(t);
+            }
+            return out;
+        }
+
+        /** ---------------------------
+         *  Bounds: green + gray (union intervals)
+         *  --------------------------- */
+        function greenBounds(t) {
+            const w = CFG.w0 + (CFG.w1 - CFG.w0) * (t / CFG.T);
+            return [-w, +w];
+        }
+
+        function wedgeWidth(t, t_on, t_peak, t_off, w_on, w_peak, w_off) {
+            if (t < t_on || t > t_off) return null;
+            if (t <= t_peak) {
+                const u = (t - t_on) / (Math.max(1e-12, (t_peak - t_on)));
+                return w_on + (w_peak - w_on) * u;
+            } else {
+                const u = (t - t_peak) / (Math.max(1e-12, (t_off - t_peak)));
+                return w_peak + (w_off - w_peak) * u;
+            }
+        }
+
+        // one-sided wedges: flat edge at base
+        function grayIntervalsAt(t) {
+            const ivs = [];
+
+            // top wedge: [base, base + w(t)]
+            {
+                const p = CFG.gray.top;
+                const w = wedgeWidth(t, p.t_on, p.t_peak, p.t_off, p.w_on, p.w_peak, p.w_off);
+                if (w !== null && w > 0) ivs.push([p.base, p.base + w]);
+            }
+
+            // bottom wedge: [base - w(t), base]
+            {
+                const p = CFG.gray.bot;
+                const w = wedgeWidth(t, p.t_on, p.t_peak, p.t_off, p.w_on, p.w_peak, p.w_off);
+                if (w !== null && w > 0) ivs.push([p.base - w, p.base]);
+            }
+
+            // middle rectangle: [center-half, center+half] during time window
+            {
+                const p = CFG.gray.mid;
+                if (t >= p.t_on && t <= p.t_off) {
+                    ivs.push([p.center - p.half_width, p.center + p.half_width]);
+                }
+            }
+
+            if (ivs.length === 0) return null;
+
+            // merge overlaps
+            ivs.sort((a, b) => a[0] - b[0]);
+            const merged = [ivs[0].slice()];
+            for (let i = 1; i < ivs.length; i++) {
+                const [lo, hi] = ivs[i];
+                const last = merged[merged.length - 1];
+                if (lo <= last[1]) last[1] = Math.max(last[1], hi);
+                else merged.push([lo, hi]);
+            }
+            return merged;
+        }
+
+        function allowed(e, t) {
+            const [glo, ghi] = greenBounds(t);
+            if (!(glo <= e && e <= ghi)) return false;
+
+            const gray = grayIntervalsAt(t);
+            if (gray) {
+                for (const [lo, hi] of gray) {
+                    if (lo <= e && e <= hi) return false;
+                }
+            }
+            return true;
+        }
+
+        /** ---------------------------
+         *  Evidence trajectory on grid
+         *  --------------------------- */
+        function evidenceTrajectory(tL, tR, T, dt) {
+            const n = Math.floor(T / dt) + 1;
+            const ts = new Float32Array(n);
+            const E = new Int32Array(n);
+            let iL = 0, iR = 0, e = 0;
+            for (let k = 0; k < n; k++) {
+                const t = k * dt;
+                ts[k] = t;
+                while (iL < tL.length && tL[iL] <= t + 1e-12) { e -= 1; iL++; }
+                while (iR < tR.length && tR[iR] <= t + 1e-12) { e += 1; iR++; }
+                E[k] = e;
+            }
+            return { ts, E };
+        }
+
+        function checkConstraintsOnGrid(traj) {
+            const { ts, E } = traj;
+            for (let k = 0; k < ts.length; k++) {
+                if (!allowed(E[k], ts[k])) return false;
+            }
+            return true;
+        }
+
+        /** ---------------------------
+         *  Whole-trial sampler (rejection)
+         *  --------------------------- */
+        function sampleTrial() {
+            const T = CFG.T;
+            const [a, b] = CFG.lamPair;
+            for (let attempt = 0; attempt < CFG.maxAttempts; attempt++) {
+                // random assignment high/low to L/R
+                const flip = rng() < 0.5;
+                const lamL = flip ? a : b;
+                const lamR = flip ? b : a;
+
+                const tL = poissonTimes(T, lamL);
+                const tR = poissonTimes(T, lamR);
+
+                // sort (inter-arrival already sorted, but keep)
+                // (no-op)
+                const trajCheck = evidenceTrajectory(tL, tR, T, CFG.dtCheck);
+
+                if (!checkConstraintsOnGrid(trajCheck)) continue;
+
+                const finalE = trajCheck.E[trajCheck.E.length - 1];
+                if (CFG.avoidTie && finalE === 0) continue;
+
+                const trajPlot = evidenceTrajectory(tL, tR, T, CFG.dtPlot);
+                return { tL, tR, lamL, lamR, traj: trajPlot, finalE };
+            }
+            throw new Error("Could not sample a valid trial (constraints too tight).");
+        }
+
+        /** ---------------------------
+         *  Canvas plotting
+         *  --------------------------- */
+        const cv = document.getElementById("cv");
+        const ctx2d = cv.getContext("2d");
+
+        function clearCanvas() {
+            ctx2d.clearRect(0, 0, cv.width, cv.height);
+            ctx2d.fillStyle = "rgba(0,0,0,0.10)";
+            ctx2d.fillRect(0, 0, cv.width, cv.height);
+        }
+
+        function computeYRange(trial) {
+            // include green bounds + trajectory extremes, padding
+            const ts = trial.traj.ts;
+            let ymin = +Infinity, ymax = -Infinity;
+
+            for (let k = 0; k < ts.length; k++) {
+                const [lo, hi] = greenBounds(ts[k]);
+                ymin = Math.min(ymin, lo);
+                ymax = Math.max(ymax, hi);
+            }
+            // include actual evidence
+            for (let k = 0; k < trial.traj.E.length; k++) {
+                ymin = Math.min(ymin, trial.traj.E[k]);
+                ymax = Math.max(ymax, trial.traj.E[k]);
+            }
+            ymin = Math.floor(ymin) - 2;
+            ymax = Math.ceil(ymax) + 2;
+            return [ymin, ymax];
+        }
+
+        function plotStateSpaceBase(trial) {
+            clearCanvas();
+            const W = cv.width, H = cv.height;
+            const padL = 60, padR = 20, padT = 20, padB = 45;
+            const innerW = W - padL - padR;
+            const innerH = H - padT - padB;
+
+            const [ymin, ymax] = computeYRange(trial);
+            const xOfT = t => padL + (t / CFG.T) * innerW;
+            const yOfE = e => padT + (1 - (e - ymin) / (ymax - ymin)) * innerH;
+
+            // green outside shading
+            ctx2d.save();
+            ctx2d.globalAlpha = 0.18;
+            ctx2d.fillStyle = "#aab3bf";
+            const step = CFG.dtPlot;
+
+            for (let i = 0; i < Math.floor(CFG.T / step); i++) {
+                const tL = i * step, tR = (i + 1) * step, tM = 0.5 * (tL + tR);
+                const [glo, ghi] = greenBounds(tM);
+                const x0 = xOfT(tL), x1 = xOfT(tR);
+
+                // above hi
+                ctx2d.fillRect(x0, yOfE(ghi), (x1 - x0), yOfE(ymin) - yOfE(ghi));
+                // below lo
+                ctx2d.fillRect(x0, yOfE(ymax), (x1 - x0), yOfE(glo) - yOfE(ymax));
+            }
+            ctx2d.restore();
+
+            // gray forbidden regions
+            ctx2d.save();
+            ctx2d.globalAlpha = 0.28;
+            ctx2d.fillStyle = "#6b7280";
+            const stepG = CFG.dtPlot;
+            for (let i = 0; i < Math.floor(CFG.T / stepG); i++) {
+                const tL = i * stepG, tR = (i + 1) * stepG, tM = 0.5 * (tL + tR);
+                const ivs = grayIntervalsAt(tM);
+                if (!ivs) continue;
+                const x0 = xOfT(tL), x1 = xOfT(tR);
+                for (const [lo, hi] of ivs) {
+                    const y0 = yOfE(hi), y1 = yOfE(lo);
+                    ctx2d.fillRect(x0, y0, (x1 - x0), (y1 - y0));
+                }
+            }
+            ctx2d.restore();
+
+            // green bound lines
+            ctx2d.save();
+            ctx2d.globalAlpha = 0.35;
+            ctx2d.strokeStyle = "#cbd5e1";
+            ctx2d.lineWidth = 2;
+            ctx2d.beginPath();
+            for (let i = 0; i <= Math.floor(CFG.T / CFG.dtPlot); i++) {
+                const t = i * CFG.dtPlot;
+                const [glo] = greenBounds(t);
+                const x = xOfT(t), y = yOfE(glo);
+                if (i === 0) ctx2d.moveTo(x, y); else ctx2d.lineTo(x, y);
+            }
+            ctx2d.stroke();
+            ctx2d.beginPath();
+            for (let i = 0; i <= Math.floor(CFG.T / CFG.dtPlot); i++) {
+                const t = i * CFG.dtPlot;
+                const [, ghi] = greenBounds(t);
+                const x = xOfT(t), y = yOfE(ghi);
+                if (i === 0) ctx2d.moveTo(x, y); else ctx2d.lineTo(x, y);
+            }
+            ctx2d.stroke();
+            ctx2d.restore();
+
+            // axes
+            ctx2d.save();
+            ctx2d.strokeStyle = "rgba(255,255,255,0.35)";
+            ctx2d.lineWidth = 1;
+            ctx2d.beginPath();
+            ctx2d.moveTo(padL, padT);
+            ctx2d.lineTo(padL, padT + innerH);
+            ctx2d.lineTo(padL + innerW, padT + innerH);
+            ctx2d.stroke();
+            ctx2d.restore();
+
+            // y ticks: 1 tick per unit, label 0 and every k
+            const kLabel = 5;
+            ctx2d.save();
+            ctx2d.font = "12px ui-sans-serif, system-ui";
+            ctx2d.fillStyle = "rgba(255,255,255,0.75)";
+            ctx2d.strokeStyle = "rgba(255,255,255,0.18)";
+            for (let e = Math.ceil(ymin); e <= Math.floor(ymax); e++) {
+                const y = yOfE(e);
+                // small tick
+                ctx2d.beginPath();
+                ctx2d.moveTo(padL - 4, y);
+                ctx2d.lineTo(padL, y);
+                ctx2d.stroke();
+
+                // label only multiples of k
+                if (e % kLabel === 0) ctx2d.fillText(String(e), 12, y + 4);
+            }
+            ctx2d.restore();
+
+            // x label & y label (minimal)
+            ctx2d.save();
+            ctx2d.fillStyle = "rgba(255,255,255,0.75)";
+            ctx2d.font = "13px ui-sans-serif, system-ui";
+            ctx2d.fillText("time (s)", padL + innerW / 2 - 26, H - 14);
+            ctx2d.translate(16, padT + innerH / 2 + 40);
+            ctx2d.rotate(-Math.PI / 2);
+            ctx2d.fillText("evidence (#R - #L)", 0, 0);
+            ctx2d.restore();
+
+            // zero line
+            ctx2d.save();
+            ctx2d.setLineDash([6, 6]);
+            ctx2d.strokeStyle = "rgba(0,0,0,0.0)";
+            ctx2d.restore();
+
+            return { xOfT, yOfE, ymin, ymax, padL, padT, innerW, innerH };
+        }
+
+        function drawTrajectory(trial, frac) {
+            // frac in [0,1] draws up to that fraction of time
+            const base = plotStateSpaceBase(trial);
+            const { xOfT, yOfE } = base;
+
+            const ts = trial.traj.ts;
+            const E = trial.traj.E;
+
+            const tMax = CFG.T * frac;
+
+            let color = (trial.finalE > 0) ? "#ef4444" : (trial.finalE < 0) ? "#3b82f6" : "#22c55e";
+            ctx2d.save();
+            ctx2d.strokeStyle = color;
+            ctx2d.globalAlpha = 0.92;
+            ctx2d.lineWidth = 3;
+            ctx2d.beginPath();
+
+            let started = false;
+            for (let k = 0; k < ts.length; k++) {
+                const t = ts[k];
+                if (t > tMax) break;
+                const x = xOfT(t);
+                const y = yOfE(E[k]);
+                if (!started) { ctx2d.moveTo(x, y); started = true; }
+                else ctx2d.lineTo(x, y);
+            }
+            ctx2d.stroke();
+            ctx2d.restore();
+        }
+
+        /** ---------------------------
+         *  WebAudio stereo click playback
+         *  --------------------------- */
+        let audioCtx = null;
+
+        function ensureAudio() {
+            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            return audioCtx;
+        }
+
+        function scheduleClick(ctx, when, panVal) {
+            const osc = ctx.createOscillator();
+            osc.type = "sine";
+            osc.frequency.value = CFG.freqHz;
+
+            const gain = ctx.createGain();
+            gain.gain.setValueAtTime(0.0, when);
+
+            // short envelope (~clickMs)
+            const dur = CFG.clickMs / 1000.0;
+            gain.gain.linearRampToValueAtTime(CFG.amp, when + 0.0008);
+            gain.gain.exponentialRampToValueAtTime(0.0001, when + dur);
+
+            let pan;
+            if (ctx.createStereoPanner) {
+                pan = ctx.createStereoPanner();
+                pan.pan.setValueAtTime(panVal, when);
+            }
+
+            osc.connect(gain);
+            if (pan) gain.connect(pan).connect(ctx.destination);
+            else gain.connect(ctx.destination); // fallback (mono)
+
+            osc.start(when);
+            osc.stop(when + dur + 0.02);
+        }
+
+        function playStereoClicks(tL, tR) {
+            const ctx = ensureAudio();
+            const start = ctx.currentTime + 0.08;
+
+            for (const t of tL) scheduleClick(ctx, start + t, -1.0);
+            for (const t of tR) scheduleClick(ctx, start + t, +1.0);
+
+            const end = start + CFG.T + 0.05;
+            return new Promise(resolve => {
+                const ms = Math.max(0, (end - ctx.currentTime) * 1000);
+                setTimeout(resolve, ms);
+            });
+        }
+
+        /** ---------------------------
+         *  UI wiring
+         *  --------------------------- */
+        const startBtn = document.getElementById("startBtn");
+        const leftBtn = document.getElementById("leftBtn");
+        const rightBtn = document.getElementById("rightBtn");
+        const nextBtn = document.getElementById("nextBtn");
+        const statusEl = document.getElementById("status");
+        const trialInfo = document.getElementById("trialInfo");
+
+        let current = null;
+        let animHandle = null;
+        let awaitingResponse = false;
+
+        function setButtons({ start, lr, next }) {
+            startBtn.disabled = !start;
+            leftBtn.disabled = !lr;
+            rightBtn.disabled = !lr;
+            nextBtn.disabled = !next;
+        }
+
+        function verdictText(choice, correct) {
+            if (correct === "tie") return `Tie (final evidence = 0).`;
+            const ok = (choice === correct);
+            return ok ? `✅ Correct (${correct.toUpperCase()})` : `❌ Wrong. Correct was ${correct.toUpperCase()}.`;
+        }
+
+        function correctSide(finalE) {
+            if (finalE > 0) return "right";
+            if (finalE < 0) return "left";
+            return "tie";
+        }
+
+        async function runTrial() {
+            setButtons({ start: false, lr: false, next: false });
+            statusEl.textContent = "Sampling a constrained trajectory…";
+            try {
+                current = sampleTrial();
+            } catch (e) {
+                statusEl.textContent = "Failed to sample a valid trial. (Constraints may be too tight.)";
+                setButtons({ start: true, lr: false, next: false });
+                return;
+            }
+
+            const corr = correctSide(current.finalE);
+            trialInfo.textContent = `T=${CFG.T.toFixed(1)}s · finalE=${current.finalE} · (hidden)`;
+
+            // animate during playback
+            awaitingResponse = true;
+            statusEl.textContent = "Listen…";
+
+            let t0 = performance.now();
+            const animate = () => {
+                const elapsed = (performance.now() - t0) / 1000;
+                const frac = Math.min(1, elapsed / CFG.T);
+                drawTrajectory(current, frac);
+                if (frac < 1 && awaitingResponse) animHandle = requestAnimationFrame(animate);
+            };
+            animHandle = requestAnimationFrame(animate);
+
+            await playStereoClicks(current.tL, current.tR);
+
+            // show full trajectory after audio ends (still “blind” except trajectory is already visible)
+            drawTrajectory(current, 1.0);
+
+            statusEl.textContent = "Choose: Left or Right.";
+            setButtons({ start: false, lr: true, next: false });
+        }
+
+        function finish(choice) {
+            if (!awaitingResponse) return;
+            awaitingResponse = false;
+            if (animHandle) cancelAnimationFrame(animHandle);
+
+            const corr = correctSide(current.finalE);
+            statusEl.textContent = verdictText(choice, corr);
+
+            setButtons({ start: false, lr: false, next: true });
+        }
+
+        startBtn.addEventListener("click", () => runTrial());
+        nextBtn.addEventListener("click", () => {
+            statusEl.textContent = "Press Start.";
+            setButtons({ start: true, lr: false, next: false });
+            current = null;
+            clearCanvas();
+        });
+
+        leftBtn.addEventListener("click", () => finish("left"));
+        rightBtn.addEventListener("click", () => finish("right"));
+
+        // initial view
+        clearCanvas();
+        setButtons({ start: true, lr: false, next: false });
+    </script>
+</body>
+
+</html>
