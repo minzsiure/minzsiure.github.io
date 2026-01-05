@@ -83,14 +83,16 @@ export function initApp() {
     async function runTrial() {
         setButtons({ start: false, lr: false, next: false, reveal: false });
         statusEl.textContent = "Sampling a constrained trajectory…";
+        audioStartMs = null;
 
-        try { current = sampleTrial(); trialIndex += 1;}
+        try { current = sampleTrial();}
         catch (e) {
             statusEl.textContent =
                 "Failed to sample a valid trial (constraints may be too tight).";
             setButtons({ start: true, lr: false, next: false, reveal: false });
             return;
         }
+        trialIndex += 1; // record valid trials only
 
         // Hide plot during decision phase
         revealed = false;
@@ -112,18 +114,33 @@ export function initApp() {
     }
 
     async function finishDecision(userChoice) {
+        if (!awaitingResponse || !current) return;
+        
+        awaitingResponse = false;
+        choice = userChoice;
+
         const responseMs = Date.now();
+        const audioMs = audioStartMs ?? null;
+
+        // If audioStartMs was never set, don't log (something went wrong)
+        if (audioMs === null) {
+            statusEl.textContent = "Internal error: missing audio start time.";
+            setButtons({ start: true, lr: false, next: false, reveal: false });
+            return;
+        }
+
         const correct = correctSide(current.finalE);
         const success = (correct !== "tie") && (userChoice === correct);
+
         const row = {
             trial_index: trialIndex,
 
             // readable timestamps
-            audio_start_iso: new Date(audioStartMs).toISOString(),
+            audio_start_iso: new Date(audioMs).toISOString(),
             response_iso: new Date(responseMs).toISOString(),
 
             // ms for analysis
-            rt_ms: responseMs - audioStartMs,
+            rt_ms: responseMs - audioMs,
 
             // rates
             lam_pair: CFG.lamPair,
@@ -147,10 +164,6 @@ export function initApp() {
                 statusEl.textContent += "  (DB save failed; see console.)";
             }
         }
-        
-        if (!awaitingResponse) return;
-        awaitingResponse = false;
-        choice = userChoice;
 
         statusEl.textContent = verdictText(choice, correct) + "  (Click Reveal to see the trajectory.)";
 
@@ -177,7 +190,9 @@ export function initApp() {
         };
         requestAnimationFrame(animate);
 
-        await playStereoClicks(current.tL, current.tR);
+        const audio = playStereoClicks(current.tL, current.tR);
+        await audio.done;
+
         running = false;
         plot.drawTrajectory(current, 1.0);
 
