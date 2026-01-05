@@ -36,11 +36,8 @@
     </div>
     <!-- <script type="module" src="./js/main.js"></script> -->
     <script type="module">
-        import { CFG } from "./js/config.js";
-        window.CFG = CFG;
-    </script>
-    <script>
-        const CFG = window.CFG;
+        import { CFG as CFG_IMPORTED } from "./js/config.js";
+        const CFG = CFG_IMPORTED;
         /** ---------------------------
          *  RNG
          *  --------------------------- */
