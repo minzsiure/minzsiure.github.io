@@ -37,13 +37,23 @@ export function scheduleClick(ctx, when, panVal) {
 
 export function playStereoClicks(tL, tR) {
     const ctx = ensureAudio();
-    const start = ctx.currentTime + 0.08;
+
+    const leadSec = 0.08;
+    const leadMs = Math.round(leadSec * 1000);
+
+    // human timing anchor for this trial
+    const audioStartMs = Date.now() + leadMs;
+
+    const start = ctx.currentTime + leadSec;
     for (const t of tL) scheduleClick(ctx, start + t, -1.0);
     for (const t of tR) scheduleClick(ctx, start + t, +1.0);
 
     const end = start + CFG.T + 0.05;
-    return new Promise(resolve => {
+
+    const done = new Promise((resolve) => {
         const ms = Math.max(0, (end - ctx.currentTime) * 1000);
         setTimeout(resolve, ms);
     });
+
+    return { audioStartMs, done };
 }
