@@ -3,7 +3,7 @@ import { sampleTrial } from "./sampler.js";
 import { playStereoClicks } from "./audio.js";
 import { initPlotting } from "./plotting.js";
 
-import { logTrialToSupabase } from "./api.js";
+import { logTrialToSupabase, verifyPassword } from "./api.js";
 
 function sleep(ms) {
     return new Promise(r => setTimeout(r, ms));
@@ -27,12 +27,33 @@ export function initApp() {
     let loggingArmed = false;
     let adminPassword = null;   // what users typed
 
-    pwBtn.addEventListener("click", () => {
-        const pw = prompt("Enter logging password:");
-        if (pw === null) return;
-        adminPassword = pw.trim();
-        loggingArmed = adminPassword.length > 0;
-        statusEl.textContent = loggingArmed ? "Logged in ✅" : "Logging disabled";
+    pwBtn.addEventListener("click", async () => {
+    const pw = prompt("Enter logging password:");
+    if (pw === null) return;
+
+    const candidate = pw.trim();
+    if (!candidate) {
+        adminPassword = null;
+        loggingArmed = false;
+        statusEl.textContent = "Logging disabled";
+        return;
+    }
+
+    statusEl.textContent = "Checking password…";
+    pwBtn.disabled = true;
+
+    try {
+        await verifyPassword(candidate);
+        adminPassword = candidate;
+        loggingArmed = true;
+        statusEl.textContent = "Logged in ✅";
+    } catch (e) {
+        adminPassword = null;
+        loggingArmed = false;
+        statusEl.textContent = "Wrong password ❌";
+    } finally {
+        pwBtn.disabled = false;
+    }
     });
 
 

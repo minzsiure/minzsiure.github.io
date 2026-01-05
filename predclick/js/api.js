@@ -1,14 +1,24 @@
 // js/api.js
-const LOG_TRIAL_URL = "https://piybvpftfzevmvhkcbgi.functions.supabase.co/log_trial";
+const LOG_TRIAL_URL =
+  "https://piybvpftfzevmvhkcbgi.functions.supabase.co/log_trial";
 
-export async function logTrialToSupabase({ password, row }) {
+async function post(payload) {
   const res = await fetch(LOG_TRIAL_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ password, row }),
+    body: JSON.stringify(payload),
   });
 
   const out = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(out?.error || `HTTP ${res.status}`);
   return out;
+}
+
+// calls edge function with {password} only -> should return {ok:true} if correct
+export async function verifyPassword(password) {
+  return await post({ password });
+}
+
+export async function logTrialToSupabase({ password, row }) {
+  return await post({ password, row });
 }
