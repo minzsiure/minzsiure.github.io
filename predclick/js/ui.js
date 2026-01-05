@@ -87,6 +87,7 @@ export function initApp() {
 
         try { current = sampleTrial();}
         catch (e) {
+            current = null;
             statusEl.textContent =
                 "Failed to sample a valid trial (constraints may be too tight).";
             setButtons({ start: true, lr: false, next: false, reveal: false });
