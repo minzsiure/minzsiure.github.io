@@ -3,8 +3,8 @@ import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 type Payload = {
-  password: string;
-  row: Record<string, unknown>;
+  password?: unknown;
+  row?: unknown;
 };
 
 function corsHeaders(origin: string | null) {
@@ -12,7 +12,8 @@ function corsHeaders(origin: string | null) {
   // e.g. "https://eva-xie.github.io"
   return {
     "Access-Control-Allow-Origin": origin ?? "*",
-    "Access-Control-Allow-Headers": "content-type, authorization, apikey, x-client-info",
+    "Access-Control-Allow-Headers":
+      "content-type, authorization, apikey, x-client-info",
     "Access-Control-Allow-Methods": "POST, OPTIONS",
   };
 }
@@ -20,7 +21,7 @@ function corsHeaders(origin: string | null) {
 function json(
   status: number,
   body: Record<string, unknown>,
-  origin: string | null,
+  origin: string | null
 ) {
   return new Response(JSON.stringify(body), {
     status,
@@ -48,8 +49,12 @@ serve(async (req) => {
   if (!EDGE_PASSWORD || !PROJECT_URL || !SERVICE_ROLE_KEY) {
     return json(
       500,
-      { ok: false, error: "Missing env vars (EDGE_PASSWORD / PROJECT_URL / SERVICE_ROLE_KEY)" },
-      origin,
+      {
+        ok: false,
+        error:
+          "Missing env vars (EDGE_PASSWORD / PROJECT_URL / SERVICE_ROLE_KEY)",
+      },
+      origin
     );
   }
 
@@ -60,7 +65,7 @@ serve(async (req) => {
     return json(400, { ok: false, error: "Invalid JSON body" }, origin);
   }
 
-  const { password, row } = payload ?? ({} as Payload);
+  const { password, row } = (payload ?? {}) as Payload;
 
   if (typeof password !== "string" || password.length === 0) {
     return json(400, { ok: false, error: "Missing password" }, origin);
@@ -70,9 +75,17 @@ serve(async (req) => {
     return json(401, { ok: false, error: "Wrong password" }, origin);
   }
 
-  if (!row || typeof row !== "object") {
-    return json(400, { ok: false, error: "Missing row" }, origin);
+  // If no row provided, just confirm password is correct
+  if (row === undefined || row === null) {
+    return json(200, { ok: true }, origin);
   }
+
+  if (typeof row !== "object" || Array.isArray(row)) {
+    return json(400, { ok: false, error: "Invalid row" }, origin);
+  }
+
+  // from here on, row is an object
+  const rowObj = row as Record<string, unknown>;
 
   // (Optional) light sanity checks to avoid junk writes
   const required = [
@@ -90,16 +103,14 @@ serve(async (req) => {
     "success",
   ];
   for (const k of required) {
-    if (!(k in row)) {
+    if (!(k in rowObj)) {
       return json(400, { ok: false, error: `Row missing field: ${k}` }, origin);
     }
   }
 
   const supabaseAdmin = createClient(PROJECT_URL, SERVICE_ROLE_KEY);
 
-  const { error } = await supabaseAdmin
-    .from("predclick_trials")
-    .insert(row);
+  const { error } = await supabaseAdmin.from("predclick_trials").insert(rowObj);
 
   if (error) {
     return json(500, { ok: false, error: error.message }, origin);
