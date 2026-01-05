@@ -5,6 +5,7 @@ export const CFG = {
     dtCheck: 0.01,
     maxAttempts: 5000,
     avoidTie: true,
+    maxTriesPerBin: 200,
 
     // audio click
     clickMs: 2.0,
