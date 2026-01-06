@@ -207,7 +207,7 @@ export function initApp() {
       verdictText(choice, correct) + "  (Click Reveal to see the trajectory.)";
 
     // enable reveal button; keep overlay up
-    setButtons({ start: false, lr: false, next: false, reveal: true });
+    setButtons({ start: false, lr: false, next: true, reveal: true });
   }
 
   async function doReveal() {
