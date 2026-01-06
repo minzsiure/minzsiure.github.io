@@ -45,7 +45,8 @@ export function generateClicksWithConstraintsBinwise(T, lamPair, dt, maxTriesPer
     for (let k = 0; k < nBins; k++) {
         const t0 = k * dt;
         const t1 = Math.min(T, (k + 1) * dt);
-        const dtk = t1 - t0;
+        // const dtk = t1 - t0;
+        const dtq = dt;
 
         let accepted = false;
 
@@ -55,8 +56,8 @@ export function generateClicksWithConstraintsBinwise(T, lamPair, dt, maxTriesPer
 
             const tL = new Array(nL);
             const tR = new Array(nR);
-            for (let i = 0; i < nL; i++) tL[i] = t0 + rng() * dtk;
-            for (let i = 0; i < nR; i++) tR[i] = t0 + rng() * dtk;
+            for (let i = 0; i < nL; i++) tL[i] = Math.min(hi, Math.max(t0, Math.round((t0 + rng() * dtk) / dtq) * dtq));
+            for (let i = 0; i < nR; i++) tR[i] = Math.min(hi, Math.max(t0, Math.round((t0 + rng() * dtk) / dtq) * dtq));
 
             // events = [(tR,+1), (tL,-1)], sorted by time (same as Python)
             const events = [];
