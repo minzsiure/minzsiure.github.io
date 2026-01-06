@@ -44,6 +44,15 @@ export function initApp() {
   /** ---------------------------
    *  User authentification
    *  --------------------------- */
+  //   // Force sign-out on every page load / refresh
+  //   (async () => {
+  //     try {
+  //       await signOut();
+  //     } catch (e) {
+  //       // ignore (e.g. already signed out)
+  //     }
+  //   })();
+
   async function refreshAuthUI() {
     session = await getSession();
 
