@@ -2,10 +2,13 @@
 const LOG_TRIAL_URL =
   "https://piybvpftfzevmvhkcbgi.functions.supabase.co/log_trial";
 
-async function post(payload) {
+async function post(payload, accessToken = null) {
+  const headers = { "Content-Type": "application/json" };
+  if (accessToken) headers["Authorization"] = `Bearer ${accessToken}`;
+
   const res = await fetch(LOG_TRIAL_URL, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers,
     body: JSON.stringify(payload),
   });
 

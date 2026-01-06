@@ -29,6 +29,13 @@ function json(
   });
 }
 
+function getBearerToken(req: Request): string | null {
+  const h = req.headers.get("authorization");
+  if (!h) return null;
+  const m = h.match(/^Bearer\s+(.+)$/i);
+  return m ? m[1] : null;
+}
+
 serve(async (req) => {
   const origin = req.headers.get("origin");
 
@@ -87,8 +94,8 @@ serve(async (req) => {
   // from here on, row is an object
   const rowObj = row as Record<string, unknown>;
 
-  // (Optional) light sanity checks to avoid junk writes
-  const required = [
+  // Common required fields (both tables)
+  const requiredCommon = [
     "trial_index",
     "audio_start_iso",
     "response_iso",
@@ -102,21 +109,52 @@ serve(async (req) => {
     "user_choice",
     "success",
   ];
-  for (const k of required) {
+  for (const k of requiredCommon) {
     if (!(k in rowObj)) {
       return json(400, { ok: false, error: `Row missing field: ${k}` }, origin);
     }
   }
 
   const supabaseAdmin = createClient(PROJECT_URL, SERVICE_ROLE_KEY);
+  // If user token is present -> insert into main table with user info
+  const token = getBearerToken(req);
+  if (token) {
+    const { data: userData, error: userErr } = await supabaseAdmin.auth.getUser(
+      token
+    );
+    if (userErr || !userData?.user) {
+      return json(401, { ok: false, error: "Invalid auth token" }, origin);
+    }
+
+    const user = userData.user;
+    const username = (user.user_metadata as any)?.username ?? "unknown";
+
+    const insertRow = { ...rowObj, user_id: user.id, username };
+
+    const { error } = await supabaseAdmin
+      .from("predclick_trials")
+      .insert(insertRow);
+
+    if (error) return json(500, { ok: false, error: error.message }, origin);
+    return json(200, { ok: true, mode: "user" }, origin);
+  }
+
+  // Otherwise -> anonymous => debug table, require session_id
+  if (!("session_id" in rowObj)) {
+    return json(
+      400,
+      {
+        ok: false,
+        error: "Row missing field: session_id (required for debug)",
+      },
+      origin
+    );
+  }
 
   const { error } = await supabaseAdmin
     .from("predclick_trials_debug")
     .insert(rowObj);
 
-  if (error) {
-    return json(500, { ok: false, error: error.message }, origin);
-  }
-
-  return json(200, { ok: true }, origin);
+  if (error) return json(500, { ok: false, error: error.message }, origin);
+  return json(200, { ok: true, mode: "debug" }, origin);
 });
