@@ -170,8 +170,8 @@ export function initApp() {
             lam_r: current.lamR,
 
             // click trains (seconds-from-trial-start)
-            tL_s: Array.from(current.tL),
-            tR_s: Array.from(current.tR),
+            left_clicks_s: Array.from(current.tL),
+            right_clicks_s: Array.from(current.tR),
 
             correct_choice: correct,
             user_choice: userChoice,
