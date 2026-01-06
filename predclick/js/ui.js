@@ -26,17 +26,47 @@ export function initApp() {
   const overlayEl = document.getElementById("revealOverlay");
   const revealBtn = document.getElementById("revealBtn");
 
+  // --- auth UI
+  const authStatusEl = document.getElementById("authStatus");
+  const signInBtn = document.getElementById("signInBtn");
+  const signUpBtn = document.getElementById("signUpBtn");
+  const signOutBtn = document.getElementById("signOutBtn");
+
+  // data logging UI
   const pwBtn = document.getElementById("pwBtn");
   const logToggleWrap = document.getElementById("logToggleWrap");
   const logToggle = document.getElementById("logToggle");
   let adminPassword = null; // what users typed
   let passwordVerified = false;
   let loggingEnabled = false;
-  let session = null;
-  getSession().then((s) => {
-    session = s;
-  });
 
+  let session = null;
+  /** ---------------------------
+   *  User authentification
+   *  --------------------------- */
+  async function refreshAuthUI() {
+    session = await getSession();
+
+    if (session) {
+      const username =
+        session.user?.user_metadata?.username ??
+        session.user?.email?.split("@")?.[0] ??
+        "user";
+
+      authStatusEl.textContent = `Signed in: ${username}`;
+      signOutBtn.style.display = "inline-block";
+      signInBtn.style.display = "none";
+      signUpBtn.style.display = "none";
+    } else {
+      authStatusEl.textContent = "Anonymous";
+      signOutBtn.style.display = "none";
+      signInBtn.style.display = "inline-block";
+      signUpBtn.style.display = "inline-block";
+    }
+  }
+  refreshAuthUI();
+
+  // ---- password button
   pwBtn.addEventListener("click", async () => {
     const pw = prompt("Enter logging password:");
     if (pw === null) return;
@@ -69,6 +99,53 @@ export function initApp() {
 
       statusEl.textContent = "Wrong password ❌";
       pwBtn.disabled = false; // allow retry
+    }
+  });
+
+  // ---- auth buttons
+  signUpBtn.addEventListener("click", async () => {
+    const username = prompt("Choose a username:");
+    if (!username) return;
+    const password = prompt("Choose a password:");
+    if (!password) return;
+
+    statusEl.textContent = "Signing up…";
+    try {
+      await signUpUsername(username.trim(), password);
+      statusEl.textContent = "Sign-up ok ✅  Now sign in.";
+      await refreshAuthUI(); // session may or may not exist depending on email confirm settings
+    } catch (e) {
+      console.error(e);
+      statusEl.textContent = `Sign-up failed: ${e.message ?? e}`;
+    }
+  });
+
+  signInBtn.addEventListener("click", async () => {
+    const username = prompt("Username:");
+    if (!username) return;
+    const password = prompt("Password:");
+    if (!password) return;
+
+    statusEl.textContent = "Signing in…";
+    try {
+      await signInUsername(username.trim(), password);
+      statusEl.textContent = "Signed in ✅";
+      await refreshAuthUI();
+    } catch (e) {
+      console.error(e);
+      statusEl.textContent = `Sign-in failed: ${e.message ?? e}`;
+    }
+  });
+
+  signOutBtn.addEventListener("click", async () => {
+    statusEl.textContent = "Signing out…";
+    try {
+      await signOut();
+      statusEl.textContent = "Signed out.";
+      await refreshAuthUI();
+    } catch (e) {
+      console.error(e);
+      statusEl.textContent = `Sign-out failed: ${e.message ?? e}`;
     }
   });
 

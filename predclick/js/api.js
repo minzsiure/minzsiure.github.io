@@ -22,6 +22,10 @@ export async function verifyPassword(password) {
   return await post({ password });
 }
 
-export async function logTrialToSupabase({ password, row }) {
-  return await post({ password, row });
+export async function logTrialToSupabase({
+  password,
+  row,
+  accessToken = null,
+}) {
+  return await post({ password, row }, accessToken);
 }
