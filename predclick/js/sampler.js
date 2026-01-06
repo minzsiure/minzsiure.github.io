@@ -47,6 +47,7 @@ export function generateClicksWithConstraintsBinwise(T, lamPair, dt, maxTriesPer
         const t1 = Math.min(T, (k + 1) * dt);
         // const dtk = t1 - t0;
         const dtq = dt;
+        const hi = t1 - 1e-12;
 
         let accepted = false;
 
