@@ -24,20 +24,18 @@ export function initApp() {
   const revealBtn = document.getElementById("revealBtn");
 
   const pwBtn = document.getElementById("pwBtn");
-  let loggingArmed = false;
+  const logToggleWrap = document.getElementById("logToggleWrap");
+  const logToggle = document.getElementById("logToggle");
   let adminPassword = null; // what users typed
+  let passwordVerified = false; // NEW
+  let loggingEnabled = false; // NEW
 
   pwBtn.addEventListener("click", async () => {
     const pw = prompt("Enter logging password:");
     if (pw === null) return;
 
     const candidate = pw.trim();
-    if (!candidate) {
-      adminPassword = null;
-      loggingArmed = false;
-      statusEl.textContent = "Logging disabled";
-      return;
-    }
+    if (!candidate) return;
 
     statusEl.textContent = "Checking password…";
     pwBtn.disabled = true;
@@ -46,16 +44,31 @@ export function initApp() {
       await verifyPassword(candidate);
 
       adminPassword = candidate;
-      loggingArmed = true;
+      passwordVerified = true;
 
-      statusEl.textContent = "Logged in ✅";
-      pwBtn.textContent = "Logging enabled"; // optional
-      pwBtn.disabled = true; // keep disabled permanently
+      // show toggle, default ON
+      logToggleWrap.style.display = "inline-flex";
+      logToggle.checked = true;
+      loggingEnabled = true;
+
+      statusEl.textContent = "Password ok ✅  Data logging ON";
+      pwBtn.textContent = "Password ✓";
+      pwBtn.disabled = true; // lock password button after success
     } catch (e) {
       adminPassword = null;
-      loggingArmed = false;
+      passwordVerified = false;
+      loggingEnabled = false;
+      logToggleWrap.style.display = "none";
+
       statusEl.textContent = "Wrong password ❌";
       pwBtn.disabled = false; // allow retry
+    }
+  });
+
+  logToggle.addEventListener("change", () => {
+    loggingEnabled = logToggle.checked;
+    if (passwordVerified) {
+      statusEl.textContent = loggingEnabled ? "Logging ON" : "Logging OFF";
     }
   });
 
@@ -181,7 +194,7 @@ export function initApp() {
       success,
     };
 
-    if (loggingArmed && adminPassword) {
+    if (passwordVerified && loggingEnabled && adminPassword) {
       try {
         await logTrialToSupabase({ password: adminPassword, row });
       } catch (e) {
