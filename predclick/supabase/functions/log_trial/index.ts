@@ -110,7 +110,9 @@ serve(async (req) => {
 
   const supabaseAdmin = createClient(PROJECT_URL, SERVICE_ROLE_KEY);
 
-  const { error } = await supabaseAdmin.from("predclick_trials").insert(rowObj);
+  const { error } = await supabaseAdmin
+    .from("predclick_trials_debug")
+    .insert(rowObj);
 
   if (error) {
     return json(500, { ok: false, error: error.message }, origin);
