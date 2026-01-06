@@ -5,3 +5,5 @@ Gemfile.lock
 .DS_Store
 .jekyll-cache
 git-update.sh
+predclick/js/secret.local.js
+predclick/js/supabase.local.js
