@@ -3,6 +3,7 @@ import { sampleTrial } from "./sampler.js";
 import { playStereoClicks } from "./audio.js";
 import { initPlotting } from "./plotting.js";
 
+import { signUpUsername, signInUsername, signOut, getSession } from "./auth.js";
 import { logTrialToSupabase, verifyPassword } from "./api.js";
 
 function sleep(ms) {
@@ -13,6 +14,8 @@ export function initApp() {
   /** ---------------------------
    *  DOM
    *  --------------------------- */
+  const sessionId = crypto.randomUUID();
+
   const startBtn = document.getElementById("startBtn");
   const leftBtn = document.getElementById("leftBtn");
   const rightBtn = document.getElementById("rightBtn");
@@ -27,8 +30,12 @@ export function initApp() {
   const logToggleWrap = document.getElementById("logToggleWrap");
   const logToggle = document.getElementById("logToggle");
   let adminPassword = null; // what users typed
-  let passwordVerified = false; // NEW
-  let loggingEnabled = false; // NEW
+  let passwordVerified = false;
+  let loggingEnabled = false;
+  let session = null;
+  getSession().then((s) => {
+    session = s;
+  });
 
   pwBtn.addEventListener("click", async () => {
     const pw = prompt("Enter logging password:");
@@ -194,9 +201,14 @@ export function initApp() {
       success,
     };
 
+    const s = await getSession(); // always fresh
+    const accessToken = s?.access_token ?? null;
+
+    if (!accessToken) row.session_id = sessionId; // required for debug table
+
     if (passwordVerified && loggingEnabled && adminPassword) {
       try {
-        await logTrialToSupabase({ password: adminPassword, row });
+        await logTrialToSupabase({ password: adminPassword, row, accessToken });
       } catch (e) {
         console.error(e);
         statusEl.textContent += "  (DB save failed; see console.)";
