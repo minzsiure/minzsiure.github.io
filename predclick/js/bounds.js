@@ -70,8 +70,8 @@ function polygonIntervalAt(t, vertices) {
   return [lo, hi];
 }
 
-function blockIntervalsAt(t) {
-  if (CFG.condition !== "test") return null;
+function blockIntervalsAt(t, condition) {
+  if (condition !== "test") return null;
   const ivs = [];
   const blocks = CFG.grayBlocks ?? [];
 
@@ -123,15 +123,15 @@ function blockIntervalsAt(t) {
   return merged;
 }
 
-export function grayIntervalsAt(t) {
-  return blockIntervalsAt(t);
+export function grayIntervalsAt(t, condition = CFG.condition) {
+  return blockIntervalsAt(t, condition);
 }
 
-export function allowed(e, t) {
+export function allowed(e, t, condition = CFG.condition) {
   // control: no constraints at all
-  if (CFG.condition !== "test") return true;
+  if (condition !== "test") return true;
 
-  const gray = grayIntervalsAt(t);
+  const gray = grayIntervalsAt(t, condition);
   if (gray) {
     for (const [lo, hi] of gray) {
       if (lo <= e && e <= hi) return false;

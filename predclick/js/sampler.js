@@ -3,6 +3,13 @@ import { CFG } from "./config.js";
 import { rng, poissonKnuth } from "./rng.js";
 import { allowed } from "./bounds.js";
 
+function getSchedule(condition) {
+  const c = condition ?? CFG.condition;
+  const sched = CFG.schedules?.[c] ?? CFG.schedules?.[CFG.condition];
+  if (!sched) throw new Error(`Missing schedule for condition=${c}`);
+  return sched; // { lam, prb }
+}
+
 /** Evidence trajectory on a grid */
 export function evidenceTrajectory(tL, tR, T, dt) {
   const n = Math.floor(T / dt) + 1;
@@ -68,7 +75,7 @@ function drawFirstStereoTime(T, lamL, lamR) {
   throw new Error("Could not sample t_first < T; check rates/T.");
 }
 
-function drawFirstStereoTimeConstrained(T, lamL, lamR, dt) {
+function drawFirstStereoTimeConstrained(T, lamL, lamR, dt, condition) {
   const rate = lamL + lamR;
   if (rate <= 0) return null;
 
@@ -81,12 +88,12 @@ function drawFirstStereoTimeConstrained(T, lamL, lamR, dt) {
     let ok = true;
     for (let k = 0; k <= n; k++) {
       const tChk = Math.min(tFirst, k * dt);
-      if (!allowed(0, tChk)) {
+      if (!allowed(0, tChk, condition)) {
         ok = false;
         break;
       }
     }
-    if (ok && allowed(0, tFirst)) return tFirst;
+    if (ok && allowed(0, tFirst, condition)) return tFirst;
   }
   throw new Error("Could not sample feasible t_first under gray constraints.");
 }
@@ -101,18 +108,18 @@ export function generateClicksGrayOnlyBinwise(
   maxTriesPerBin,
   condition = CFG.condition
 ) {
+  const { lam, prb } = getSchedule(condition);
   // choose lam pair
   let i;
-  if (!CFG.prb) {
-    i = Math.floor(rng() * CFG.lam.length);
+  if (!prb) {
+    i = Math.floor(rng() * lam.length);
   } else {
-    // normalize just in case
-    const p = CFG.prb.slice();
+    const p = prb.slice();
     const s = p.reduce((a, b) => a + b, 0);
     for (let j = 0; j < p.length; j++) p[j] /= s;
     i = sampleCategorical(p);
   }
-  const [lamA, lamB] = CFG.lam[i];
+  const [lamA, lamB] = lam[i];
 
   // random side assignment per trial
   let lamL, lamR;
@@ -130,7 +137,7 @@ export function generateClicksGrayOnlyBinwise(
     if (condition !== "test") {
       tFirst = drawFirstStereoTime(T, lamL, lamR);
     } else {
-      tFirst = drawFirstStereoTimeConstrained(T, lamL, lamR, dt);
+      tFirst = drawFirstStereoTimeConstrained(T, lamL, lamR, dt, condition);
     }
   }
 
@@ -148,7 +155,7 @@ export function generateClicksGrayOnlyBinwise(
 
     // if entire bin before tFirst: no unilateral clicks, just feasibility at t1
     if (tFirst != null && t1 <= tFirst) {
-      if (!allowed(e, t1)) {
+      if (!allowed(e, t1, condition)) {
         throw new Error(
           `Constraints violated before t_first at t=${t1.toFixed(3)}`
         );
@@ -197,21 +204,21 @@ export function generateClicksGrayOnlyBinwise(
       let ok = ipiOk(times, lastClickTime, CFG.minIpi);
 
       // if stereo in this bin, ensure allowed at tFirst too (same as python)
-      if (ok && addStereoNow && !allowed(e, tFirst)) ok = false;
+      if (ok && addStereoNow && !allowed(e, tFirst, condition)) ok = false;
 
       // apply events sequentially: update e then check allowed (matches your python)
       let eTmp = e;
       if (ok) {
         for (const [tt, de] of events) {
           eTmp += de;
-          if (!allowed(eTmp, tt)) {
+          if (!allowed(eTmp, tt, condition)) {
             ok = false;
             break;
           }
         }
       }
 
-      if (ok && allowed(eTmp, t1)) {
+      if (ok && allowed(eTmp, t1, condition)) {
         // accept bin
         if (addStereoNow) {
           tL_all.push(tFirst);
@@ -271,7 +278,7 @@ export function sampleTrial(condition = CFG.condition) {
     if (CFG.avoidTie && out.finalE === 0) continue;
 
     const trajPlot = evidenceTrajectory(out.tL, out.tR, T, CFG.dtPlot);
-    return { ...out, traj: trajPlot };
+    return { ...out, condition, traj: trajPlot };
   }
 
   throw new Error("Could not sample a valid trial (constraints too tight).");

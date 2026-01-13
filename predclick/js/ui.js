@@ -43,6 +43,8 @@ export function initApp() {
   let loggingEnabled = false;
 
   let session = null;
+  let sessionJustConcluded = false;
+
   /** ---------------------------
    *  User authentification
    *  --------------------------- */
@@ -195,10 +197,6 @@ export function initApp() {
   let sessionIndex = 0; // counts sessions started this page load (optional)
   let currentCondition = null; // condition for current trial
 
-  function sessionStatusText() {
-    if (!inSession) return "";
-    return `Session active`;
-  }
   function nextSessionCondition() {
     if (!inSession) return CFG.condition; // fallback
     return blockOrder[blockIndex];
@@ -217,8 +215,8 @@ export function initApp() {
     if (sessionDone >= sessionTotal) {
       inSession = false;
       currentCondition = null;
+      sessionJustConcluded = true; // <--- add this
       statusEl.textContent = "Session concluded ✅";
-      // let user choose what to do next
       setButtons({
         start: true,
         startSession: true,
@@ -239,6 +237,7 @@ export function initApp() {
       statusEl.textContent = "Invalid number of trials.";
       return;
     }
+    sessionJustConcluded = false;
 
     // initialize session
     inSession = true;
@@ -294,6 +293,7 @@ export function initApp() {
    *  --------------------------- */
   async function runTrial() {
     if (awaitingResponse) return;
+    sessionJustConcluded = false;
 
     setButtons({ start: false, lr: false, next: false, reveal: false });
     statusEl.textContent = "Sampling a constrained trajectory…";
@@ -306,7 +306,13 @@ export function initApp() {
       current = null;
       statusEl.textContent =
         "Failed to sample a valid trial (constraints may be too tight).";
-      setButtons({ start: true, lr: false, next: false, reveal: false });
+      setButtons({
+        start: true,
+        startSession: !inSession,
+        lr: false,
+        next: false,
+        reveal: false,
+      });
       return;
     }
     trialIndex += 1; // record valid trials only
@@ -448,9 +454,12 @@ export function initApp() {
     revealBtn.disabled = true;
     plot.drawBlankPlot();
 
-    statusEl.textContent = inSession
-      ? "Session active. Press Start."
-      : "Press Start.";
+    if (!sessionJustConcluded) {
+      statusEl.textContent = inSession
+        ? "Session active. Press Start."
+        : "Press Start.";
+    }
+
     setButtons({
       start: true,
       startSession: !inSession,

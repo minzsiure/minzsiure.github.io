@@ -4,7 +4,7 @@ const SHIFT = {
   B: -0.1, // matches python shift_dic
 };
 
-// pick condition
+// pick shift
 const SHIFT_KEY = "A";
 const s = SHIFT[SHIFT_KEY] ?? 0.0;
 
@@ -14,9 +14,10 @@ const s = SHIFT[SHIFT_KEY] ?? 0.0;
 const T = 1.0;
 const dt = 0.01;
 
+//
 // ===== rate schedules =====
-
-// TEST (your current 4-pair uniform)
+//
+// TEST schedule
 const LAM_TEST = [
   [39, 1],
   [31, 9],
@@ -25,7 +26,7 @@ const LAM_TEST = [
 ];
 const PRB_TEST = [0.25, 0.25, 0.25, 0.25];
 
-// CONTROL (your requested 5-pair schedule)
+// CONTROL schedule
 const LAM_CONTROL = [
   [39, 1],
   [37, 3],
@@ -56,17 +57,16 @@ const tilt_up_offset_time = tilt_up_onset_time + 0.06; // 0.51
 const tile_up_onset_evidence = R_high + 1.0; // 12.0
 const tile_up_offset_evidence = R_high + 2.0; // 13.0
 
-// --- condition switch ---
-// "control": no gray blocks (allowed everywhere)
-// "test": gray blocks enabled
-const CONDITION = "test"; // <-- flip to "control"
-
-// choose lam/prb based on condition
-const lam = CONDITION === "control" ? LAM_CONTROL : LAM_TEST;
-const prb = CONDITION === "control" ? PRB_CONTROL : PRB_TEST;
+//
+// ----- Default/free-play condition -----
+// This is ONLY the default when you call sampleTrial() with no args.
+// Sessions should call sampleTrial("control") / sampleTrial("test") explicitly.
+//
+const DEFAULT_CONDITION = "test"; // or "control"
 
 export const CFG = {
-  condition: CONDITION,
+  // default condition for free-play
+  condition: DEFAULT_CONDITION,
 
   mode: "rodent",
   shiftKey: SHIFT_KEY,
@@ -77,12 +77,24 @@ export const CFG = {
   dtPlot: dt,
   dtCheck: dt,
 
+  // -------------------------
+  // schedules (BOTH, not baked)
+  // -------------------------
+  schedules: {
+    test: {
+      lam: LAM_TEST, // array of [lamA, lamB]
+      prb: PRB_TEST, // probabilities, same length
+    },
+    control: {
+      lam: LAM_CONTROL,
+      prb: PRB_CONTROL,
+    },
+  },
+
   // sampling
-  lam, // array of [lamL, lamR]
-  prb, // probabilities (same length as lam)
   maxAttempts: 5000,
   avoidTie: true,
-  maxTriesPerBin: 1000, // matches python max_tries_per_bin
+  maxTriesPerBin: 1000,
 
   // stereo first click + IPI
   firstClickStereo: true,
@@ -99,7 +111,7 @@ export const CFG = {
   L_high,
   L_low,
 
-  // gray blocks (constructed with shift `s`)
+  // gray blocks (only used when condition === "test")
   grayBlocks: [
     {
       kind: "wedgeTop",
