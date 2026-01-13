@@ -1,11 +1,6 @@
 // bounds.js
 import { CFG } from "./config.js";
 
-export function greenBounds(t) {
-  const w = CFG.w0 + (CFG.w1 - CFG.w0) * (t / CFG.T);
-  return [-w, +w];
-}
-
 function wedgeWidth(t, t_on, t_peak, t_off, w_on, w_peak, w_off) {
   if (t < t_on || t > t_off) return null;
   if (t <= t_peak) {
@@ -76,6 +71,7 @@ function polygonIntervalAt(t, vertices) {
 }
 
 function blockIntervalsAt(t) {
+  if (CFG.condition !== "test") return null;
   const ivs = [];
   const blocks = CFG.grayBlocks ?? [];
 
@@ -132,8 +128,8 @@ export function grayIntervalsAt(t) {
 }
 
 export function allowed(e, t) {
-  const [glo, ghi] = greenBounds(t);
-  if (!(glo <= e && e <= ghi)) return false;
+  // control: no constraints at all
+  if (CFG.condition !== "test") return true;
 
   const gray = grayIntervalsAt(t);
   if (gray) {

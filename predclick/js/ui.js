@@ -274,7 +274,6 @@ export function initApp() {
       rt_ms: responseMs - audioMs,
 
       // rates
-      lam_pair: CFG.lamPair,
       lam_l: current.lamL,
       lam_r: current.lamR,
 

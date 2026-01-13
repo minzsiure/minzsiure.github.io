@@ -1,120 +1,269 @@
+// sampler.js
 import { CFG } from "./config.js";
 import { rng, poissonKnuth } from "./rng.js";
 import { allowed } from "./bounds.js";
 
-/** ---------------------------
- *  Evidence trajectory on a grid
- *  --------------------------- */
+
+/** Evidence trajectory on a grid */
 export function evidenceTrajectory(tL, tR, T, dt) {
-    const n = Math.floor(T / dt) + 1;
-    const ts = new Float32Array(n);
-    const E = new Int32Array(n);
-    let iL = 0, iR = 0, e = 0;
-    for (let k = 0; k < n; k++) {
-        const t = k * dt;
-        ts[k] = t;
-        while (iL < tL.length && tL[iL] <= t + 1e-12) { e -= 1; iL++; }
-        while (iR < tR.length && tR[iR] <= t + 1e-12) { e += 1; iR++; }
-        E[k] = e;
+  const n = Math.floor(T / dt) + 1;
+  const ts = new Float32Array(n);
+  const E = new Int32Array(n);
+  let iL = 0,
+    iR = 0,
+    e = 0;
+  for (let k = 0; k < n; k++) {
+    const t = k * dt;
+    ts[k] = t;
+    while (iL < tL.length && tL[iL] <= t + 1e-12) {
+      e -= 1;
+      iL++;
     }
-    return { ts, E };
+    while (iR < tR.length && tR[iR] <= t + 1e-12) {
+      e += 1;
+      iR++;
+    }
+    E[k] = e;
+  }
+  return { ts, E };
 }
 
-export function checkConstraintsOnGrid(traj) {
-    const { ts, E } = traj;
-    for (let k = 0; k < ts.length; k++) if (!allowed(E[k], ts[k])) return false;
-    return true;
+function sampleCategorical(ps) {
+  const u = rng();
+  let acc = 0;
+  for (let i = 0; i < ps.length; i++) {
+    acc += ps[i];
+    if (u <= acc) return i;
+  }
+  return ps.length - 1;
 }
 
-/** ---------------------------
- *  Whole-trial rejection sampler
- *  --------------------------- */
-export function generateClicksWithConstraintsBinwise(T, lamPair, dt, maxTriesPerBin) {
-    const [lamA, lamB] = lamPair;
+function expSample(rate) {
+  // exponential with mean 1/rate
+  // u in (0,1]
+  let u = 1 - rng();
+  if (u <= 0) u = 1e-12;
+  return -Math.log(u) / rate;
+}
 
-    // randomly assign per trial (same as Python)
-    let lamL, lamR;
-    if (rng() < 0.5) { lamL = lamA; lamR = lamB; }
-    else { lamL = lamB; lamR = lamA; }
+function ipiOk(timesSorted, lastTime, minIpi) {
+  if (minIpi == null) return true;
+  if (!timesSorted || timesSorted.length === 0) return true;
+  if (lastTime != null && Number.isFinite(lastTime)) {
+    if (timesSorted[0] - lastTime < minIpi) return false;
+  }
+  for (let i = 1; i < timesSorted.length; i++) {
+    if (timesSorted[i] - timesSorted[i - 1] < minIpi) return false;
+  }
+  return true;
+}
 
-    const nBins = Math.ceil(T / dt);
-    const tL_all = [];
-    const tR_all = [];
-    let e = 0;
+function drawFirstStereoTime(T, lamL, lamR) {
+  const rate = lamL + lamR;
+  if (rate <= 0) return null;
+  // repeat until < T (almost always fast)
+  for (let k = 0; k < 10000; k++) {
+    const t = expSample(rate);
+    if (t < T) return t;
+  }
+  throw new Error("Could not sample t_first < T; check rates/T.");
+}
 
-    for (let k = 0; k < nBins; k++) {
-        const t0 = k * dt;
-        const t1 = Math.min(T, (k + 1) * dt);
-        const dtk = t1 - t0;
-        const dtq = dt;
-        const hi = t1 - 1e-12;
+function drawFirstStereoTimeConstrained(T, lamL, lamR, dt) {
+  const rate = lamL + lamR;
+  if (rate <= 0) return null;
 
-        let accepted = false;
+  for (let tries = 0; tries < 20000; tries++) {
+    const tFirst = expSample(rate);
+    if (tFirst >= T) continue;
 
-        for (let tr = 0; tr < maxTriesPerBin; tr++) {
-            const nL = poissonKnuth(lamL * dtk);
-            const nR = poissonKnuth(lamR * dtk);
+    // check e=0 allowed for all times in [0, tFirst] on dt grid
+    const n = Math.floor(tFirst / dt);
+    let ok = true;
+    for (let k = 0; k <= n; k++) {
+      const tChk = Math.min(tFirst, k * dt);
+      if (!allowed(0, tChk)) {
+        ok = false;
+        break;
+      }
+    }
+    if (ok && allowed(0, tFirst)) return tFirst;
+  }
+  throw new Error("Could not sample feasible t_first under gray constraints.");
+}
 
-            const tL = new Array(nL);
-            const tR = new Array(nR);
-            for (let i = 0; i < nL; i++) tL[i] = Math.min(hi, Math.max(t0, Math.round((t0 + rng() * dtk) / dtq) * dtq));
-            for (let i = 0; i < nR; i++) tR[i] = Math.min(hi, Math.max(t0, Math.round((t0 + rng() * dtk) / dtq) * dtq));
+/**
+ * Binwise constrained sampler with optional stereo-first-click and optional minIpi.
+ * Enforces ONLY gray constraints (allowed()).
+ */
+export function generateClicksGrayOnlyBinwise(T, dt, maxTriesPerBin) {
+  // choose lam pair
+  let i;
+  if (!CFG.prb) {
+    i = Math.floor(rng() * CFG.lam.length);
+  } else {
+    // normalize just in case
+    const p = CFG.prb.slice();
+    const s = p.reduce((a, b) => a + b, 0);
+    for (let j = 0; j < p.length; j++) p[j] /= s;
+    i = sampleCategorical(p);
+  }
+  const [lamA, lamB] = CFG.lam[i];
 
-            // events = [(tR,+1), (tL,-1)], sorted by time (same as Python)
-            const events = [];
-            for (let i = 0; i < nR; i++) events.push([tR[i], +1, "R"]);
-            for (let i = 0; i < nL; i++) events.push([tL[i], -1, "L"]);
-            events.sort((a, b) => a[0] - b[0]);
+  // random side assignment per trial
+  let lamL, lamR;
+  if (rng() < 0.5) {
+    lamL = lamA;
+    lamR = lamB;
+  } else {
+    lamL = lamB;
+    lamR = lamA;
+  }
 
-            let e_tmp = e;
-            let ok = true;
+  // stereo first click
+  let tFirst = null;
+  if (CFG.firstClickStereo) {
+    if (CFG.condition !== "test") {
+      tFirst = drawFirstStereoTime(T, lamL, lamR);
+    } else {
+      tFirst = drawFirstStereoTimeConstrained(T, lamL, lamR, dt);
+    }
+  }
 
-            for (const [tt, de] of events) {
-                e_tmp += de; // IMPORTANT: update first, then check (matches Python)
-                if (!allowed(e_tmp, tt)) { ok = false; break; }
-            }
+  const nBins = Math.ceil(T / dt);
+  const tL_all = [];
+  const tR_all = [];
+  let e = 0;
 
-            if (ok && allowed(e_tmp, t1)) {
-                // accept bin
-                for (let i = 0; i < nL; i++) tL_all.push(tL[i]);
-                for (let i = 0; i < nR; i++) tR_all.push(tR[i]);
-                e = e_tmp;
-                accepted = true;
-                break;
-            }
-        }
+  let stereoAdded = false;
+  let lastClickTime = null;
 
-        if (!accepted) {
-            throw new Error(`Could not sample an allowed bin at t∈[${t0.toFixed(3)},${t1.toFixed(3)}]`);
-        }
+  for (let k = 0; k < nBins; k++) {
+    const t0 = k * dt;
+    const t1 = Math.min(T, (k + 1) * dt);
+
+    // if entire bin before tFirst: no unilateral clicks, just feasibility at t1
+    if (tFirst != null && t1 <= tFirst) {
+      if (!allowed(e, t1)) {
+        throw new Error(
+          `Constraints violated before t_first at t=${t1.toFixed(3)}`
+        );
+      }
+      continue;
     }
 
-    tL_all.sort((a, b) => a - b);
-    tR_all.sort((a, b) => a - b);
-    return { tL: tL_all, tR: tR_all, lamL, lamR, finalE: (tR_all.length - tL_all.length) };
+    // bin partially/fully after tFirst
+    let subStart = t0;
+    if (tFirst != null && t0 < tFirst && tFirst < t1) {
+      // forbid unilateral clicks before tFirst in this bin
+      subStart = tFirst + 1e-12;
+    }
+
+    const dtk = t1 - subStart;
+    const hi = t1 - 1e-12;
+
+    let accepted = false;
+
+    for (let tr = 0; tr < maxTriesPerBin; tr++) {
+      // unilateral clicks only on [subStart, t1)
+      const nL = poissonKnuth(lamL * dtk);
+      const nR = poissonKnuth(lamR * dtk);
+
+      const tL = new Array(nL);
+      const tR = new Array(nR);
+      for (let i = 0; i < nL; i++)
+        tL[i] = Math.min(hi, Math.max(subStart, subStart + rng() * dtk));
+      for (let i = 0; i < nR; i++)
+        tR[i] = Math.min(hi, Math.max(subStart, subStart + rng() * dtk));
+
+      const addStereoNow =
+        tFirst != null && !stereoAdded && t0 <= tFirst && tFirst < t1;
+
+      // events sorted by time
+      const events = [];
+      for (let i = 0; i < nR; i++) events.push([tR[i], +1]);
+      for (let i = 0; i < nL; i++) events.push([tL[i], -1]);
+      events.sort((a, b) => a[0] - b[0]);
+
+      // IPI check on combined stream (+ stereo if happens now)
+      let times = events.map((x) => x[0]);
+      if (addStereoNow) times = times.concat([tFirst]);
+      times.sort((a, b) => a - b);
+
+      let ok = ipiOk(times, lastClickTime, CFG.minIpi);
+
+      // if stereo in this bin, ensure allowed at tFirst too (same as python)
+      if (ok && addStereoNow && !allowed(e, tFirst)) ok = false;
+
+      // apply events sequentially: update e then check allowed (matches your python)
+      let eTmp = e;
+      if (ok) {
+        for (const [tt, de] of events) {
+          eTmp += de;
+          if (!allowed(eTmp, tt)) {
+            ok = false;
+            break;
+          }
+        }
+      }
+
+      if (ok && allowed(eTmp, t1)) {
+        // accept bin
+        if (addStereoNow) {
+          tL_all.push(tFirst);
+          tR_all.push(tFirst);
+          stereoAdded = true;
+        }
+        for (let i = 0; i < nL; i++) tL_all.push(tL[i]);
+        for (let i = 0; i < nR; i++) tR_all.push(tR[i]);
+        e = eTmp;
+
+        if (CFG.minIpi != null && times.length > 0) {
+          lastClickTime = times[times.length - 1];
+        }
+
+        accepted = true;
+        break;
+      }
+    }
+
+    if (!accepted) {
+      throw new Error(
+        `Could not sample allowed bin at t∈[${t0.toFixed(3)},${t1.toFixed(
+          3
+        )}], e=${e}`
+      );
+    }
+  }
+
+  tL_all.sort((a, b) => a - b);
+  tR_all.sort((a, b) => a - b);
+
+  return {
+    tL: tL_all,
+    tR: tR_all,
+    lamL,
+    lamR,
+    finalE: tR_all.length - tL_all.length,
+  };
 }
 
 export function sampleTrial() {
-    const T = CFG.T;
+  const T = CFG.T;
 
-    for (let attempt = 0; attempt < CFG.maxAttempts; attempt++) {
-        let out;
-        try {
-            out = generateClicksWithConstraintsBinwise(
-                T,
-                CFG.lamPair,
-                CFG.dtCheck,                 // use same dt for constraints as Python
-                CFG.maxTriesPerBin           // max_tries_per_bin (match Python default)
-            );
-        } catch (e) {
-            continue; // restart whole trial if any bin fails
-        }
-
-        if (CFG.avoidTie && out.finalE === 0) continue;
-
-        const trajPlot = evidenceTrajectory(out.tL, out.tR, T, CFG.dtPlot);
-        return { ...out, traj: trajPlot };
+  for (let attempt = 0; attempt < CFG.maxAttempts; attempt++) {
+    let out;
+    try {
+      out = generateClicksGrayOnlyBinwise(T, CFG.dtCheck, CFG.maxTriesPerBin);
+    } catch (e) {
+      continue; // restart trial
     }
 
-    throw new Error("Could not sample a valid trial (constraints too tight).");
+    if (CFG.avoidTie && out.finalE === 0) continue;
+
+    const trajPlot = evidenceTrajectory(out.tL, out.tR, T, CFG.dtPlot);
+    return { ...out, traj: trajPlot };
+  }
+
+  throw new Error("Could not sample a valid trial (constraints too tight).");
 }
