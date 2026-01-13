@@ -254,7 +254,17 @@ export function initApp() {
     statusEl.textContent = `Session started. (${sessionTotal} trials total)`;
 
     // kick off first trial
-    await runTrial(); // runTrial will pick condition from session state
+    // await runTrial(); // runTrial will pick condition from session state
+    statusEl.textContent = `Session started. (${sessionTotal} trials total). Press Start to begin.`;
+    setButtons({
+      start: true, // ✅ enable Start
+      startSession: false, // ✅ prevent starting another session
+      lr: false,
+      next: false,
+      reveal: false,
+    });
+    resetToStart(); // optional, but makes UI consistent
+    return;
   }
 
   /** ---------------------------
@@ -381,6 +391,8 @@ export function initApp() {
       // rates
       lam_l: current.lamL,
       lam_r: current.lamR,
+
+      lam_pair: [current.lamL, current.lamR],
 
       // click trains (seconds-from-trial-start)
       left_clicks_s: Array.from(current.tL),
