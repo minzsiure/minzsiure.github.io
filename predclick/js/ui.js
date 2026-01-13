@@ -542,6 +542,5 @@ export function initApp() {
   sanityBtn.addEventListener("click", () => runSanityCheck(1000));
   startSessionBtn.addEventListener("click", () => startSessionFlow());
 
-  // init
   resetToStart();
 }
