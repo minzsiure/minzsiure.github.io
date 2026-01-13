@@ -2,6 +2,7 @@ import { CFG } from "./config.js";
 import { sampleTrial } from "./sampler.js";
 import { playStereoClicks } from "./audio.js";
 import { initPlotting } from "./plotting.js";
+import { rng } from "./rng.js";
 
 import { signUpUsername, signInUsername, signOut, getSession } from "./auth.js";
 import { logTrialToSupabase, verifyPassword } from "./api.js";
@@ -21,6 +22,7 @@ export function initApp() {
   const rightBtn = document.getElementById("rightBtn");
   const nextBtn = document.getElementById("nextBtn");
   const sanityBtn = document.getElementById("sanityBtn");
+  const startSessionBtn = document.getElementById("startSessionBtn");
 
   const statusEl = document.getElementById("status");
   const overlayEl = document.getElementById("revealOverlay");
@@ -182,11 +184,92 @@ export function initApp() {
   let trialIndex = 0;
   let audioStartMs = null;
 
+  // --- session state ---
+  let inSession = false;
+  let sessionN = 0; // trials per block
+  let sessionTotal = 0; // 2N
+  let sessionDone = 0; // completed trials in session
+  let blockOrder = null; // ["control","test"] or ["test","control"]
+  let blockIndex = 0; // 0 or 1
+  let withinBlockDone = 0; // 0..N
+  let sessionIndex = 0; // counts sessions started this page load (optional)
+  let currentCondition = null; // condition for current trial
+
+  function sessionStatusText() {
+    if (!inSession) return "";
+    return `Session active`;
+  }
+  function nextSessionCondition() {
+    if (!inSession) return CFG.condition; // fallback
+    return blockOrder[blockIndex];
+  }
+  function advanceSessionCounters() {
+    if (!inSession) return;
+
+    sessionDone += 1;
+    withinBlockDone += 1;
+
+    if (withinBlockDone >= sessionN) {
+      blockIndex += 1;
+      withinBlockDone = 0;
+    }
+
+    if (sessionDone >= sessionTotal) {
+      inSession = false;
+      currentCondition = null;
+      statusEl.textContent = "Session concluded ✅";
+      // let user choose what to do next
+      setButtons({
+        start: true,
+        startSession: true,
+        lr: false,
+        next: false,
+        reveal: false,
+      });
+    }
+  }
+  async function startSessionFlow() {
+    if (inSession) return;
+
+    const raw = prompt("How many trials per block? (e.g., 200)");
+    if (raw == null) return;
+
+    const N = parseInt(raw, 10);
+    if (!Number.isFinite(N) || N <= 0) {
+      statusEl.textContent = "Invalid number of trials.";
+      return;
+    }
+
+    // initialize session
+    inSession = true;
+    sessionN = N;
+    sessionTotal = 2 * N;
+    sessionDone = 0;
+    blockIndex = 0;
+    withinBlockDone = 0;
+    sessionIndex += 1;
+
+    // randomize order
+    blockOrder = rng() < 0.5 ? ["control", "test"] : ["test", "control"];
+
+    statusEl.textContent = `Session started. (${sessionTotal} trials total)`;
+
+    // kick off first trial
+    await runTrial(); // runTrial will pick condition from session state
+  }
+
   /** ---------------------------
    *  UI helpers
    *  --------------------------- */
-  function setButtons({ start, lr, next, reveal }) {
+  function setButtons({
+    start = false,
+    lr = false,
+    next = false,
+    reveal = false,
+    startSession = false,
+  } = {}) {
     startBtn.disabled = !start;
+    startSessionBtn.disabled = !startSession;
     leftBtn.disabled = !lr;
     rightBtn.disabled = !lr;
     nextBtn.disabled = !next;
@@ -210,12 +293,15 @@ export function initApp() {
    *  Flow: Trial
    *  --------------------------- */
   async function runTrial() {
+    if (awaitingResponse) return;
+
     setButtons({ start: false, lr: false, next: false, reveal: false });
     statusEl.textContent = "Sampling a constrained trajectory…";
     audioStartMs = null;
 
     try {
-      current = sampleTrial();
+      currentCondition = nextSessionCondition(); // "control" or "test" (or CFG.condition)
+      current = sampleTrial(currentCondition);
     } catch (e) {
       current = null;
       statusEl.textContent =
@@ -249,6 +335,12 @@ export function initApp() {
 
     awaitingResponse = false;
     choice = userChoice;
+    const cond = current?.condition ?? currentCondition ?? CFG.condition;
+    const sess = inSession;
+    const sessIndex = sess ? sessionIndex : null;
+    const blkIndexForThisTrial = sess ? blockIndex : null; // 0/1
+    const withinBlockForThisTrial = sess ? withinBlockDone + 1 : null; // 1..N
+    const totalInSessionForThisTrial = sess ? sessionDone + 1 : null; // 1..2N
 
     const responseMs = Date.now();
     const audioMs = audioStartMs ?? null;
@@ -264,6 +356,13 @@ export function initApp() {
     const success = correct !== "tie" && userChoice === correct;
 
     const row = {
+      condition: cond,
+      session_uuid: sessionId, // your per-page UUID
+      session_index: sessIndex,
+      block_index: blkIndexForThisTrial,
+      trial_in_block: withinBlockForThisTrial,
+      trial_in_session: totalInSessionForThisTrial,
+
       trial_index: trialIndex,
 
       // readable timestamps
@@ -301,10 +400,12 @@ export function initApp() {
     }
 
     statusEl.textContent =
-      verdictText(choice, correct) + "  (Click Reveal to see the trajectory.)";
+      verdictText(choice, correct) +
+      (inSession ? "" : "  (Click Reveal to see the trajectory.)");
 
     // enable reveal button; keep overlay up
-    setButtons({ start: false, lr: false, next: true, reveal: true });
+    const allowReveal = !inSession;
+    setButtons({ start: false, lr: false, next: true, reveal: allowReveal });
   }
 
   async function doReveal() {
@@ -347,8 +448,16 @@ export function initApp() {
     revealBtn.disabled = true;
     plot.drawBlankPlot();
 
-    statusEl.textContent = "Press Start.";
-    setButtons({ start: true, lr: false, next: false, reveal: false });
+    statusEl.textContent = inSession
+      ? "Session active. Press Start."
+      : "Press Start.";
+    setButtons({
+      start: true,
+      startSession: !inSession,
+      lr: false,
+      next: false,
+      reveal: false,
+    });
   }
 
   /** ---------------------------
@@ -393,9 +502,24 @@ export function initApp() {
   startBtn.addEventListener("click", () => runTrial());
   leftBtn.addEventListener("click", () => finishDecision("left"));
   rightBtn.addEventListener("click", () => finishDecision("right"));
-  revealBtn.addEventListener("click", () => doReveal());
-  nextBtn.addEventListener("click", () => resetToStart());
+  revealBtn.addEventListener("click", () => {
+    if (inSession) return; // stay blind
+    doReveal();
+  });
+  nextBtn.addEventListener("click", () => {
+    // advance only if we actually completed a trial (i.e., we have a recorded current + answered)
+    if (current && !awaitingResponse) {
+      advanceSessionCounters();
+    }
+
+    resetToStart();
+
+    if (inSession) {
+      runTrial();
+    }
+  });
   sanityBtn.addEventListener("click", () => runSanityCheck(1000));
+  startSessionBtn.addEventListener("click", () => startSessionFlow());
 
   // init
   resetToStart();

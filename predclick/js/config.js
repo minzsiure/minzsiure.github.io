@@ -14,14 +14,26 @@ const s = SHIFT[SHIFT_KEY] ?? 0.0;
 const T = 1.0;
 const dt = 0.01;
 
-// lam list + prb list (uniform in python)
-const lam = [
+// ===== rate schedules =====
+
+// TEST (your current 4-pair uniform)
+const LAM_TEST = [
   [39, 1],
   [31, 9],
   [37, 3],
   [26, 14],
 ];
-const prb = [0.25, 0.25, 0.25, 0.25];
+const PRB_TEST = [0.25, 0.25, 0.25, 0.25];
+
+// CONTROL (your requested 5-pair schedule)
+const LAM_CONTROL = [
+  [39, 1],
+  [37, 3],
+  [31, 9],
+  [26, 14],
+  [20, 20],
+];
+const PRB_CONTROL = [0.1, 0.1, 0.2, 0.2, 0.4];
 
 //
 // ----- Rodent block geometry (derived exactly like python) -----
@@ -44,11 +56,17 @@ const tilt_up_offset_time = tilt_up_onset_time + 0.06; // 0.51
 const tile_up_onset_evidence = R_high + 1.0; // 12.0
 const tile_up_offset_evidence = R_high + 2.0; // 13.0
 
+// --- condition switch ---
+// "control": no gray blocks (allowed everywhere)
+// "test": gray blocks enabled
+const CONDITION = "test"; // <-- flip to "control"
+
+// choose lam/prb based on condition
+const lam = CONDITION === "control" ? LAM_CONTROL : LAM_TEST;
+const prb = CONDITION === "control" ? PRB_CONTROL : PRB_TEST;
+
 export const CFG = {
-  // --- condition switch ---
-  // "control": no gray blocks (allowed everywhere)
-  // "test": gray blocks enabled
-  condition: "test", // <-- flip to "control" manually
+  condition: CONDITION,
 
   mode: "rodent",
   shiftKey: SHIFT_KEY,
@@ -70,14 +88,10 @@ export const CFG = {
   firstClickStereo: true,
   minIpi: null, // e.g. 0.03 for 30ms; null disables
 
-  // audio (your JS defaults; python used 0.1ms and different freq/amp for wav writing)
+  // audio
   clickMs: 2.0,
   freqHz: 2000.0,
   amp: 0.35,
-
-  // green bounds (python: w0=w1=40)
-  //   w0: 40,
-  //   w1: 40,
 
   // for downstream categorization if you want
   R_high,
@@ -87,7 +101,6 @@ export const CFG = {
 
   // gray blocks (constructed with shift `s`)
   grayBlocks: [
-    // top wedge: base=0, w_peak=diamond_evi_onset
     {
       kind: "wedgeTop",
       t_on: diamond_t_on + s,
@@ -98,8 +111,6 @@ export const CFG = {
       w_peak: diamond_evi_onset,
       w_off: 0.0,
     },
-
-    // bottom wedge: base=0, w_peak=diamond_evi_onset
     {
       kind: "wedgeBot",
       t_on: diamond_t_on + s,
@@ -110,8 +121,6 @@ export const CFG = {
       w_peak: diamond_evi_onset,
       w_off: 0.0,
     },
-
-    // mid rectangle: t_on = diamond_t_peak, to T, [-0.5, +0.5]
     {
       kind: "rect",
       t_on: diamond_t_peak + s,
@@ -119,10 +128,6 @@ export const CFG = {
       center: 0.0,
       half_width: 0.5,
     },
-
-    // upper/lower rectangles: from rectangle_onset to T, [R_low,R_high] and [L_high,L_low]
-    // NOTE: your JS rect format is center/half_width so convert:
-    // center = (hi+lo)/2, half_width = (hi-lo)/2
     {
       kind: "rect",
       t_on: rectangle_onset + s,
@@ -137,8 +142,6 @@ export const CFG = {
       center: 0.5 * (L_high + L_low),
       half_width: 0.5 * (L_low - L_high),
     },
-
-    // tilted rectangle (upper) from vertices exactly like python helper
     {
       kind: "poly",
       vertices: [
@@ -148,8 +151,6 @@ export const CFG = {
         [rectangle_onset + s, R_low],
       ],
     },
-
-    // tilted rectangle (lower) mirrored
     {
       kind: "poly",
       vertices: [

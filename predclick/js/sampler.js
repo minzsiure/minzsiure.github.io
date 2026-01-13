@@ -3,7 +3,6 @@ import { CFG } from "./config.js";
 import { rng, poissonKnuth } from "./rng.js";
 import { allowed } from "./bounds.js";
 
-
 /** Evidence trajectory on a grid */
 export function evidenceTrajectory(tL, tR, T, dt) {
   const n = Math.floor(T / dt) + 1;
@@ -96,7 +95,12 @@ function drawFirstStereoTimeConstrained(T, lamL, lamR, dt) {
  * Binwise constrained sampler with optional stereo-first-click and optional minIpi.
  * Enforces ONLY gray constraints (allowed()).
  */
-export function generateClicksGrayOnlyBinwise(T, dt, maxTriesPerBin) {
+export function generateClicksGrayOnlyBinwise(
+  T,
+  dt,
+  maxTriesPerBin,
+  condition = CFG.condition
+) {
   // choose lam pair
   let i;
   if (!CFG.prb) {
@@ -123,7 +127,7 @@ export function generateClicksGrayOnlyBinwise(T, dt, maxTriesPerBin) {
   // stereo first click
   let tFirst = null;
   if (CFG.firstClickStereo) {
-    if (CFG.condition !== "test") {
+    if (condition !== "test") {
       tFirst = drawFirstStereoTime(T, lamL, lamR);
     } else {
       tFirst = drawFirstStereoTimeConstrained(T, lamL, lamR, dt);
@@ -248,13 +252,18 @@ export function generateClicksGrayOnlyBinwise(T, dt, maxTriesPerBin) {
   };
 }
 
-export function sampleTrial() {
+export function sampleTrial(condition = CFG.condition) {
   const T = CFG.T;
 
   for (let attempt = 0; attempt < CFG.maxAttempts; attempt++) {
     let out;
     try {
-      out = generateClicksGrayOnlyBinwise(T, CFG.dtCheck, CFG.maxTriesPerBin);
+      out = generateClicksGrayOnlyBinwise(
+        T,
+        CFG.dtCheck,
+        CFG.maxTriesPerBin,
+        condition
+      );
     } catch (e) {
       continue; // restart trial
     }
