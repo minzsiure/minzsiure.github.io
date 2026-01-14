@@ -97,7 +97,6 @@ export function initApp() {
   if (FRIEND_MODE) {
     // Disable “power-user” controls
     disableBtn(sanityBtn, "friend mode");
-    disableBtn(pwBtn, "friend mode");
     // If you also want them to not start a session:
     // disableBtn(startSessionBtn, "friend mode");
 
