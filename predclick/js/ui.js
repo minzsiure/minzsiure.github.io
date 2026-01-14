@@ -12,6 +12,8 @@ function sleep(ms) {
 }
 
 export function initApp() {
+  const FRIEND_MODE = true;
+
   /** ---------------------------
    *  DOM
    *  --------------------------- */
@@ -78,6 +80,39 @@ export function initApp() {
     }
   }
   refreshAuthUI();
+
+  function disableBtn(btn, labelSuffix = "") {
+    if (!btn) return;
+    btn.disabled = true;
+    btn.title = labelSuffix ? `Disabled (${labelSuffix})` : "Disabled";
+    btn.style.opacity = "0.45";
+    btn.style.cursor = "not-allowed";
+  }
+
+  function hideEl(el) {
+    if (!el) return;
+    el.style.display = "none";
+  }
+
+  if (FRIEND_MODE) {
+    // Disable “power-user” controls
+    disableBtn(sanityBtn, "friend mode");
+    disableBtn(pwBtn, "friend mode");
+    // If you also want them to not start a session:
+    // disableBtn(startSessionBtn, "friend mode");
+
+    // Kill reveal entirely (prevents clicking reveal + hides the overlay button)
+    disableBtn(revealBtn, "friend mode");
+    hideEl(overlayEl); // hides overlay + reveal button
+    // If you prefer to keep overlay (blank plot) but hide just the reveal button:
+    // hideEl(revealBtn);
+
+    // Hide logging toggle UI if it might confuse them
+    hideEl(logToggleWrap);
+
+    // Optional: also hide auth UI if you don’t want them signing in/out
+    // hideEl(signInBtn); hideEl(signUpBtn); hideEl(signOutBtn);
+  }
 
   // ---- password button
   pwBtn.addEventListener("click", async () => {
@@ -429,7 +464,7 @@ export function initApp() {
       (inSession ? "" : "  (Click Reveal to see the trajectory.)");
 
     // enable reveal button; keep overlay up
-    const allowReveal = !inSession;
+    const allowReveal = !FRIEND_MODE && !inSession;
     setButtons({ start: false, lr: false, next: true, reveal: allowReveal });
   }
 
@@ -530,10 +565,13 @@ export function initApp() {
   startBtn.addEventListener("click", () => runTrial());
   leftBtn.addEventListener("click", () => finishDecision("left"));
   rightBtn.addEventListener("click", () => finishDecision("right"));
-  revealBtn.addEventListener("click", () => {
-    if (inSession) return; // stay blind
-    doReveal();
-  });
+  if (!FRIEND_MODE) {
+    revealBtn.addEventListener("click", () => {
+      if (inSession) return; // stay blind
+      doReveal();
+    });
+  }
+
   nextBtn.addEventListener("click", () => {
     // advance only if we actually completed a trial (i.e., we have a recorded current + answered)
     if (current && !awaitingResponse) {
@@ -546,7 +584,10 @@ export function initApp() {
       runTrial();
     }
   });
-  sanityBtn.addEventListener("click", () => runSanityCheck(1000));
+  if (!FRIEND_MODE) {
+    sanityBtn.addEventListener("click", () => runSanityCheck(1000));
+  }
+
   startSessionBtn.addEventListener("click", () => startSessionFlow());
 
   // ---- keyboard support: left/right arrows select choice; Space = Start / Next ----
