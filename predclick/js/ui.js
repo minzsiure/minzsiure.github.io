@@ -549,7 +549,7 @@ export function initApp() {
   sanityBtn.addEventListener("click", () => runSanityCheck(1000));
   startSessionBtn.addEventListener("click", () => startSessionFlow());
 
-  // ---- keyboard support: left/right arrows select choice ----
+  // ---- keyboard support: left/right arrows select choice; Space = Start / Next ----
   function isTypingTarget(el) {
     if (!el) return false;
     const tag = el.tagName?.toLowerCase();
@@ -561,16 +561,38 @@ export function initApp() {
     );
   }
 
+  function isEnabled(btn) {
+    return !!btn && btn.disabled === false;
+  }
+
   window.addEventListener("keydown", (ev) => {
     if (ev.repeat) return;
-    if (!awaitingResponse || !current) return;
+    if (isTypingTarget(ev.target)) return;
 
-    if (ev.key === "ArrowLeft") {
+    // Choice keys (only when awaiting response)
+    if (awaitingResponse && current) {
+      if (ev.key === "ArrowLeft") {
+        ev.preventDefault();
+        finishDecision("left");
+        return;
+      }
+      if (ev.key === "ArrowRight") {
+        ev.preventDefault();
+        finishDecision("right");
+        return;
+      }
+    }
+
+    // Space = Start (if enabled) else Next (if enabled)
+    if (ev.key === " " || ev.code === "Space") {
       ev.preventDefault();
-      finishDecision("left");
-    } else if (ev.key === "ArrowRight") {
-      ev.preventDefault();
-      finishDecision("right");
+
+      // Prefer Start if it's enabled; otherwise Next
+      if (isEnabled(startBtn)) {
+        runTrial();
+      } else if (isEnabled(nextBtn)) {
+        nextBtn.click(); // reuse existing logic exactly
+      }
     }
   });
 
