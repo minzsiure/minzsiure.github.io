@@ -542,5 +542,33 @@ export function initApp() {
   sanityBtn.addEventListener("click", () => runSanityCheck(1000));
   startSessionBtn.addEventListener("click", () => startSessionFlow());
 
+  // ---- keyboard support: left/right arrows select choice ----
+  function isTypingTarget(el) {
+    if (!el) return false;
+    const tag = el.tagName?.toLowerCase();
+    return (
+      tag === "input" ||
+      tag === "textarea" ||
+      tag === "select" ||
+      el.isContentEditable
+    );
+  }
+
+  window.addEventListener("keydown", (ev) => {
+    // don’t steal keys while typing in a form / prompt-like field
+    if (isTypingTarget(document.activeElement)) return;
+
+    // only allow choice during decision phase
+    if (!awaitingResponse || !current) return;
+
+    if (ev.key === "ArrowLeft") {
+      ev.preventDefault();
+      finishDecision("left");
+    } else if (ev.key === "ArrowRight") {
+      ev.preventDefault();
+      finishDecision("right");
+    }
+  });
+
   resetToStart();
 }
