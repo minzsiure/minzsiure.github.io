@@ -409,12 +409,19 @@ export function initApp() {
     if (!accessToken) row.session_id = sessionId; // required for debug table
 
     if (passwordVerified && loggingEnabled && adminPassword) {
-      try {
-        await logTrialToSupabase({ password: adminPassword, row, accessToken });
-      } catch (e) {
-        console.error(e);
-        statusEl.textContent += "  (DB save failed; see console.)";
-      }
+      (async () => {
+        try {
+          await logTrialToSupabase({
+            password: adminPassword,
+            row,
+            accessToken,
+          });
+        } catch (e) {
+          console.error(e);
+          // don’t block user; optionally show a non-blocking message
+          statusEl.textContent += "  (DB save failed; see console.)";
+        }
+      })();
     }
 
     statusEl.textContent =
@@ -555,10 +562,7 @@ export function initApp() {
   }
 
   window.addEventListener("keydown", (ev) => {
-    // don’t steal keys while typing in a form / prompt-like field
-    if (isTypingTarget(document.activeElement)) return;
-
-    // only allow choice during decision phase
+    if (ev.repeat) return;
     if (!awaitingResponse || !current) return;
 
     if (ev.key === "ArrowLeft") {
