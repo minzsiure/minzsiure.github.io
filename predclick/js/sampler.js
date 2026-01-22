@@ -131,6 +131,16 @@ export function generateClicksGrayOnlyBinwise(
     lamR = lamA;
   }
 
+  // --- Peak switch setup (mirror Python) ---
+  const doPeakSwitch =
+    CFG.switchLamAfterDiamond &&
+    CFG.switchTime != null &&
+    CFG.regionEvidenceBoundary != null &&
+    condition === "test"; // Python: requires gray_bounds != None; in JS gray-only sampler => treat "test" as constrained
+
+  const kPeak = doPeakSwitch ? Math.round(CFG.switchTime / dt) : null;
+  let peakDecisionMade = false;
+
   // stereo first click
   let tFirst = null;
   if (CFG.firstClickStereo) {
@@ -152,6 +162,46 @@ export function generateClicksGrayOnlyBinwise(
   for (let k = 0; k < nBins; k++) {
     const t0 = k * dt;
     const t1 = Math.min(T, (k + 1) * dt);
+
+    // --- at t == switchTime, probabilistically switch rates for the rest of the trial ---
+    if (doPeakSwitch && !peakDecisionMade && k === kPeak) {
+      const ePeak = e; // evidence at exactly t0 == switch_time (same as Python)
+
+      const lamHi = CFG.lamHiAfterSwitch ?? 26;
+      const lamLo = CFG.lamLoAfterSwitch ?? 14;
+
+      const boundary = CFG.regionEvidenceBoundary;
+      const pHigh = CFG.pHighRegionLamSwitch ?? 0.2;
+      const pLow = CFG.pLowRegionLamSwitch ?? 1.0;
+
+      if (Math.abs(ePeak) > boundary) {
+        // R1 or L1
+        if (rng() < pHigh) {
+          if (ePeak > 0) {
+            // too positive -> push leftward: L high, R low
+            lamL = lamHi;
+            lamR = lamLo;
+          } else if (ePeak < 0) {
+            // too negative -> push rightward: L low, R high
+            lamL = lamLo;
+            lamR = lamHi;
+          }
+        }
+      } else {
+        // R2 or L2
+        if (rng() < pLow) {
+          if (ePeak > 0) {
+            lamL = lamHi;
+            lamR = lamLo;
+          } else if (ePeak < 0) {
+            lamL = lamLo;
+            lamR = lamHi;
+          }
+        }
+      }
+
+      peakDecisionMade = true;
+    }
 
     // if entire bin before tFirst: no unilateral clicks, just feasibility at t1
     if (tFirst != null && t1 <= tFirst) {

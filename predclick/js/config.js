@@ -20,11 +20,13 @@ const dt = 0.01;
 // TEST schedule
 const LAM_TEST = [
   [39, 1],
-  [31, 9],
   [37, 3],
+  [31, 9],
   [26, 14],
+  [20, 20],
 ];
-const PRB_TEST = [0.25, 0.25, 0.25, 0.25];
+// const PRB_TEST = [0.25, 0.25, 0.25, 0.25];
+const PRB_TEST = [0.175, 0.175, 0.175, 0.175, 0.3];
 
 // CONTROL schedule
 const LAM_CONTROL = [
@@ -39,7 +41,7 @@ const PRB_CONTROL = [0.1, 0.1, 0.2, 0.2, 0.4];
 //
 // ----- Rodent block geometry (derived exactly like python) -----
 //
-const diamond_evi_onset = 6.5;
+const diamond_evi_onset = 3.5; // 6.5;
 const diamond_t_on = 0.25;
 const diamond_t_peak = 0.45;
 const diamond_t_off = 0.65;
@@ -51,8 +53,8 @@ const L_high = -R_high; // -11.0
 const L_low = -R_low; // -8.5
 
 const rectangle_onset = diamond_t_off - 0.1; // 0.55
-const tilt_up_onset_time = rectangle_onset - 0.1; // 0.45
-const tilt_up_offset_time = tilt_up_onset_time + 0.06; // 0.51
+const tile_up_onset_time = rectangle_onset - 0.1; // 0.45
+const tile_up_offset_time = tile_up_onset_time + 0.06; // 0.51
 
 const tile_up_onset_evidence = R_high + 1.0; // 12.0
 const tile_up_offset_evidence = R_high + 2.0; // 13.0
@@ -157,8 +159,8 @@ export const CFG = {
     {
       kind: "poly",
       vertices: [
-        [tilt_up_onset_time + s, tile_up_onset_evidence],
-        [tilt_up_offset_time + s, tile_up_offset_evidence],
+        [tile_up_onset_time + s, tile_up_onset_evidence],
+        [tile_up_offset_time + s, tile_up_offset_evidence],
         [rectangle_onset + 0.05 + s, R_high],
         [rectangle_onset + s, R_low],
       ],
@@ -166,11 +168,19 @@ export const CFG = {
     {
       kind: "poly",
       vertices: [
-        [tilt_up_onset_time + s, -tile_up_onset_evidence],
-        [tilt_up_offset_time + s, -tile_up_offset_evidence],
+        [tile_up_onset_time + s, -tile_up_onset_evidence],
+        [tile_up_offset_time + s, -tile_up_offset_evidence],
         [rectangle_onset + 0.05 + s, L_high],
         [rectangle_onset + s, L_low],
       ],
     },
   ],
+
+  switchLamAfterDiamond: true,
+  switchTime: tile_up_offset_time,
+  regionEvidenceBoundary: tile_up_offset_evidence,
+  pHighRegionLamSwitch: 0.2,
+  pLowRegionLamSwitch: 1.0,
+  lamHiAfterSwitch: 26, // (lam_hi, lam_lo) in your Python
+  lamLoAfterSwitch: 14,
 };
