@@ -283,7 +283,17 @@ export function initApp() {
     sessionIndex += 1;
 
     // randomize order
-    blockOrder = rng() < 0.5 ? ["control", "test"] : ["test", "control"];
+    // blockOrder = rng() < 0.5 ? ["control", "test"] : ["test", "control"];
+    function cryptoBit() {
+      if (typeof crypto !== "undefined" && crypto.getRandomValues) {
+        const u = new Uint8Array(1);
+        crypto.getRandomValues(u);
+        return (u[0] & 1) === 1;
+      }
+      // fallback
+      return Math.random() < 0.5;
+    }
+    blockOrder = cryptoBit() ? ["control", "test"] : ["test", "control"];
 
     statusEl.textContent = `Session started. (${sessionTotal} trials total)`;
 
