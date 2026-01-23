@@ -41,7 +41,7 @@ const PRB_CONTROL = [0.1, 0.1, 0.2, 0.2, 0.4];
 //
 // ----- Rodent block geometry (derived exactly like python) -----
 //
-const diamond_evi_onset = 3.5; // 6.5;
+const diamond_evi_onset = 6.5; // 6.5;
 const diamond_t_on = 0.25;
 const diamond_t_peak = 0.45;
 const diamond_t_off = 0.65;
