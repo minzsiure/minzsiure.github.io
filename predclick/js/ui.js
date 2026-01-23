@@ -12,7 +12,7 @@ function sleep(ms) {
 }
 
 export function initApp() {
-  const FRIEND_MODE = false;
+  const FRIEND_MODE = true;
 
   /** ---------------------------
    *  DOM
