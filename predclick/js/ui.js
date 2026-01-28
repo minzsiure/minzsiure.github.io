@@ -2,7 +2,7 @@ import { CFG } from "./config.js";
 import { sampleTrial } from "./sampler.js";
 import { playStereoClicks } from "./audio.js";
 import { initPlotting } from "./plotting.js";
-import { rng } from "./rng.js";
+// import { rng } from "./rng.js";
 
 import { signUpUsername, signInUsername, signOut, getSession } from "./auth.js";
 import { logTrialToSupabase, verifyPassword } from "./api.js";
@@ -12,7 +12,7 @@ function sleep(ms) {
 }
 
 export function initApp() {
-  const FRIEND_MODE = false;
+  const FRIEND_MODE = true;
 
   /** ---------------------------
    *  DOM
