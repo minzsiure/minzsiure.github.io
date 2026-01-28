@@ -18,31 +18,30 @@ const dt = 0.01;
 // ===== rate schedules =====
 //
 // TEST schedule
-// const LAM_TEST = [
-//   [39, 1],
-//   [37, 3],
-//   [31, 9],
-//   [26, 14],
-//   [20, 20],
-// ];
-// // const PRB_TEST = [0.25, 0.25, 0.25, 0.25];
+const LAM_TEST = [
+  [39, 1],
+  [37, 3],
+  [31, 9],
+  [26, 14],
+  [20, 20],
+];
+const PRB_TEST = [0.1, 0.1, 0.1, 0.1, 0.6];
 // const PRB_TEST = [0.175, 0.175, 0.175, 0.175, 0.3];
-const LAM_TEST = [[20, 20]];
+// const LAM_TEST = [[20, 20]];
 // const PRB_TEST = [0.25, 0.25, 0.25, 0.25];
-const PRB_TEST = [1];
+// const PRB_TEST = [1];
 
 // CONTROL schedule
-// const LAM_CONTROL = [
-//   [39, 1],
-//   [37, 3],
-//   [31, 9],
-//   [26, 14],
-//   [20, 20],
-// ];
+const LAM_CONTROL = [
+  [39, 1],
+  [37, 3],
+  [31, 9],
+  [26, 14],
+  [20, 20],
+];
 // const PRB_CONTROL = [0.1, 0.1, 0.2, 0.2, 0.4];
-const LAM_CONTROL = [[20, 20]];
-const PRB_CONTROL = [1];
-
+// const LAM_CONTROL = [[20, 20]];
+const PRB_CONTROL = [0.1, 0.1, 0.1, 0.1, 0.6];
 
 // ----- Rodent block geometry (derived exactly like python) -----
 const diamond_evi_onset = 6.5; // 6.5;
