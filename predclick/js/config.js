@@ -32,14 +32,16 @@ const LAM_TEST = [[20, 20]];
 const PRB_TEST = [1];
 
 // CONTROL schedule
-const LAM_CONTROL = [
-  [39, 1],
-  [37, 3],
-  [31, 9],
-  [26, 14],
-  [20, 20],
-];
-const PRB_CONTROL = [0.1, 0.1, 0.2, 0.2, 0.4];
+// const LAM_CONTROL = [
+//   [39, 1],
+//   [37, 3],
+//   [31, 9],
+//   [26, 14],
+//   [20, 20],
+// ];
+// const PRB_CONTROL = [0.1, 0.1, 0.2, 0.2, 0.4];
+const LAM_CONTROL = [[20, 20]];
+const PRB_CONTROL = [1];
 
 //
 // ----- Rodent block geometry (derived exactly like python) -----
