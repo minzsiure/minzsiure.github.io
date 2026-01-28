@@ -18,15 +18,18 @@ const dt = 0.01;
 // ===== rate schedules =====
 //
 // TEST schedule
-const LAM_TEST = [
-  [39, 1],
-  [37, 3],
-  [31, 9],
-  [26, 14],
-  [20, 20],
-];
+// const LAM_TEST = [
+//   [39, 1],
+//   [37, 3],
+//   [31, 9],
+//   [26, 14],
+//   [20, 20],
+// ];
+// // const PRB_TEST = [0.25, 0.25, 0.25, 0.25];
+// const PRB_TEST = [0.175, 0.175, 0.175, 0.175, 0.3];
+const LAM_TEST = [[20, 20]];
 // const PRB_TEST = [0.25, 0.25, 0.25, 0.25];
-const PRB_TEST = [0.175, 0.175, 0.175, 0.175, 0.3];
+const PRB_TEST = [1];
 
 // CONTROL schedule
 const LAM_CONTROL = [
@@ -115,26 +118,26 @@ export const CFG = {
 
   // gray blocks (only used when condition === "test")
   grayBlocks: [
-    {
-      kind: "wedgeTop",
-      t_on: diamond_t_on + s,
-      t_peak: diamond_t_peak + s,
-      t_off: diamond_t_off + s,
-      base: 0.0,
-      w_on: 0.0,
-      w_peak: diamond_evi_onset,
-      w_off: 0.0,
-    },
-    {
-      kind: "wedgeBot",
-      t_on: diamond_t_on + s,
-      t_peak: diamond_t_peak + s,
-      t_off: diamond_t_off + s,
-      base: 0.0,
-      w_on: 0.0,
-      w_peak: diamond_evi_onset,
-      w_off: 0.0,
-    },
+    // {
+    //   kind: "wedgeTop",
+    //   t_on: diamond_t_on + s,
+    //   t_peak: diamond_t_peak + s,
+    //   t_off: diamond_t_off + s,
+    //   base: 0.0,
+    //   w_on: 0.0,
+    //   w_peak: diamond_evi_onset,
+    //   w_off: 0.0,
+    // },
+    // {
+    //   kind: "wedgeBot",
+    //   t_on: diamond_t_on + s,
+    //   t_peak: diamond_t_peak + s,
+    //   t_off: diamond_t_off + s,
+    //   base: 0.0,
+    //   w_on: 0.0,
+    //   w_peak: diamond_evi_onset,
+    //   w_off: 0.0,
+    // },
     {
       kind: "rect",
       t_on: diamond_t_peak + s,
@@ -142,38 +145,38 @@ export const CFG = {
       center: 0.0,
       half_width: 0.5,
     },
-    {
-      kind: "rect",
-      t_on: rectangle_onset + s,
-      t_off: T,
-      center: 0.5 * (R_high + R_low),
-      half_width: 0.5 * (R_high - R_low),
-    },
-    {
-      kind: "rect",
-      t_on: rectangle_onset + s,
-      t_off: T,
-      center: 0.5 * (L_high + L_low),
-      half_width: 0.5 * (L_low - L_high),
-    },
-    {
-      kind: "poly",
-      vertices: [
-        [tile_up_onset_time + s, tile_up_onset_evidence],
-        [tile_up_offset_time + s, tile_up_offset_evidence],
-        [rectangle_onset + 0.05 + s, R_high],
-        [rectangle_onset + s, R_low],
-      ],
-    },
-    {
-      kind: "poly",
-      vertices: [
-        [tile_up_onset_time + s, -tile_up_onset_evidence],
-        [tile_up_offset_time + s, -tile_up_offset_evidence],
-        [rectangle_onset + 0.05 + s, L_high],
-        [rectangle_onset + s, L_low],
-      ],
-    },
+    // {
+    //   kind: "rect",
+    //   t_on: rectangle_onset + s,
+    //   t_off: T,
+    //   center: 0.5 * (R_high + R_low),
+    //   half_width: 0.5 * (R_high - R_low),
+    // },
+    // {
+    //   kind: "rect",
+    //   t_on: rectangle_onset + s,
+    //   t_off: T,
+    //   center: 0.5 * (L_high + L_low),
+    //   half_width: 0.5 * (L_low - L_high),
+    // },
+    // {
+    //   kind: "poly",
+    //   vertices: [
+    //     [tile_up_onset_time + s, tile_up_onset_evidence],
+    //     [tile_up_offset_time + s, tile_up_offset_evidence],
+    //     [rectangle_onset + 0.05 + s, R_high],
+    //     [rectangle_onset + s, R_low],
+    //   ],
+    // },
+    // {
+    //   kind: "poly",
+    //   vertices: [
+    //     [tile_up_onset_time + s, -tile_up_onset_evidence],
+    //     [tile_up_offset_time + s, -tile_up_offset_evidence],
+    //     [rectangle_onset + 0.05 + s, L_high],
+    //     [rectangle_onset + s, L_low],
+    //   ],
+    // },
   ],
 
   switchLamAfterDiamond: true,
