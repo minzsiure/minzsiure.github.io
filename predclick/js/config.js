@@ -182,8 +182,8 @@ export const CFG = {
   switchLamAfterDiamond: true,
   switchTime: tile_up_offset_time,
   regionEvidenceBoundary: tile_up_offset_evidence,
-  pHighRegionLamSwitch: 0.2,
-  pLowRegionLamSwitch: 1.0,
+  pHighRegionLamSwitch: 0, // 0.2,
+  pLowRegionLamSwitch: 0, // 1.0,
   lamHiAfterSwitch: 26, // (lam_hi, lam_lo) in your Python
   lamLoAfterSwitch: 14,
 };
