@@ -70,10 +70,21 @@ function polygonIntervalAt(t, vertices) {
   return [lo, hi];
 }
 
+// NEW: blocks are per-condition; missing/empty => no constraints
+function blocksForCondition(condition) {
+  const c = condition ?? CFG.condition;
+  const map = CFG.grayBlocksByCondition ?? null;
+  if (!map) return CFG.grayBlocks ?? null; // backward compat
+  return map[c] ?? null;
+}
+
 function blockIntervalsAt(t, condition) {
-  if (condition !== "test") return null;
+  //   if (condition !== "test") return null;
+  const blocks = blocksForCondition(condition);
+  if (!blocks || blocks.length === 0) return null;
+
   const ivs = [];
-  const blocks = CFG.grayBlocks ?? [];
+  //   const blocks = CFG.grayBlocks ?? [];
 
   for (const b of blocks) {
     if (b.kind === "wedgeTop") {
@@ -129,13 +140,13 @@ export function grayIntervalsAt(t, condition = CFG.condition) {
 
 export function allowed(e, t, condition = CFG.condition) {
   // control: no constraints at all
-  if (condition !== "test") return true;
-
+  //   if (condition !== "test") return true;
   const gray = grayIntervalsAt(t, condition);
-  if (gray) {
-    for (const [lo, hi] of gray) {
-      if (lo <= e && e <= hi) return false;
-    }
+  if (!gray) return true; // <- key change: control can be constrained if it has blocks
+
+  //   const gray = grayIntervalsAt(t, condition);
+  for (const [lo, hi] of gray) {
+    if (lo <= e && e <= hi) return false;
   }
   return true;
 }

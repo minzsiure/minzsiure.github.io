@@ -3,6 +3,14 @@ import { CFG } from "./config.js";
 import { rng, poissonKnuth } from "./rng.js";
 import { allowed } from "./bounds.js";
 
+function hasGrayBlocks(condition) {
+  const c = condition ?? CFG.condition;
+  const map = CFG.grayBlocksByCondition;
+  if (!map) return false;
+  const blocks = map[c];
+  return Array.isArray(blocks) && blocks.length > 0;
+}
+
 function getSchedule(condition) {
   const c = condition ?? CFG.condition;
   const sched = CFG.schedules?.[c] ?? CFG.schedules?.[CFG.condition];
@@ -136,7 +144,7 @@ export function generateClicksGrayOnlyBinwise(
     CFG.switchLamAfterDiamond &&
     CFG.switchTime != null &&
     CFG.regionEvidenceBoundary != null &&
-    condition === "test"; // Python: requires gray_bounds != None; in JS gray-only sampler => treat "test" as constrained
+    hasGrayBlocks(condition);
 
   const kPeak = doPeakSwitch ? Math.round(CFG.switchTime / dt) : null;
   let peakDecisionMade = false;
@@ -144,7 +152,7 @@ export function generateClicksGrayOnlyBinwise(
   // stereo first click
   let tFirst = null;
   if (CFG.firstClickStereo) {
-    if (condition !== "test") {
+    if (!hasGrayBlocks(condition)) {
       tFirst = drawFirstStereoTime(T, lamL, lamR);
     } else {
       tFirst = drawFirstStereoTimeConstrained(T, lamL, lamR, dt, condition);

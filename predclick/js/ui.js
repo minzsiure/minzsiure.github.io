@@ -1,3 +1,4 @@
+// ui.js
 import { CFG } from "./config.js";
 import { sampleTrial } from "./sampler.js";
 import { playStereoClicks } from "./audio.js";
@@ -294,7 +295,10 @@ export function initApp() {
       // fallback
       return Math.random() < 0.5;
     }
-    blockOrder = cryptoBit() ? ["control", "test"] : ["test", "control"];
+    // blockOrder = cryptoBit() ? ["control", "test"] : ["test", "control"];
+    blockOrder = cryptoBit()
+      ? ["control_blocked", "test"]
+      : ["test", "control_blocked"];
 
     statusEl.textContent = `Session started. (${sessionTotal} trials total)`;
 

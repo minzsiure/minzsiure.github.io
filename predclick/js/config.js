@@ -18,30 +18,46 @@ const dt = 0.01;
 // ===== rate schedules =====
 //
 // TEST schedule
+// Reivision #2
+// const LAM_TEST = [
+//   [39, 1],
+//   [37, 3],
+//   [31, 9],
+//   [26, 14],
+//   [20, 20],
+// ];
+// const PRB_TEST = [0.1, 0.1, 0.1, 0.1, 0.6];
+// const PRB_TEST = [0.175, 0.175, 0.175, 0.175, 0.3];
+// const PRB_TEST = [0.25, 0.25, 0.25, 0.25];
+
+// Reivision #3
 const LAM_TEST = [
   [39, 1],
   [37, 3],
   [31, 9],
   [26, 14],
-  [20, 20],
 ];
-const PRB_TEST = [0.1, 0.1, 0.1, 0.1, 0.6];
-// const PRB_TEST = [0.175, 0.175, 0.175, 0.175, 0.3];
-// const LAM_TEST = [[20, 20]];
-// const PRB_TEST = [0.25, 0.25, 0.25, 0.25];
-// const PRB_TEST = [1];
+const PRB_TEST = [0.25, 0.25, 0.25, 0.25];
 
 // CONTROL schedule
+// Reivision #2
+// const LAM_CONTROL = [
+//   [39, 1],
+//   [37, 3],
+//   [31, 9],
+//   [26, 14],
+//   [20, 20],
+// ];
+// const PRB_CONTROL = [0.1, 0.1, 0.1, 0.1, 0.6];
+
+// Revision #3
 const LAM_CONTROL = [
   [39, 1],
   [37, 3],
   [31, 9],
   [26, 14],
-  [20, 20],
 ];
-// const PRB_CONTROL = [0.1, 0.1, 0.2, 0.2, 0.4];
-// const LAM_CONTROL = [[20, 20]];
-const PRB_CONTROL = [0.1, 0.1, 0.1, 0.1, 0.6];
+const PRB_CONTROL = [0.25, 0.25, 0.25, 0.25];
 
 // ----- Rodent block geometry (derived exactly like python) -----
 const diamond_evi_onset = 6.5; // 6.5;
@@ -61,6 +77,85 @@ const tile_up_offset_time = tile_up_onset_time + 0.06; // 0.51
 
 const tile_up_onset_evidence = R_high + 1.0; // 12.0
 const tile_up_offset_evidence = R_high + 2.0; // 13.0
+
+// config.js
+
+// --- build TEST blocks (your current grayBlocks array) ---
+const TEST_BLOCKS = [
+  {
+    kind: "wedgeTop",
+    t_on: diamond_t_on + s,
+    t_peak: diamond_t_peak + s,
+    t_off: diamond_t_off + s,
+    base: 0.0,
+    w_on: 0.0,
+    w_peak: diamond_evi_onset,
+    w_off: 0.0,
+  },
+  {
+    kind: "wedgeBot",
+    t_on: diamond_t_on + s,
+    t_peak: diamond_t_peak + s,
+    t_off: diamond_t_off + s,
+    base: 0.0,
+    w_on: 0.0,
+    w_peak: diamond_evi_onset,
+    w_off: 0.0,
+  },
+
+  // THIS is the one you want to remove from blocked-control:
+  {
+    kind: "rect",
+    t_on: diamond_t_peak + s,
+    t_off: T,
+    center: 0.0,
+    half_width: 0.5,
+  },
+
+  {
+    kind: "rect",
+    t_on: rectangle_onset + s,
+    t_off: T,
+    center: 0.5 * (R_high + R_low),
+    half_width: 0.5 * (R_high - R_low),
+  },
+  {
+    kind: "rect",
+    t_on: rectangle_onset + s,
+    t_off: T,
+    center: 0.5 * (L_high + L_low),
+    half_width: 0.5 * (L_low - L_high),
+  },
+  {
+    kind: "poly",
+    vertices: [
+      [tile_up_onset_time + s, tile_up_onset_evidence],
+      [tile_up_offset_time + s, tile_up_offset_evidence],
+      [rectangle_onset + 0.05 + s, R_high],
+      [rectangle_onset + s, R_low],
+    ],
+  },
+  {
+    kind: "poly",
+    vertices: [
+      [tile_up_onset_time + s, -tile_up_onset_evidence],
+      [tile_up_offset_time + s, -tile_up_offset_evidence],
+      [rectangle_onset + 0.05 + s, L_high],
+      [rectangle_onset + s, L_low],
+    ],
+  },
+];
+
+// --- blocked-control = TEST minus that specific rect ---
+const CONTROL_BLOCKED_BLOCKS = TEST_BLOCKS.filter(
+  (b) =>
+    !(
+      b.kind === "rect" &&
+      b.center === 0.0 &&
+      b.half_width === 0.5 &&
+      Math.abs(b.t_on - (diamond_t_peak + s)) < 1e-12
+    )
+);
 
 //
 // ----- Default/free-play condition -----
@@ -94,6 +189,10 @@ export const CFG = {
       lam: LAM_CONTROL,
       prb: PRB_CONTROL,
     },
+    control_blocked: {
+      lam: LAM_CONTROL,
+      prb: PRB_CONTROL,
+    },
   },
 
   // sampling
@@ -117,72 +216,16 @@ export const CFG = {
   L_low,
 
   // gray blocks (only used when condition === "test")
-  grayBlocks: [
-    // {
-    //   kind: "wedgeTop",
-    //   t_on: diamond_t_on + s,
-    //   t_peak: diamond_t_peak + s,
-    //   t_off: diamond_t_off + s,
-    //   base: 0.0,
-    //   w_on: 0.0,
-    //   w_peak: diamond_evi_onset,
-    //   w_off: 0.0,
-    // },
-    // {
-    //   kind: "wedgeBot",
-    //   t_on: diamond_t_on + s,
-    //   t_peak: diamond_t_peak + s,
-    //   t_off: diamond_t_off + s,
-    //   base: 0.0,
-    //   w_on: 0.0,
-    //   w_peak: diamond_evi_onset,
-    //   w_off: 0.0,
-    // },
-    {
-      kind: "rect",
-      t_on: diamond_t_peak + s,
-      t_off: T,
-      center: 0.0,
-      half_width: 0.5,
-    },
-    // {
-    //   kind: "rect",
-    //   t_on: rectangle_onset + s,
-    //   t_off: T,
-    //   center: 0.5 * (R_high + R_low),
-    //   half_width: 0.5 * (R_high - R_low),
-    // },
-    // {
-    //   kind: "rect",
-    //   t_on: rectangle_onset + s,
-    //   t_off: T,
-    //   center: 0.5 * (L_high + L_low),
-    //   half_width: 0.5 * (L_low - L_high),
-    // },
-    // {
-    //   kind: "poly",
-    //   vertices: [
-    //     [tile_up_onset_time + s, tile_up_onset_evidence],
-    //     [tile_up_offset_time + s, tile_up_offset_evidence],
-    //     [rectangle_onset + 0.05 + s, R_high],
-    //     [rectangle_onset + s, R_low],
-    //   ],
-    // },
-    // {
-    //   kind: "poly",
-    //   vertices: [
-    //     [tile_up_onset_time + s, -tile_up_onset_evidence],
-    //     [tile_up_offset_time + s, -tile_up_offset_evidence],
-    //     [rectangle_onset + 0.05 + s, L_high],
-    //     [rectangle_onset + s, L_low],
-    //   ],
-    // },
-  ],
+  grayBlocksByCondition: {
+    test: TEST_BLOCKS,
+    control: null, // or [] (either means "no constraints")
+    control_blocked: CONTROL_BLOCKED_BLOCKS,
+  },
 
   switchLamAfterDiamond: true,
   switchTime: tile_up_offset_time,
   regionEvidenceBoundary: tile_up_offset_evidence,
-  pHighRegionLamSwitch: 0, // 0.2,
+  pHighRegionLamSwitch: 0, // 0.5,
   pLowRegionLamSwitch: 0, // 1.0,
   lamHiAfterSwitch: 26, // (lam_hi, lam_lo) in your Python
   lamLoAfterSwitch: 14,
