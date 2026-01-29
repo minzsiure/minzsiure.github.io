@@ -30,14 +30,24 @@ const dt = 0.01;
 // const PRB_TEST = [0.175, 0.175, 0.175, 0.175, 0.3];
 // const PRB_TEST = [0.25, 0.25, 0.25, 0.25];
 
-// Reivision #3
+// // Reivision #3
+// const LAM_TEST = [
+//   [39, 1],
+//   [37, 3],
+//   [31, 9],
+//   [26, 14],
+// ];
+// const PRB_TEST = [0.25, 0.25, 0.25, 0.25];
+
+// Reivision #4
 const LAM_TEST = [
   [39, 1],
   [37, 3],
   [31, 9],
   [26, 14],
+  [20, 20],
 ];
-const PRB_TEST = [0.25, 0.25, 0.25, 0.25];
+const PRB_TEST = [0.2, 0.2, 0.2, 0.2, 0.2];
 
 // CONTROL schedule
 // Reivision #2
@@ -50,14 +60,23 @@ const PRB_TEST = [0.25, 0.25, 0.25, 0.25];
 // ];
 // const PRB_CONTROL = [0.1, 0.1, 0.1, 0.1, 0.6];
 
-// Revision #3
+// // Revision #3
+// const LAM_CONTROL = [
+//   [39, 1],
+//   [37, 3],
+//   [31, 9],
+//   [26, 14],
+// ];
+// const PRB_CONTROL = [0.25, 0.25, 0.25, 0.25];
+// Revision #4
 const LAM_CONTROL = [
   [39, 1],
   [37, 3],
   [31, 9],
   [26, 14],
+  [20, 20],
 ];
-const PRB_CONTROL = [0.25, 0.25, 0.25, 0.25];
+const PRB_CONTROL = [0.2, 0.2, 0.2, 0.2, 0.2];
 
 // ----- Rodent block geometry (derived exactly like python) -----
 const diamond_evi_onset = 6.5; // 6.5;
