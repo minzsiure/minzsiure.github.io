@@ -37,10 +37,19 @@
                     <span>Log data</span>
                 </label>
                 <button id="startSessionBtn">Start Session</button>
+                <label id="progressToggleWrap" style="display:inline-flex; gap:8px; align-items:center;">
+                    <input type="checkbox" id="progressToggle" />
+                    Show progress
+                </label>
             </div>
 
             <div class="status" id="status">Press Start.</div>
             <p class="small">Tip: use headphones. (Audio requires a button press.)</p>
+
+            <div id="sessionProgressWrap" style="display:none; margin-top:8px;">
+                <progress id="sessionProgress" value="0" max="1" style="width:260px;"></progress>
+                <span id="sessionProgressText" style="margin-left:8px; font-variant-numeric: tabular-nums;"></span>
+            </div>
 
             <div class="plotWrap">
                 <canvas id="cv" width="920" height="520"></canvas>

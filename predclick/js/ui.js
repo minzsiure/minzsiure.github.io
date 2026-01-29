@@ -259,6 +259,7 @@ export function initApp() {
         reveal: false,
       });
     }
+    updateProgressUI();
   }
   async function startSessionFlow() {
     if (inSession) return;
@@ -308,8 +309,51 @@ export function initApp() {
       reveal: false,
     });
     resetToStart(); // optional, but makes UI consistent
+    updateProgressUI();
     return;
   }
+
+  // --- progress UI
+  const progressToggleWrap = document.getElementById("progressToggleWrap");
+  const progressToggle = document.getElementById("progressToggle");
+  const sessionProgressWrap = document.getElementById("sessionProgressWrap");
+  const sessionProgress = document.getElementById("sessionProgress");
+  const sessionProgressText = document.getElementById("sessionProgressText");
+
+  let showProgress = false;
+
+  function setProgressVisible(on) {
+    showProgress = !!on;
+    progressToggle.checked = showProgress;
+    updateProgressUI();
+  }
+
+  function updateProgressUI() {
+    if (!sessionProgress) return;
+
+    // hide if not in session or toggle off
+    sessionProgressWrap.style.display =
+      showProgress && inSession ? "block" : "none";
+    if (!showProgress || !inSession) return;
+
+    const done = sessionDone;
+    const total = sessionTotal || 1;
+    // const left = Math.max(0, total - done);
+
+    sessionProgress.max = total;
+    sessionProgress.value = done;
+
+    // optionally show block info too
+    // const blk = blockOrder ? blockOrder[blockIndex] : "—";
+    sessionProgressText.textContent = `${done}/${total}`;
+  }
+
+  // default: off (or set true if you want)
+  setProgressVisible(false);
+
+  progressToggle.addEventListener("change", () => {
+    setProgressVisible(progressToggle.checked);
+  });
 
   /** ---------------------------
    *  UI helpers
@@ -530,6 +574,7 @@ export function initApp() {
       next: false,
       reveal: false,
     });
+    updateProgressUI();
   }
 
   /** ---------------------------
