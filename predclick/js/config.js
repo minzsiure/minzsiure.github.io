@@ -147,15 +147,37 @@ const TEST_BLOCKS = [
 ];
 
 // --- blocked-control = TEST minus that specific rect ---
-const CONTROL_BLOCKED_BLOCKS = TEST_BLOCKS.filter(
-  (b) =>
-    !(
-      b.kind === "rect" &&
-      b.center === 0.0 &&
-      b.half_width === 0.5 &&
-      Math.abs(b.t_on - (diamond_t_peak + s)) < 1e-12
-    )
-);
+// const CONTROL_BLOCKED_BLOCKS = TEST_BLOCKS.filter(
+//   (b) =>
+//     !(
+//       b.kind === "rect" &&
+//       b.center === 0.0 &&
+//       b.half_width === 0.5 &&
+//       Math.abs(b.t_on - (diamond_t_peak + s)) < 1e-12
+//     )
+// );
+const CONTROL_BLOCKED_BLOCKS = [
+  {
+    kind: "wedgeTop",
+    t_on: diamond_t_on + s,
+    t_peak: diamond_t_peak + s,
+    t_off: diamond_t_off + s,
+    base: 0.0,
+    w_on: 0.0,
+    w_peak: diamond_evi_onset,
+    w_off: 0.0,
+  },
+  {
+    kind: "wedgeBot",
+    t_on: diamond_t_on + s,
+    t_peak: diamond_t_peak + s,
+    t_off: diamond_t_off + s,
+    base: 0.0,
+    w_on: 0.0,
+    w_peak: diamond_evi_onset,
+    w_off: 0.0,
+  },
+];
 
 //
 // ----- Default/free-play condition -----
@@ -225,8 +247,8 @@ export const CFG = {
   switchLamAfterDiamond: true,
   switchTime: tile_up_offset_time,
   regionEvidenceBoundary: tile_up_offset_evidence,
-  pHighRegionLamSwitch: 0, // 0.5,
-  pLowRegionLamSwitch: 0, // 1.0,
-  lamHiAfterSwitch: 26, // (lam_hi, lam_lo) in your Python
-  lamLoAfterSwitch: 14,
+  pHighRegionLamSwitch: 0.5, // 0.5,
+  pLowRegionLamSwitch: 1.0, // 1.0,
+  lamHiAfterSwitch: 30, // (lam_hi, lam_lo) in your Python
+  lamLoAfterSwitch: 10,
 };
