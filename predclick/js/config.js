@@ -102,6 +102,7 @@ const tile_up_offset_evidence = R_high + 2.0; // 13.0
 // --- build TEST blocks (your current grayBlocks array) ---
 const TEST_BLOCKS = [
   {
+    // top of diamond
     kind: "wedgeTop",
     t_on: diamond_t_on + s,
     t_peak: diamond_t_peak + s,
@@ -111,6 +112,7 @@ const TEST_BLOCKS = [
     w_peak: diamond_evi_onset,
     w_off: 0.0,
   },
+  // bottom of diamond
   {
     kind: "wedgeBot",
     t_on: diamond_t_on + s,
@@ -121,8 +123,7 @@ const TEST_BLOCKS = [
     w_peak: diamond_evi_onset,
     w_off: 0.0,
   },
-
-  // THIS is the one you want to remove from blocked-control:
+  // the bar in the middle
   {
     kind: "rect",
     t_on: diamond_t_peak + s,
@@ -130,39 +131,39 @@ const TEST_BLOCKS = [
     center: 0.0,
     half_width: 0.5,
   },
-
-  {
-    kind: "rect",
-    t_on: rectangle_onset + s,
-    t_off: T,
-    center: 0.5 * (R_high + R_low),
-    half_width: 0.5 * (R_high - R_low),
-  },
-  {
-    kind: "rect",
-    t_on: rectangle_onset + s,
-    t_off: T,
-    center: 0.5 * (L_high + L_low),
-    half_width: 0.5 * (L_low - L_high),
-  },
-  {
-    kind: "poly",
-    vertices: [
-      [tile_up_onset_time + s, tile_up_onset_evidence],
-      [tile_up_offset_time + s, tile_up_offset_evidence],
-      [rectangle_onset + 0.05 + s, R_high],
-      [rectangle_onset + s, R_low],
-    ],
-  },
-  {
-    kind: "poly",
-    vertices: [
-      [tile_up_onset_time + s, -tile_up_onset_evidence],
-      [tile_up_offset_time + s, -tile_up_offset_evidence],
-      [rectangle_onset + 0.05 + s, L_high],
-      [rectangle_onset + s, L_low],
-    ],
-  },
+  // division for R1, L1
+  //   {
+  //     kind: "rect",
+  //     t_on: rectangle_onset + s,
+  //     t_off: T,
+  //     center: 0.5 * (R_high + R_low),
+  //     half_width: 0.5 * (R_high - R_low),
+  //   },
+  //   {
+  //     kind: "rect",
+  //     t_on: rectangle_onset + s,
+  //     t_off: T,
+  //     center: 0.5 * (L_high + L_low),
+  //     half_width: 0.5 * (L_low - L_high),
+  //   },
+  //   {
+  //     kind: "poly",
+  //     vertices: [
+  //       [tile_up_onset_time + s, tile_up_onset_evidence],
+  //       [tile_up_offset_time + s, tile_up_offset_evidence],
+  //       [rectangle_onset + 0.05 + s, R_high],
+  //       [rectangle_onset + s, R_low],
+  //     ],
+  //   },
+  //   {
+  //     kind: "poly",
+  //     vertices: [
+  //       [tile_up_onset_time + s, -tile_up_onset_evidence],
+  //       [tile_up_offset_time + s, -tile_up_offset_evidence],
+  //       [rectangle_onset + 0.05 + s, L_high],
+  //       [rectangle_onset + s, L_low],
+  //     ],
+  //   },
 ];
 
 // --- blocked-control = TEST minus that specific rect ---
