@@ -101,28 +101,28 @@ const tile_up_offset_evidence = R_high + 2.0; // 13.0
 
 // --- build TEST blocks (your current grayBlocks array) ---
 const TEST_BLOCKS = [
-  {
-    // top of diamond
-    kind: "wedgeTop",
-    t_on: diamond_t_on + s,
-    t_peak: diamond_t_peak + s,
-    t_off: diamond_t_off + s,
-    base: 0.0,
-    w_on: 0.0,
-    w_peak: diamond_evi_onset,
-    w_off: 0.0,
-  },
+  //   {
+  //     // top of diamond
+  //     kind: "wedgeTop",
+  //     t_on: diamond_t_on + s,
+  //     t_peak: diamond_t_peak + s,
+  //     t_off: diamond_t_off + s,
+  //     base: 0.0,
+  //     w_on: 0.0,
+  //     w_peak: diamond_evi_onset,
+  //     w_off: 0.0,
+  //   },
   // bottom of diamond
-  {
-    kind: "wedgeBot",
-    t_on: diamond_t_on + s,
-    t_peak: diamond_t_peak + s,
-    t_off: diamond_t_off + s,
-    base: 0.0,
-    w_on: 0.0,
-    w_peak: diamond_evi_onset,
-    w_off: 0.0,
-  },
+  //   {
+  //     kind: "wedgeBot",
+  //     t_on: diamond_t_on + s,
+  //     t_peak: diamond_t_peak + s,
+  //     t_off: diamond_t_off + s,
+  //     base: 0.0,
+  //     w_on: 0.0,
+  //     w_peak: diamond_evi_onset,
+  //     w_off: 0.0,
+  //   },
   // the bar in the middle
   {
     kind: "rect",
@@ -177,26 +177,26 @@ const TEST_BLOCKS = [
 //     )
 // );
 const CONTROL_BLOCKED_BLOCKS = [
-  {
-    kind: "wedgeTop",
-    t_on: diamond_t_on + s,
-    t_peak: diamond_t_peak + s,
-    t_off: diamond_t_off + s,
-    base: 0.0,
-    w_on: 0.0,
-    w_peak: diamond_evi_onset,
-    w_off: 0.0,
-  },
-  {
-    kind: "wedgeBot",
-    t_on: diamond_t_on + s,
-    t_peak: diamond_t_peak + s,
-    t_off: diamond_t_off + s,
-    base: 0.0,
-    w_on: 0.0,
-    w_peak: diamond_evi_onset,
-    w_off: 0.0,
-  },
+  //   {
+  //     kind: "wedgeTop",
+  //     t_on: diamond_t_on + s,
+  //     t_peak: diamond_t_peak + s,
+  //     t_off: diamond_t_off + s,
+  //     base: 0.0,
+  //     w_on: 0.0,
+  //     w_peak: diamond_evi_onset,
+  //     w_off: 0.0,
+  //   },
+  //   {
+  //     kind: "wedgeBot",
+  //     t_on: diamond_t_on + s,
+  //     t_peak: diamond_t_peak + s,
+  //     t_off: diamond_t_off + s,
+  //     base: 0.0,
+  //     w_on: 0.0,
+  //     w_peak: diamond_evi_onset,
+  //     w_off: 0.0,
+  //   },
 ];
 
 //
