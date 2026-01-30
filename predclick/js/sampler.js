@@ -140,11 +140,15 @@ export function generateClicksGrayOnlyBinwise(
   }
 
   // --- Peak switch setup (mirror Python) ---
+  //   const doPeakSwitch =
+  //     CFG.switchLamAfterDiamond &&
+  //     CFG.switchTime != null &&
+  //     CFG.regionEvidenceBoundary != null &&
+  //     hasGrayBlocks(condition);
   const doPeakSwitch =
     CFG.switchLamAfterDiamond &&
     CFG.switchTime != null &&
-    CFG.regionEvidenceBoundary != null &&
-    hasGrayBlocks(condition);
+    CFG.regionEvidenceBoundary != null;
 
   const kPeak = doPeakSwitch ? Math.round(CFG.switchTime / dt) : null;
   let peakDecisionMade = false;
