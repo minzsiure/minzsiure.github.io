@@ -183,7 +183,7 @@ export function generateClicksGrayOnlyBinwise(
       const lamLo = CFG.lamLoAfterSwitch ?? 14;
 
       const boundary = CFG.regionEvidenceBoundary;
-      const pHigh = CFG.pHighRegionLamSwitch ?? 0.2;
+      const pHigh = CFG.pHighRegionLamSwitch ?? 0.5;
       const pLow = CFG.pLowRegionLamSwitch ?? 1.0;
 
       if (Math.abs(ePeak) > boundary) {
@@ -191,12 +191,12 @@ export function generateClicksGrayOnlyBinwise(
         if (rng() < pHigh) {
           if (ePeak > 0) {
             // too positive -> push leftward: L high, R low
-            lamL = lamHi;
-            lamR = lamLo;
+            lamL = 39;
+            lamR = 1;
           } else if (ePeak < 0) {
             // too negative -> push rightward: L low, R high
-            lamL = lamLo;
-            lamR = lamHi;
+            lamL = 1;
+            lamR = 39;
           }
         }
       } else {
