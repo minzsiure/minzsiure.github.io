@@ -139,6 +139,15 @@ export function generateClicksGrayOnlyBinwise(
     lamR = lamA;
   }
 
+  // ✅ record starting rates (before any switching)
+  const lamL0 = lamL;
+  const lamR0 = lamR;
+
+  // ✅ track switching info
+  let switchTimeUsed = null; // null if no switch
+  let lamL1 = lamL0;
+  let lamR1 = lamR0;
+
   // --- Peak switch setup (mirror Python) ---
   //   const doPeakSwitch =
   //     CFG.switchLamAfterDiamond &&
@@ -213,6 +222,11 @@ export function generateClicksGrayOnlyBinwise(
       }
 
       peakDecisionMade = true;
+      // ✅ record that we "reached" switchTime and what the post-switch rates are
+      const changed = lamL !== lamL0 || lamR !== lamR0;
+      switchTimeUsed = changed ? t0 : null;
+      lamL1 = lamL;
+      lamR1 = lamR;
     }
 
     // if entire bin before tFirst: no unilateral clicks, just feasibility at t1
@@ -315,8 +329,25 @@ export function generateClicksGrayOnlyBinwise(
   return {
     tL: tL_all,
     tR: tR_all,
+    // final rates (what you already log)
     lamL,
     lamR,
+
+    // ✅ new: starting + ending rates
+    lamL0,
+    lamR0,
+    lamL1,
+    lamR1,
+
+    // ✅ new: convenience bundle
+    lam_pair_start_end: [
+      [lamL0, lamR0],
+      [lamL1, lamR1],
+    ],
+
+    // ✅ new: switch time (null if no switch logic triggered)
+    switch_time: switchTimeUsed,
+
     finalE: tR_all.length - tL_all.length,
   };
 }

@@ -486,6 +486,15 @@ export function initApp() {
 
       lam_pair: [current.lamL, current.lamR],
 
+      // ✅ new: start + end
+      lam_l0: current.lamL0,
+      lam_r0: current.lamR0,
+      lam_l1: current.lamL1,
+      lam_r1: current.lamR1,
+
+      lam_pair_start_end: current.lam_pair_start_end,
+      switch_time: current.switch_time,
+
       // click trains (seconds-from-trial-start)
       left_clicks_s: Array.from(current.tL),
       right_clicks_s: Array.from(current.tR),
