@@ -8,8 +8,7 @@ I am a second-year PhD student in Neuroscience at the Princeton Neuroscience Ins
 
  I graduated from MIT in May 2024 as a double major S.B. in Computer Science (AI + Decision Making) and Mathematics (courses 6-4 and 18), with a concentration in Economics. During my undergrad, I worked on grid and place cell modeling with <a href="https://fietelab.mit.edu/people/" target=_blank>Ila Fiete</a>. Before then, I worked with <a href="https://mcgovern.mit.edu/profile/tomaso-poggio/" target=_blank>Tomaso Poggio</a> and <a href="https://ekmillerlab.mit.edu/earl-miller/" target=_blank>Earl Miller</a> on studying interhemispheric transfer of working memory. Aside, I have explored ML research in Madry Lab at MIT CSAIL, and did R&D work at Meta, Microsoft AI, and IBM Research as an intern. <br>
 
-🧠💭 We’re organizing a NeurIPS 2025 workshop, <a href="https://data-brain-mind.github.io/" target=_blank>Data on the Brain & Mind</a>, which takes place in San Diego on Dec 7, 2025. We would love to see more community involvement! 
-
+🧠💭 We organized a NeurIPS 2025 workshop, Data on the Brain & Mind. Contributions and other details of the workshop is avaliable <a href="https://data-brain-mind.github.io/" target=_blank>here</a>. A recording of the workshop will be made avaliable <a href="https://neurips.cc/virtual/2025/loc/san-diego/workshop/109557" target=_blank>here</a>. 
 
 ### Name & Pronunciation
 I publish under my official name <b>Yi Xie</b>, but I commonly go by <b>Eva</b>. I often display both names together as <b>Eva Yi Xie</b> (pronounced: <em>Yi-va Yi Shieh</em>), both of which were given to me at birth.
