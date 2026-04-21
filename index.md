@@ -10,7 +10,7 @@ I am a second-year PhD student in Neuroscience at the Princeton Neuroscience Ins
 
 🧠💭 We organized a NeurIPS 2025 workshop, Data on the Brain & Mind. Contributions and other details of the workshop are avaliable <a href="https://data-brain-mind.github.io/" target=_blank>here</a>. A recording of the workshop will be made avaliable <a href="https://neurips.cc/virtual/2025/loc/san-diego/workshop/109557" target=_blank>here</a>. 
 
-I'm happy to chat if our research interests overlap. Additionally, I've immersively benefited from various learning opportunities and mentorships I received in my path of science; if you are a student who has a similar curiosity and is seeking guidance, please feel free to contact me.
+I’m happy to chat if our research interests overlap. I’ve been fortunate to benefit from many learning opportunities and mentorship along my scientific journey; if you’re a curious student seeking guidance, I’d be glad to connect. My only ask is that you pay it forward and support others when you’re in a similar position to do so.
 
 ### Name & Pronunciation
 I published under my official name <b>Yi Xie</b>, but I commonly go by <b>Eva</b>. I often display both names together as <b>Eva Yi Xie</b> (pronounced: <em>Yi-va Yi Shieh</em>), both of which were given to me at birth. My recent works are published under Eva Yi Xie.
