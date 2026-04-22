@@ -13,7 +13,7 @@ I am a second-year PhD student in Neuroscience at the Princeton Neuroscience Ins
 I’m happy to chat if our research interests overlap. Additionally, I’ve been fortunate to benefit from many learning opportunities and mentorship along my path of science: if you’re a curious student seeking guidance, I’d be glad to connect. My only ask is that you pay it forward and support others when you’re in a similar position to do so.
 
 ### Name & Pronunciation
-I published under my official name <b>Yi Xie</b>, but I commonly go by <b>Eva</b>. I often display both names together as <b>Eva Yi Xie</b> (pronounced: <em>Yi-va Yi Shieh</em>), both of which were given to me at birth. My recent works are published under Eva Yi Xie.
+I published under my official name <b>Yi Xie</b>, but I commonly go by <b>Eva</b>. I often display both names together as <b>Eva Yi Xie</b> (pronounced: <em>Yi-va Yi Shieh</em>). My recent works are published under Eva Yi Xie.
 
 ## Research
 
