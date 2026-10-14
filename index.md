@@ -23,7 +23,7 @@ Broadly, I view cognition as a computational process grounded in the basis of ne
 
 2. <b>Mechanistic</b>: Analyzing networks with biologically plausible properties, such as theoretically underexplored heavy-tailed synaptic weight distributions <a href="https://openreview.net/forum?id=J0SbYYY0po" target="_blank">[<b>Eva Yi Xie</b>, Stefan Mihalas, Łukasz Kuśmierz; NeurIPS 2025]</a> to reveal the dynamics and info-processing constraints imposed by connectivity structure alone. We are actively extending this work to make predictions and validations, utilizing connectomic and whole-brain imaging data in fruit flies.
 
-3. <b>Descriptive</b>: Creating computational tools to decode multi-region coordinated neural signals and capture the moment-to-moment computations animals perform when making decisions (<em>e.g., When precisely do animals make up their mind?</em>) <a href="#" style="pointer-events:none; cursor:default; text-decoration:none;">[<b>Ongoing</b>]</a>.
+3. <b>Descriptive</b>: Creating computational tools tailored for large-scale brain-wide recordings to decode multi-region coordinated neural signals and capture the moment-to-moment computations animals perform when making decisions (<em>e.g., When precisely do animals make up their mind?</em>) <a href="#" style="pointer-events:none; cursor:default; text-decoration:none;">[<b>Ongoing</b>]</a>.
 
 Together, these efforts aim to advance our understanding of multi-region neural computation and may also offer useful insights for developing AI systems that reflect key properties of the brain—such as robustness and efficiency.
 
