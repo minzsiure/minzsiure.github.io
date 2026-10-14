@@ -10,7 +10,7 @@ I am a 3rd year PhD candidate in Neuroscience at the Princeton Neuroscience Inst
 
 🧠💭 I co-organize the Annual Conference on Cognitive Computational Neuroscience (CCN) 2027 in Edinburgh, UK; see important dates <a href="https://www.ccneuro.org/" target=_blank>here</a>. I recently co-organized a NeurIPS 2025 workshop, Data on the Brain & Mind; contributions and other details of the workshop are avaliable <a href="https://data-brain-mind.github.io/" target=_blank>here</a>. A recording of the workshop is <a href="https://neurips.cc/virtual/2025/loc/san-diego/workshop/109557" target=_blank>here</a>. 
 
-> I’m happy to chat if our research interests overlap. Additionally, I’ve been fortunate to benefit from many learning opportunities and mentorship along my path of science: if you’re a curious student seeking guidance, I’d be glad to connect. My only ask is that you pay it forward and support others when you’re in a similar position to do so.
+I’m happy to chat if our research interests overlap. Additionally, I’ve been fortunate to benefit from many learning opportunities and mentorship along my path of science: if you’re a curious student seeking guidance, I’d be glad to connect. My only ask is that you pay it forward and support others when you’re in a similar position to do so.
 
 ### Name & Pronunciation
 I published under my official name <b>Yi Xie</b> and more recently <b>Eva Yi Xie</b>, but I commonly go by <b>Eva</b>. I often display both names together as <b>Eva Yi Xie</b> (pronounced: <em>Yi-va Yi Shieh</em>). 
